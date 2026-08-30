@@ -1,4 +1,4 @@
-name: 202608301447 Self-test and lock
+name: 202608301447 Self-test, fleet adoption and full-history audit
 on:
   push:
   pull_request:
@@ -6,16 +6,16 @@ on:
 permissions:
   contents: read
 jobs:
-  repair-full-history-policy:
+  adopt-fleet-batch:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.actor != 'github-actions[bot]'
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 12
     permissions:
       contents: write
       actions: write
     outputs:
-      changed: ${{ steps.repair.outputs.changed }}
-      final_sha: ${{ steps.repair.outputs.final_sha }}
+      changed: ${{ steps.commit.outputs.changed }}
+      final_sha: ${{ steps.commit.outputs.final_sha }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
@@ -25,102 +25,84 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: '22'
-      - name: Apply the full-history policy once and commit it from CI
-        id: repair
-        env:
-          GH_TOKEN: ${{ secrets.CVAA_PAT || github.token }}
+      - name: Promote reviewed staged batch into the registry
         shell: bash
         run: |
           set -euo pipefail
-          git fetch --no-tags origin main:refs/remotes/origin/main
-          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
-          test "$(git rev-parse origin/main)" = "$GITHUB_SHA"
-
-          python3 - <<'PY'
-          from pathlib import Path
-          import json
-
-          reusable = Path('.github/workflows/202608301446-inoculate.yml').read_text(encoding='utf-8')
-          if reusable.count('fetch-depth: 0') != 2:
-              raise SystemExit('reusable inoculation workflow must use full history for both repositories')
-
-          own = Path('.github/workflows/202608301447-selftest.yml').read_text(encoding='utf-8')
-          if own.count('fetch-depth: 0') < 2:
-              raise SystemExit('self-test workflow is not using full history in both jobs')
-
-          template = Path('consumer-workflow-template.yml')
-          template_text = template.read_text(encoding='utf-8')
-          contract = '# Full-history contract: the pinned reusable workflow checks out both the consumer and CVAA with fetch-depth: 0.\n'
-          if contract not in template_text:
-              anchor = '# Replace both SHAs with the commit of Ventusltd/cvaa you have reviewed. Never use @main.\n'
-              if template_text.count(anchor) != 1:
-                  raise SystemExit('consumer template anchor missing')
-              template_text = template_text.replace(anchor, anchor + contract, 1)
-          template.write_text(template_text, encoding='utf-8')
-
-          config_path = Path('cvaa.json')
-          config = json.loads(config_path.read_text(encoding='utf-8'))
-          allow = config.setdefault('allow', [])
-          baseline = next((item for item in allow if item.get('vaccine') == 'monotonic-utc-generations'), None)
-          wanted = {'vaccine': 'monotonic-utc-generations', 'max': 2, 'expires': '2026-09-30'}
-          if baseline is None:
-              allow.append(wanted)
-          elif baseline != wanted:
-              baseline.clear()
-              baseline.update(wanted)
-          config_path.write_text(json.dumps(config, indent=2) + '\n', encoding='utf-8')
-
-          study_path = Path('studies/202608301900-study-results.md')
-          study = study_path.read_text(encoding='utf-8')
-          note = (
-              '   CVAA self-history contains two permanent clock findings: bfebd6e chose generation '
-              '202608301940 for a 16:20Z commit, and ea518fa necessarily follows it with generation '
-              '202608301631, producing one honest backwards step. The monotonic-utc-generations '
-              'baseline is max 2 through 2026-09-30; history is retained and the count may only fall.\n'
+          stage=.github/fleet-batch/202608301745-cvaa-fleet-hardened.tar.gz
+          test "$(sha256sum "$stage" | cut -d' ' -f1)" = 51a0c1f1c2497c741cf014fe5e99ceb75e6bc203c46bf7701f9045dbecc0a9f1
+          batch="$(mktemp -d)"
+          tar -xzf "$stage" -C "$batch"
+          test "$(sha256sum "$batch/inoculate.mjs" | cut -d' ' -f1)" = ee8c301653afd099d3ef5ebea2abc027cc48b3901600534c416de79582b05fd7
+          test "$(sha256sum "$batch/tools/fleet.mjs" | cut -d' ' -f1)" = 78e5e1f30dd8532062d7561c50259f67e56189c66fe97897bbd6df048571aad2
+          test "$(sha256sum "$batch/tools/selftest.mjs" | cut -d' ' -f1)" = e3ebf36e07142356b78d3bc81fecfb4b1a4df6957df6dcffda0d25278c88503b
+          test "$(sha256sum "$batch/vaccines/202608301441-no-dangerous-apis.md" | cut -d' ' -f1)" = 9d2806cb606ca2cb542ba2893d26e64ec9318f447960d77dbafffda48e216078
+          test "$(sha256sum "$batch/vaccines/202608301720-full-history-checkout.md" | cut -d' ' -f1)" = af62e0569ad8678f1b6de89c610ee9e0426324c36cd5179385ff08c7954b38ea
+          test "$(sha256sum "$batch/studies/202608301745-playground-2-fleet.md" | cut -d' ' -f1)" = dabddddd5a158356761c08c7fd7589f2e64cfa5bb23089610d0cfdee522da49a
+          install -m 0644 "$batch/inoculate.mjs" inoculate.mjs
+          install -m 0644 "$batch/tools/fleet.mjs" tools/fleet.mjs
+          install -m 0644 "$batch/tools/selftest.mjs" tools/selftest.mjs
+          install -m 0644 "$batch/vaccines/202608301441-no-dangerous-apis.md" vaccines/202608301441-no-dangerous-apis.md
+          install -m 0644 "$batch/vaccines/202608301720-full-history-checkout.md" vaccines/202608301720-full-history-checkout.md
+          install -m 0644 "$batch/studies/202608301745-playground-2-fleet.md" studies/202608301745-playground-2-fleet.md
+          node inoculate.mjs --lock
+          test "$(find vaccines -maxdepth 1 -type f -name '*.md' | wc -l)" -eq 24
+      - name: Prove registry, JSON, baseline and fleet contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check inoculate.mjs
+          node --check tools/fleet.mjs
+          node --check tools/selftest.mjs
+          node tools/selftest.mjs | tee /tmp/selftest.log
+          test "$(tail -n 1 /tmp/selftest.log)" = 'all antibodies fire on disease and stay silent on health'
+          node inoculate.mjs . --no-write | tee /tmp/inoculate.log
+          test "$(tail -n 1 /tmp/inoculate.log)" = 'repo is immune to all vaccines on file'
+          node inoculate.mjs . --no-write --json > /tmp/run.jsonl
+          node - <<'NODE'
+          const fs = require('fs');
+          const lines = fs.readFileSync('/tmp/run.jsonl','utf8').split('\n').filter(l => l.startsWith('{"schema":"cvaa.run.v1"'));
+          if (lines.length !== 1) throw new Error(`expected one JSON record, got ${lines.length}`);
+          const run = JSON.parse(lines[0]);
+          if (run.status !== 'immune' || run.context?.commit_count < 2 || run.results.length !== 23) throw new Error('invalid cvaa.run.v1 contract');
+          NODE
+          node tools/fleet.mjs . --json-out /tmp/fleet.json | tee /tmp/fleet.txt
+          node - <<'NODE'
+          const fleet = require('/tmp/fleet.json');
+          if (fleet.schema !== 'cvaa.fleet.v1' || fleet.repositories.length !== 1 || fleet.vaccines.length !== 23) throw new Error('invalid cvaa.fleet.v1 contract');
+          NODE
+      - name: Commit the verified batch from CI
+        id: commit
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.CVAA_PAT || github.token }}
+        run: |
+          set -euo pipefail
+          targets=(
+            inoculate.mjs
+            tools/fleet.mjs
+            tools/selftest.mjs
+            vaccines/202608301441-no-dangerous-apis.md
+            vaccines/202608301720-full-history-checkout.md
+            vaccines.lock
+            studies/202608301745-playground-2-fleet.md
           )
-          if note not in study:
-              anchor = 'N2 baseline ratchet   Not observable in one day. Instrument exists (cvaa.json expires).\n   PENDING 30 days of history.\n'
-              if study.count(anchor) != 1:
-                  raise SystemExit('study baseline anchor missing')
-              study = study.replace(anchor, anchor + note, 1)
-          study_path.write_text(study, encoding='utf-8')
-          PY
-
-          changed_paths=(
-            consumer-workflow-template.yml
-            cvaa.json
-            studies/202608301900-study-results.md
+          staged=(
+            .github/fleet-batch/202608301745-cvaa-fleet-hardened.tar.gz
           )
-          if git diff --quiet -- "${changed_paths[@]}"; then
-            echo 'changed=false' >> "$GITHUB_OUTPUT"
-            echo "final_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          test "$(git rev-list --count HEAD)" -gt 1
-          node tools/selftest.mjs | tee /tmp/cvaa-selftest.log
-          test "$(tail -n 1 /tmp/cvaa-selftest.log)" = 'all antibodies fire on disease and stay silent on health'
-          node inoculate.mjs . --no-write | tee /tmp/cvaa-inoculate.log
-          test "$(tail -n 1 /tmp/cvaa-inoculate.log)" = 'repo is immune to all vaccines on file'
-          grep -F 'WARN   monotonic-utc-generations (baseline 2)' /tmp/cvaa-inoculate.log
-          grep -F 'ea518fa generation 202608301631 is earlier than previous 202608301940' /tmp/cvaa-inoculate.log
-          grep -F 'generation 202608301940 is 200 minutes off its UTC commit time 202608301620; generations are read from date -u at commit time, never chosen' /tmp/cvaa-inoculate.log
-
-          git add -- "${changed_paths[@]}"
+          git add -- "${targets[@]}"
+          git rm -- "${staged[@]}"
           actual="$(git diff --cached --name-only | sort)"
-          expected="$(printf '%s\n' "${changed_paths[@]}" | sort)"
+          expected="$(printf '%s\n' "${targets[@]}" "${staged[@]}" | sort)"
           test "$actual" = "$expected"
-
           G="$(date -u +%Y%m%d%H%M)"
-          git config user.name cvaa-full-history-repair
+          git config user.name cvaa-fleet-adopter
           git config user.email actions@users.noreply.github.com
-          git commit -m "$G: expose full history to CVAA and baseline its two permanent clock findings"
+          git commit -m "$G: adopt fleet JSON, dated baselines and full-history vaccine"
           final_sha="$(git rev-parse HEAD)"
-
           git fetch --no-tags origin main:refs/remotes/origin/main
           test "$(git rev-parse origin/main)" = "$GITHUB_SHA"
           git push origin HEAD:main
-
           visible=''
           for attempt in $(seq 1 20); do
             visible="$(gh api "repos/$GITHUB_REPOSITORY/commits/main" --jq .sha)"
@@ -129,28 +111,74 @@ jobs:
           done
           test "$visible" = "$final_sha"
           gh workflow run 202608301447-selftest.yml --ref main
-
           echo 'changed=true' >> "$GITHUB_OUTPUT"
           echo "final_sha=$final_sha" >> "$GITHUB_OUTPUT"
 
   selftest:
-    needs: repair-full-history-policy
-    if: ${{ always() && needs.repair-full-history-policy.outputs.changed != 'true' && (needs.repair-full-history-policy.result == 'success' || needs.repair-full-history-policy.result == 'skipped') }}
+    needs: adopt-fleet-batch
+    if: ${{ always() && needs.adopt-fleet-batch.outputs.changed != 'true' && (needs.adopt-fleet-batch.result == 'success' || needs.adopt-fleet-batch.result == 'skipped') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
           persist-credentials: false
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: '22'
-      - name: Prove the checkout contains repository history
-        run: test "$(git rev-list --count HEAD)" -gt 1
-      - name: Every antibody fires on disease and is silent on health
-        run: node tools/selftest.mjs
-      - name: Registry inoculates its full history
-        run: node inoculate.mjs .
+      - name: Prove full history and registry
+        run: |
+          test "$(git rev-list --count HEAD)" -gt 1
+          test "$(find vaccines -maxdepth 1 -type f -name '*.md' | wc -l)" -eq 24
+          node tools/selftest.mjs
+          node inoculate.mjs .
+
+  fleet-audit:
+    needs: selftest
+    if: ${{ needs.selftest.result == 'success' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          path: cvaa
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: Ventusltd/gridatlas
+          path: repos/gridatlas
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: Ventusltd/pipelinenews
+          path: repos/pipelinenews
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: '22'
+      - name: Run current three-repository fleet table
+        shell: bash
+        run: |
+          set -euo pipefail
+          node cvaa/tools/fleet.mjs cvaa repos/gridatlas repos/pipelinenews --json-out fleet.json | tee fleet.txt
+          node - <<'NODE'
+          const fleet = require('./fleet.json');
+          const names = fleet.repositories.map(r => r.name);
+          if (fleet.schema !== 'cvaa.fleet.v1') throw new Error('wrong fleet schema');
+          if (!names.includes('cvaa') || !names.includes('gridatlas') || !names.includes('pipelinenews')) throw new Error(`missing repository: ${names}`);
+          NODE
+          {
+            echo '## CVAA fleet audit'
+            echo
+            echo '```text'
+            cat fleet.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
