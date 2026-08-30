@@ -16,12 +16,14 @@ jobs:
       - uses: actions/checkout@v4
         with:
           path: repo
+          fetch-depth: 0
           persist-credentials: false
       - uses: actions/checkout@v4
         with:
           repository: Ventusltd/cvaa
           ref: ${{ inputs.cvaa_sha }}
           path: cvaa
+          fetch-depth: 0
           persist-credentials: false
       - uses: actions/setup-node@v4
         with:
