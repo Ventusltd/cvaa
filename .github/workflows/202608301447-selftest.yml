@@ -6,17 +6,162 @@ on:
 permissions:
   contents: read
 jobs:
-  selftest:
+  repair-full-history-policy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.actor != 'github-actions[bot]'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
+    permissions:
+      contents: write
+      actions: write
+    outputs:
+      changed: ${{ steps.repair.outputs.changed }}
+      final_sha: ${{ steps.repair.outputs.final_sha }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: '22'
+      - name: Apply the full-history policy once and commit it from CI
+        id: repair
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin main:refs/remotes/origin/main
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test "$(git rev-parse origin/main)" = "$GITHUB_SHA"
+
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+
+          reusable = Path('.github/workflows/202608301446-inoculate.yml')
+          text = reusable.read_text(encoding='utf-8')
+          replacements = {
+              "          path: repo\n          persist-credentials: false":
+              "          path: repo\n          fetch-depth: 0\n          persist-credentials: false",
+              "          path: cvaa\n          persist-credentials: false":
+              "          path: cvaa\n          fetch-depth: 0\n          persist-credentials: false",
+          }
+          for old, new in replacements.items():
+              if new not in text:
+                  if text.count(old) != 1:
+                      raise SystemExit(f'expected one reusable checkout block: {old!r}')
+                  text = text.replace(old, new, 1)
+          reusable.write_text(text, encoding='utf-8')
+
+          own = Path('.github/workflows/202608301447-selftest.yml').read_text(encoding='utf-8')
+          if own.count('fetch-depth: 0') < 2:
+              raise SystemExit('self-test workflow is not using full history in both jobs')
+
+          template = Path('consumer-workflow-template.yml')
+          template_text = template.read_text(encoding='utf-8')
+          contract = '# Full-history contract: the pinned reusable workflow checks out both the consumer and CVAA with fetch-depth: 0.\n'
+          if contract not in template_text:
+              anchor = '# Replace both SHAs with the commit of Ventusltd/cvaa you have reviewed. Never use @main.\n'
+              if template_text.count(anchor) != 1:
+                  raise SystemExit('consumer template anchor missing')
+              template_text = template_text.replace(anchor, anchor + contract, 1)
+          template.write_text(template_text, encoding='utf-8')
+
+          config_path = Path('cvaa.json')
+          config = json.loads(config_path.read_text(encoding='utf-8'))
+          allow = config.setdefault('allow', [])
+          baseline = next((item for item in allow if item.get('vaccine') == 'monotonic-utc-generations'), None)
+          wanted = {'vaccine': 'monotonic-utc-generations', 'max': 2, 'expires': '2026-09-30'}
+          if baseline is None:
+              allow.append(wanted)
+          elif baseline != wanted:
+              baseline.clear()
+              baseline.update(wanted)
+          config_path.write_text(json.dumps(config, indent=2) + '\n', encoding='utf-8')
+
+          study_path = Path('studies/202608301900-study-results.md')
+          study = study_path.read_text(encoding='utf-8')
+          note = (
+              '   CVAA self-history contains two permanent clock findings: bfebd6e chose generation '
+              '202608301940 for a 16:20Z commit, and ea518fa necessarily follows it with generation '
+              '202608301631, producing one honest backwards step. The monotonic-utc-generations '
+              'baseline is max 2 through 2026-09-30; history is retained and the count may only fall.\n'
+          )
+          if note not in study:
+              anchor = 'N2 baseline ratchet   Not observable in one day. Instrument exists (cvaa.json expires).\n   PENDING 30 days of history.\n'
+              if study.count(anchor) != 1:
+                  raise SystemExit('study baseline anchor missing')
+              study = study.replace(anchor, anchor + note, 1)
+          study_path.write_text(study, encoding='utf-8')
+          PY
+
+          changed_paths=(
+            .github/workflows/202608301446-inoculate.yml
+            consumer-workflow-template.yml
+            cvaa.json
+            studies/202608301900-study-results.md
+          )
+          if git diff --quiet -- "${changed_paths[@]}"; then
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+            echo "final_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          test "$(git rev-list --count HEAD)" -gt 1
+          node tools/selftest.mjs | tee /tmp/cvaa-selftest.log
+          test "$(tail -n 1 /tmp/cvaa-selftest.log)" = 'all antibodies fire on disease and stay silent on health'
+          node inoculate.mjs . --no-write | tee /tmp/cvaa-inoculate.log
+          test "$(tail -n 1 /tmp/cvaa-inoculate.log)" = 'repo is immune to all vaccines on file'
+          grep -F 'WARN   monotonic-utc-generations (baseline 2)' /tmp/cvaa-inoculate.log
+          grep -F 'ea518fa generation 202608301631 is earlier than previous 202608301940' /tmp/cvaa-inoculate.log
+          grep -F 'generation 202608301940 is 200 minutes off its UTC commit time 202608301620; generations are read from date -u at commit time, never chosen' /tmp/cvaa-inoculate.log
+
+          git add -- "${changed_paths[@]}"
+          actual="$(git diff --cached --name-only | sort)"
+          expected="$(printf '%s\n' "${changed_paths[@]}" | sort)"
+          test "$actual" = "$expected"
+
+          G="$(date -u +%Y%m%d%H%M)"
+          git config user.name cvaa-full-history-repair
+          git config user.email actions@users.noreply.github.com
+          git commit -m "$G: expose full history to CVAA and baseline its two permanent clock findings"
+          final_sha="$(git rev-parse HEAD)"
+
+          git fetch --no-tags origin main:refs/remotes/origin/main
+          test "$(git rev-parse origin/main)" = "$GITHUB_SHA"
+          git push origin HEAD:main
+
+          visible=''
+          for attempt in $(seq 1 20); do
+            visible="$(gh api "repos/$GITHUB_REPOSITORY/commits/main" --jq .sha)"
+            test "$visible" = "$final_sha" && break
+            sleep 1
+          done
+          test "$visible" = "$final_sha"
+          gh workflow run 202608301447-selftest.yml --ref main
+
+          echo 'changed=true' >> "$GITHUB_OUTPUT"
+          echo "final_sha=$final_sha" >> "$GITHUB_OUTPUT"
+
+  selftest:
+    needs: repair-full-history-policy
+    if: ${{ always() && needs.repair-full-history-policy.outputs.changed != 'true' && (needs.repair-full-history-policy.result == 'success' || needs.repair-full-history-policy.result == 'skipped') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Prove the checkout contains repository history
+        run: test "$(git rev-list --count HEAD)" -gt 1
       - name: Every antibody fires on disease and is silent on health
         run: node tools/selftest.mjs
-      - name: Registry inoculates itself
+      - name: Registry inoculates its full history
         run: node inoculate.mjs .
