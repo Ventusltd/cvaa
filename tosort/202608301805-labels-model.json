@@ -1,0 +1,17 @@
+{"labeller":"claude (model, blind to replay table while labelling; reconciled after)","class":{"amnesia":["one-active-scope","no-app-copies","no-per-release-workflows","no-expiry-windows","self-terminating-loops","chaining-token","pointer-verifies","derived-state-not-authored","context-diet","rollback-exists","monotonic-utc-generations","on-ledger-commits","executor-declared","loop-exists","rollback-exercised","attestation-freshness"],"hygiene":["pinned-actions","least-permissions","agent-quarantine","vocabulary","registry-integrity","no-dangerous-apis"]},
+"labels":{
+"537a91d":["no-per-release-workflows","no-expiry-windows","chaining-token","no-app-copies","monotonic-utc-generations"],
+"9ba16ba":["no-per-release-workflows","no-expiry-windows","chaining-token","no-app-copies","monotonic-utc-generations"],
+"17d96ed":["no-per-release-workflows","no-expiry-windows","chaining-token","no-app-copies","monotonic-utc-generations"],
+"e9cbc57":["no-per-release-workflows","no-expiry-windows","chaining-token","no-app-copies","monotonic-utc-generations"],
+"e587e8b":["chaining-token","no-app-copies","monotonic-utc-generations","on-ledger-commits"],
+"fc7a0b5":["chaining-token","no-app-copies","monotonic-utc-generations","derived-state-not-authored","executor-declared"],
+"e5ad420":["chaining-token","monotonic-utc-generations","derived-state-not-authored","executor-declared","rollback-exercised"],
+"e17e4fc":["chaining-token","monotonic-utc-generations","derived-state-not-authored","executor-declared","rollback-exercised"],
+"c201cc7":["chaining-token","monotonic-utc-generations","derived-state-not-authored","executor-declared","rollback-exercised"],
+"9a0e62f":["chaining-token","monotonic-utc-generations","derived-state-not-authored","executor-declared","rollback-exercised"],
+"48a2b9e":["chaining-token","monotonic-utc-generations","derived-state-not-authored","executor-declared","rollback-exercised","attestation-freshness"],
+"01466ce":["chaining-token","monotonic-utc-generations","derived-state-not-authored","executor-declared","rollback-exercised","attestation-freshness","loop-exists"],
+"bb8c28a":["chaining-token","monotonic-utc-generations","derived-state-not-authored","executor-declared","rollback-exercised","loop-exists","on-ledger-commits"],
+"22ecad9":["chaining-token","monotonic-utc-generations","derived-state-not-authored","executor-declared","rollback-exercised","loop-exists","on-ledger-commits"]
+},"notes":{"no-app-copies":"disease present until e5ad420 moved the folders, but the vaccine activates only once atlas/ exists, so it can never see the pre-move state: false negative by design","on-ledger-commits":"labelled only for commits made after the first scope file existed and citing none; historical commits before the ledger are not off-ledger","human_labels":"PENDING: Ventusltd to label blind; kappa computed by tools/score.mjs when studies/labels-human.json exists"}}

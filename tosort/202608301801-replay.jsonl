@@ -1,0 +1,308 @@
+{"sha":"537a91d","subject":"attest: 202608300453-atlas-v9 exact REPD receiver lineage","vaccine":"one-active-scope","findings":0}
+{"sha":"537a91d","subject":"attest: 202608300453-atlas-v9 exact REPD receiver lineage","vaccine":"no-app-copies","findings":8}
+{"sha":"537a91d","subject":"attest: 202608300453-atlas-v9 exact REPD receiver lineage","vaccine":"no-per-release-workflows","findings":1}
+{"sha":"537a91d","subject":"attest: 202608300453-atlas-v9 exact REPD receiver lineage","vaccine":"no-expiry-windows","findings":2}
+{"sha":"537a91d","subject":"attest: 202608300453-atlas-v9 exact REPD receiver lineage","vaccine":"self-terminating-loops","findings":0}
+{"sha":"537a91d","subject":"attest: 202608300453-atlas-v9 exact REPD receiver lineage","vaccine":"chaining-token","findings":13}
+{"sha":"537a91d","subject":"attest: 202608300453-atlas-v9 exact REPD receiver lineage","vaccine":"pointer-verifies","findings":0}
+{"sha":"537a91d","subject":"attest: 202608300453-atlas-v9 exact REPD receiver lineage","vaccine":"derived-state-not-authored","findings":0}
+{"sha":"537a91d","subject":"attest: 202608300453-atlas-v9 exact REPD receiver lineage","vaccine":"context-diet","findings":0}
+{"sha":"537a91d","subject":"attest: 202608300453-atlas-v9 exact REPD receiver lineage","vaccine":"rollback-exists","findings":0}
+{"sha":"537a91d","subject":"attest: 202608300453-atlas-v9 exact REPD receiver lineage","vaccine":"registry-integrity","findings":0}
+{"sha":"537a91d","subject":"attest: 202608300453-atlas-v9 exact REPD receiver lineage","vaccine":"no-dangerous-apis","findings":0}
+{"sha":"537a91d","subject":"attest: 202608300453-atlas-v9 exact REPD receiver lineage","vaccine":"pinned-actions","findings":0}
+{"sha":"537a91d","subject":"attest: 202608300453-atlas-v9 exact REPD receiver lineage","vaccine":"least-permissions","findings":2}
+{"sha":"537a91d","subject":"attest: 202608300453-atlas-v9 exact REPD receiver lineage","vaccine":"agent-quarantine","findings":0}
+{"sha":"537a91d","subject":"attest: 202608300453-atlas-v9 exact REPD receiver lineage","vaccine":"vocabulary","findings":0}
+{"sha":"537a91d","subject":"attest: 202608300453-atlas-v9 exact REPD receiver lineage","vaccine":"monotonic-utc-generations","findings":21}
+{"sha":"537a91d","subject":"attest: 202608300453-atlas-v9 exact REPD receiver lineage","vaccine":"on-ledger-commits","findings":0}
+{"sha":"537a91d","subject":"attest: 202608300453-atlas-v9 exact REPD receiver lineage","vaccine":"executor-declared","findings":0}
+{"sha":"537a91d","subject":"attest: 202608300453-atlas-v9 exact REPD receiver lineage","vaccine":"loop-exists","findings":0}
+{"sha":"537a91d","subject":"attest: 202608300453-atlas-v9 exact REPD receiver lineage","vaccine":"rollback-exercised","findings":0}
+{"sha":"537a91d","subject":"attest: 202608300453-atlas-v9 exact REPD receiver lineage","vaccine":"attestation-freshness","findings":0}
+{"sha":"9ba16ba","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"one-active-scope","findings":0}
+{"sha":"9ba16ba","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"no-app-copies","findings":8}
+{"sha":"9ba16ba","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"no-per-release-workflows","findings":1}
+{"sha":"9ba16ba","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"no-expiry-windows","findings":2}
+{"sha":"9ba16ba","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"self-terminating-loops","findings":0}
+{"sha":"9ba16ba","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"chaining-token","findings":13}
+{"sha":"9ba16ba","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"pointer-verifies","findings":0}
+{"sha":"9ba16ba","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"derived-state-not-authored","findings":0}
+{"sha":"9ba16ba","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"context-diet","findings":0}
+{"sha":"9ba16ba","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"rollback-exists","findings":0}
+{"sha":"9ba16ba","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"registry-integrity","findings":0}
+{"sha":"9ba16ba","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"no-dangerous-apis","findings":0}
+{"sha":"9ba16ba","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"pinned-actions","findings":0}
+{"sha":"9ba16ba","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"least-permissions","findings":2}
+{"sha":"9ba16ba","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"agent-quarantine","findings":0}
+{"sha":"9ba16ba","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"vocabulary","findings":0}
+{"sha":"9ba16ba","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"monotonic-utc-generations","findings":21}
+{"sha":"9ba16ba","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"on-ledger-commits","findings":0}
+{"sha":"9ba16ba","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"executor-declared","findings":0}
+{"sha":"9ba16ba","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"loop-exists","findings":0}
+{"sha":"9ba16ba","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"rollback-exercised","findings":0}
+{"sha":"9ba16ba","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"attestation-freshness","findings":0}
+{"sha":"17d96ed","subject":"202608300453-atlas-v9: record Atlas V9 cross-repo milestones","vaccine":"one-active-scope","findings":0}
+{"sha":"17d96ed","subject":"202608300453-atlas-v9: record Atlas V9 cross-repo milestones","vaccine":"no-app-copies","findings":8}
+{"sha":"17d96ed","subject":"202608300453-atlas-v9: record Atlas V9 cross-repo milestones","vaccine":"no-per-release-workflows","findings":1}
+{"sha":"17d96ed","subject":"202608300453-atlas-v9: record Atlas V9 cross-repo milestones","vaccine":"no-expiry-windows","findings":2}
+{"sha":"17d96ed","subject":"202608300453-atlas-v9: record Atlas V9 cross-repo milestones","vaccine":"self-terminating-loops","findings":0}
+{"sha":"17d96ed","subject":"202608300453-atlas-v9: record Atlas V9 cross-repo milestones","vaccine":"chaining-token","findings":13}
+{"sha":"17d96ed","subject":"202608300453-atlas-v9: record Atlas V9 cross-repo milestones","vaccine":"pointer-verifies","findings":0}
+{"sha":"17d96ed","subject":"202608300453-atlas-v9: record Atlas V9 cross-repo milestones","vaccine":"derived-state-not-authored","findings":0}
+{"sha":"17d96ed","subject":"202608300453-atlas-v9: record Atlas V9 cross-repo milestones","vaccine":"context-diet","findings":0}
+{"sha":"17d96ed","subject":"202608300453-atlas-v9: record Atlas V9 cross-repo milestones","vaccine":"rollback-exists","findings":0}
+{"sha":"17d96ed","subject":"202608300453-atlas-v9: record Atlas V9 cross-repo milestones","vaccine":"registry-integrity","findings":0}
+{"sha":"17d96ed","subject":"202608300453-atlas-v9: record Atlas V9 cross-repo milestones","vaccine":"no-dangerous-apis","findings":0}
+{"sha":"17d96ed","subject":"202608300453-atlas-v9: record Atlas V9 cross-repo milestones","vaccine":"pinned-actions","findings":0}
+{"sha":"17d96ed","subject":"202608300453-atlas-v9: record Atlas V9 cross-repo milestones","vaccine":"least-permissions","findings":2}
+{"sha":"17d96ed","subject":"202608300453-atlas-v9: record Atlas V9 cross-repo milestones","vaccine":"agent-quarantine","findings":0}
+{"sha":"17d96ed","subject":"202608300453-atlas-v9: record Atlas V9 cross-repo milestones","vaccine":"vocabulary","findings":0}
+{"sha":"17d96ed","subject":"202608300453-atlas-v9: record Atlas V9 cross-repo milestones","vaccine":"monotonic-utc-generations","findings":21}
+{"sha":"17d96ed","subject":"202608300453-atlas-v9: record Atlas V9 cross-repo milestones","vaccine":"on-ledger-commits","findings":0}
+{"sha":"17d96ed","subject":"202608300453-atlas-v9: record Atlas V9 cross-repo milestones","vaccine":"executor-declared","findings":0}
+{"sha":"17d96ed","subject":"202608300453-atlas-v9: record Atlas V9 cross-repo milestones","vaccine":"loop-exists","findings":0}
+{"sha":"17d96ed","subject":"202608300453-atlas-v9: record Atlas V9 cross-repo milestones","vaccine":"rollback-exercised","findings":0}
+{"sha":"17d96ed","subject":"202608300453-atlas-v9: record Atlas V9 cross-repo milestones","vaccine":"attestation-freshness","findings":0}
+{"sha":"e9cbc57","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"one-active-scope","findings":0}
+{"sha":"e9cbc57","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"no-app-copies","findings":8}
+{"sha":"e9cbc57","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"no-per-release-workflows","findings":1}
+{"sha":"e9cbc57","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"no-expiry-windows","findings":2}
+{"sha":"e9cbc57","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"self-terminating-loops","findings":0}
+{"sha":"e9cbc57","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"chaining-token","findings":13}
+{"sha":"e9cbc57","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"pointer-verifies","findings":0}
+{"sha":"e9cbc57","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"derived-state-not-authored","findings":0}
+{"sha":"e9cbc57","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"context-diet","findings":0}
+{"sha":"e9cbc57","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"rollback-exists","findings":0}
+{"sha":"e9cbc57","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"registry-integrity","findings":0}
+{"sha":"e9cbc57","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"no-dangerous-apis","findings":0}
+{"sha":"e9cbc57","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"pinned-actions","findings":0}
+{"sha":"e9cbc57","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"least-permissions","findings":2}
+{"sha":"e9cbc57","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"agent-quarantine","findings":0}
+{"sha":"e9cbc57","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"vocabulary","findings":0}
+{"sha":"e9cbc57","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"monotonic-utc-generations","findings":21}
+{"sha":"e9cbc57","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"on-ledger-commits","findings":0}
+{"sha":"e9cbc57","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"executor-declared","findings":0}
+{"sha":"e9cbc57","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"loop-exists","findings":0}
+{"sha":"e9cbc57","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"rollback-exercised","findings":0}
+{"sha":"e9cbc57","subject":"attest: 202608300453-atlas-v9 source publication promotion l","vaccine":"attestation-freshness","findings":0}
+{"sha":"e587e8b","subject":"202608301321-gridatlas: inoculate bounded scope loop and arc","vaccine":"one-active-scope","findings":0}
+{"sha":"e587e8b","subject":"202608301321-gridatlas: inoculate bounded scope loop and arc","vaccine":"no-app-copies","findings":8}
+{"sha":"e587e8b","subject":"202608301321-gridatlas: inoculate bounded scope loop and arc","vaccine":"no-per-release-workflows","findings":0}
+{"sha":"e587e8b","subject":"202608301321-gridatlas: inoculate bounded scope loop and arc","vaccine":"no-expiry-windows","findings":0}
+{"sha":"e587e8b","subject":"202608301321-gridatlas: inoculate bounded scope loop and arc","vaccine":"self-terminating-loops","findings":0}
+{"sha":"e587e8b","subject":"202608301321-gridatlas: inoculate bounded scope loop and arc","vaccine":"chaining-token","findings":2}
+{"sha":"e587e8b","subject":"202608301321-gridatlas: inoculate bounded scope loop and arc","vaccine":"pointer-verifies","findings":0}
+{"sha":"e587e8b","subject":"202608301321-gridatlas: inoculate bounded scope loop and arc","vaccine":"derived-state-not-authored","findings":0}
+{"sha":"e587e8b","subject":"202608301321-gridatlas: inoculate bounded scope loop and arc","vaccine":"context-diet","findings":0}
+{"sha":"e587e8b","subject":"202608301321-gridatlas: inoculate bounded scope loop and arc","vaccine":"rollback-exists","findings":0}
+{"sha":"e587e8b","subject":"202608301321-gridatlas: inoculate bounded scope loop and arc","vaccine":"registry-integrity","findings":0}
+{"sha":"e587e8b","subject":"202608301321-gridatlas: inoculate bounded scope loop and arc","vaccine":"no-dangerous-apis","findings":0}
+{"sha":"e587e8b","subject":"202608301321-gridatlas: inoculate bounded scope loop and arc","vaccine":"pinned-actions","findings":0}
+{"sha":"e587e8b","subject":"202608301321-gridatlas: inoculate bounded scope loop and arc","vaccine":"least-permissions","findings":0}
+{"sha":"e587e8b","subject":"202608301321-gridatlas: inoculate bounded scope loop and arc","vaccine":"agent-quarantine","findings":0}
+{"sha":"e587e8b","subject":"202608301321-gridatlas: inoculate bounded scope loop and arc","vaccine":"vocabulary","findings":0}
+{"sha":"e587e8b","subject":"202608301321-gridatlas: inoculate bounded scope loop and arc","vaccine":"monotonic-utc-generations","findings":22}
+{"sha":"e587e8b","subject":"202608301321-gridatlas: inoculate bounded scope loop and arc","vaccine":"on-ledger-commits","findings":0}
+{"sha":"e587e8b","subject":"202608301321-gridatlas: inoculate bounded scope loop and arc","vaccine":"executor-declared","findings":0}
+{"sha":"e587e8b","subject":"202608301321-gridatlas: inoculate bounded scope loop and arc","vaccine":"loop-exists","findings":0}
+{"sha":"e587e8b","subject":"202608301321-gridatlas: inoculate bounded scope loop and arc","vaccine":"rollback-exercised","findings":0}
+{"sha":"e587e8b","subject":"202608301321-gridatlas: inoculate bounded scope loop and arc","vaccine":"attestation-freshness","findings":0}
+{"sha":"fc7a0b5","subject":"202608301321-gridatlas: establish durable scope ledger and a","vaccine":"one-active-scope","findings":0}
+{"sha":"fc7a0b5","subject":"202608301321-gridatlas: establish durable scope ledger and a","vaccine":"no-app-copies","findings":8}
+{"sha":"fc7a0b5","subject":"202608301321-gridatlas: establish durable scope ledger and a","vaccine":"no-per-release-workflows","findings":0}
+{"sha":"fc7a0b5","subject":"202608301321-gridatlas: establish durable scope ledger and a","vaccine":"no-expiry-windows","findings":0}
+{"sha":"fc7a0b5","subject":"202608301321-gridatlas: establish durable scope ledger and a","vaccine":"self-terminating-loops","findings":0}
+{"sha":"fc7a0b5","subject":"202608301321-gridatlas: establish durable scope ledger and a","vaccine":"chaining-token","findings":2}
+{"sha":"fc7a0b5","subject":"202608301321-gridatlas: establish durable scope ledger and a","vaccine":"pointer-verifies","findings":0}
+{"sha":"fc7a0b5","subject":"202608301321-gridatlas: establish durable scope ledger and a","vaccine":"derived-state-not-authored","findings":1}
+{"sha":"fc7a0b5","subject":"202608301321-gridatlas: establish durable scope ledger and a","vaccine":"context-diet","findings":0}
+{"sha":"fc7a0b5","subject":"202608301321-gridatlas: establish durable scope ledger and a","vaccine":"rollback-exists","findings":0}
+{"sha":"fc7a0b5","subject":"202608301321-gridatlas: establish durable scope ledger and a","vaccine":"registry-integrity","findings":0}
+{"sha":"fc7a0b5","subject":"202608301321-gridatlas: establish durable scope ledger and a","vaccine":"no-dangerous-apis","findings":0}
+{"sha":"fc7a0b5","subject":"202608301321-gridatlas: establish durable scope ledger and a","vaccine":"pinned-actions","findings":0}
+{"sha":"fc7a0b5","subject":"202608301321-gridatlas: establish durable scope ledger and a","vaccine":"least-permissions","findings":0}
+{"sha":"fc7a0b5","subject":"202608301321-gridatlas: establish durable scope ledger and a","vaccine":"agent-quarantine","findings":0}
+{"sha":"fc7a0b5","subject":"202608301321-gridatlas: establish durable scope ledger and a","vaccine":"vocabulary","findings":0}
+{"sha":"fc7a0b5","subject":"202608301321-gridatlas: establish durable scope ledger and a","vaccine":"monotonic-utc-generations","findings":22}
+{"sha":"fc7a0b5","subject":"202608301321-gridatlas: establish durable scope ledger and a","vaccine":"on-ledger-commits","findings":0}
+{"sha":"fc7a0b5","subject":"202608301321-gridatlas: establish durable scope ledger and a","vaccine":"executor-declared","findings":1}
+{"sha":"fc7a0b5","subject":"202608301321-gridatlas: establish durable scope ledger and a","vaccine":"loop-exists","findings":0}
+{"sha":"fc7a0b5","subject":"202608301321-gridatlas: establish durable scope ledger and a","vaccine":"rollback-exercised","findings":0}
+{"sha":"fc7a0b5","subject":"202608301321-gridatlas: establish durable scope ledger and a","vaccine":"attestation-freshness","findings":0}
+{"sha":"e5ad420","subject":"202608301321-gridatlas-scope-01: Scope 1 — move the Atlas in","vaccine":"one-active-scope","findings":0}
+{"sha":"e5ad420","subject":"202608301321-gridatlas-scope-01: Scope 1 — move the Atlas in","vaccine":"no-app-copies","findings":0}
+{"sha":"e5ad420","subject":"202608301321-gridatlas-scope-01: Scope 1 — move the Atlas in","vaccine":"no-per-release-workflows","findings":0}
+{"sha":"e5ad420","subject":"202608301321-gridatlas-scope-01: Scope 1 — move the Atlas in","vaccine":"no-expiry-windows","findings":0}
+{"sha":"e5ad420","subject":"202608301321-gridatlas-scope-01: Scope 1 — move the Atlas in","vaccine":"self-terminating-loops","findings":0}
+{"sha":"e5ad420","subject":"202608301321-gridatlas-scope-01: Scope 1 — move the Atlas in","vaccine":"chaining-token","findings":2}
+{"sha":"e5ad420","subject":"202608301321-gridatlas-scope-01: Scope 1 — move the Atlas in","vaccine":"pointer-verifies","findings":0}
+{"sha":"e5ad420","subject":"202608301321-gridatlas-scope-01: Scope 1 — move the Atlas in","vaccine":"derived-state-not-authored","findings":1}
+{"sha":"e5ad420","subject":"202608301321-gridatlas-scope-01: Scope 1 — move the Atlas in","vaccine":"context-diet","findings":0}
+{"sha":"e5ad420","subject":"202608301321-gridatlas-scope-01: Scope 1 — move the Atlas in","vaccine":"rollback-exists","findings":0}
+{"sha":"e5ad420","subject":"202608301321-gridatlas-scope-01: Scope 1 — move the Atlas in","vaccine":"registry-integrity","findings":0}
+{"sha":"e5ad420","subject":"202608301321-gridatlas-scope-01: Scope 1 — move the Atlas in","vaccine":"no-dangerous-apis","findings":0}
+{"sha":"e5ad420","subject":"202608301321-gridatlas-scope-01: Scope 1 — move the Atlas in","vaccine":"pinned-actions","findings":0}
+{"sha":"e5ad420","subject":"202608301321-gridatlas-scope-01: Scope 1 — move the Atlas in","vaccine":"least-permissions","findings":0}
+{"sha":"e5ad420","subject":"202608301321-gridatlas-scope-01: Scope 1 — move the Atlas in","vaccine":"agent-quarantine","findings":0}
+{"sha":"e5ad420","subject":"202608301321-gridatlas-scope-01: Scope 1 — move the Atlas in","vaccine":"vocabulary","findings":0}
+{"sha":"e5ad420","subject":"202608301321-gridatlas-scope-01: Scope 1 — move the Atlas in","vaccine":"monotonic-utc-generations","findings":22}
+{"sha":"e5ad420","subject":"202608301321-gridatlas-scope-01: Scope 1 — move the Atlas in","vaccine":"on-ledger-commits","findings":0}
+{"sha":"e5ad420","subject":"202608301321-gridatlas-scope-01: Scope 1 — move the Atlas in","vaccine":"executor-declared","findings":2}
+{"sha":"e5ad420","subject":"202608301321-gridatlas-scope-01: Scope 1 — move the Atlas in","vaccine":"loop-exists","findings":0}
+{"sha":"e5ad420","subject":"202608301321-gridatlas-scope-01: Scope 1 — move the Atlas in","vaccine":"rollback-exercised","findings":1}
+{"sha":"e5ad420","subject":"202608301321-gridatlas-scope-01: Scope 1 — move the Atlas in","vaccine":"attestation-freshness","findings":0}
+{"sha":"e17e4fc","subject":"202608301518-gridatlas-scope-02: Scope 2 — modularise the At","vaccine":"one-active-scope","findings":0}
+{"sha":"e17e4fc","subject":"202608301518-gridatlas-scope-02: Scope 2 — modularise the At","vaccine":"no-app-copies","findings":0}
+{"sha":"e17e4fc","subject":"202608301518-gridatlas-scope-02: Scope 2 — modularise the At","vaccine":"no-per-release-workflows","findings":0}
+{"sha":"e17e4fc","subject":"202608301518-gridatlas-scope-02: Scope 2 — modularise the At","vaccine":"no-expiry-windows","findings":0}
+{"sha":"e17e4fc","subject":"202608301518-gridatlas-scope-02: Scope 2 — modularise the At","vaccine":"self-terminating-loops","findings":0}
+{"sha":"e17e4fc","subject":"202608301518-gridatlas-scope-02: Scope 2 — modularise the At","vaccine":"chaining-token","findings":2}
+{"sha":"e17e4fc","subject":"202608301518-gridatlas-scope-02: Scope 2 — modularise the At","vaccine":"pointer-verifies","findings":0}
+{"sha":"e17e4fc","subject":"202608301518-gridatlas-scope-02: Scope 2 — modularise the At","vaccine":"derived-state-not-authored","findings":1}
+{"sha":"e17e4fc","subject":"202608301518-gridatlas-scope-02: Scope 2 — modularise the At","vaccine":"context-diet","findings":0}
+{"sha":"e17e4fc","subject":"202608301518-gridatlas-scope-02: Scope 2 — modularise the At","vaccine":"rollback-exists","findings":0}
+{"sha":"e17e4fc","subject":"202608301518-gridatlas-scope-02: Scope 2 — modularise the At","vaccine":"registry-integrity","findings":0}
+{"sha":"e17e4fc","subject":"202608301518-gridatlas-scope-02: Scope 2 — modularise the At","vaccine":"no-dangerous-apis","findings":0}
+{"sha":"e17e4fc","subject":"202608301518-gridatlas-scope-02: Scope 2 — modularise the At","vaccine":"pinned-actions","findings":0}
+{"sha":"e17e4fc","subject":"202608301518-gridatlas-scope-02: Scope 2 — modularise the At","vaccine":"least-permissions","findings":0}
+{"sha":"e17e4fc","subject":"202608301518-gridatlas-scope-02: Scope 2 — modularise the At","vaccine":"agent-quarantine","findings":0}
+{"sha":"e17e4fc","subject":"202608301518-gridatlas-scope-02: Scope 2 — modularise the At","vaccine":"vocabulary","findings":0}
+{"sha":"e17e4fc","subject":"202608301518-gridatlas-scope-02: Scope 2 — modularise the At","vaccine":"monotonic-utc-generations","findings":22}
+{"sha":"e17e4fc","subject":"202608301518-gridatlas-scope-02: Scope 2 — modularise the At","vaccine":"on-ledger-commits","findings":0}
+{"sha":"e17e4fc","subject":"202608301518-gridatlas-scope-02: Scope 2 — modularise the At","vaccine":"executor-declared","findings":3}
+{"sha":"e17e4fc","subject":"202608301518-gridatlas-scope-02: Scope 2 — modularise the At","vaccine":"loop-exists","findings":0}
+{"sha":"e17e4fc","subject":"202608301518-gridatlas-scope-02: Scope 2 — modularise the At","vaccine":"rollback-exercised","findings":1}
+{"sha":"e17e4fc","subject":"202608301518-gridatlas-scope-02: Scope 2 — modularise the At","vaccine":"attestation-freshness","findings":0}
+{"sha":"c201cc7","subject":"202608301520-gridatlas-scope-03: Scope 3 — apply PipelineNew","vaccine":"one-active-scope","findings":0}
+{"sha":"c201cc7","subject":"202608301520-gridatlas-scope-03: Scope 3 — apply PipelineNew","vaccine":"no-app-copies","findings":0}
+{"sha":"c201cc7","subject":"202608301520-gridatlas-scope-03: Scope 3 — apply PipelineNew","vaccine":"no-per-release-workflows","findings":0}
+{"sha":"c201cc7","subject":"202608301520-gridatlas-scope-03: Scope 3 — apply PipelineNew","vaccine":"no-expiry-windows","findings":0}
+{"sha":"c201cc7","subject":"202608301520-gridatlas-scope-03: Scope 3 — apply PipelineNew","vaccine":"self-terminating-loops","findings":0}
+{"sha":"c201cc7","subject":"202608301520-gridatlas-scope-03: Scope 3 — apply PipelineNew","vaccine":"chaining-token","findings":2}
+{"sha":"c201cc7","subject":"202608301520-gridatlas-scope-03: Scope 3 — apply PipelineNew","vaccine":"pointer-verifies","findings":0}
+{"sha":"c201cc7","subject":"202608301520-gridatlas-scope-03: Scope 3 — apply PipelineNew","vaccine":"derived-state-not-authored","findings":1}
+{"sha":"c201cc7","subject":"202608301520-gridatlas-scope-03: Scope 3 — apply PipelineNew","vaccine":"context-diet","findings":0}
+{"sha":"c201cc7","subject":"202608301520-gridatlas-scope-03: Scope 3 — apply PipelineNew","vaccine":"rollback-exists","findings":0}
+{"sha":"c201cc7","subject":"202608301520-gridatlas-scope-03: Scope 3 — apply PipelineNew","vaccine":"registry-integrity","findings":0}
+{"sha":"c201cc7","subject":"202608301520-gridatlas-scope-03: Scope 3 — apply PipelineNew","vaccine":"no-dangerous-apis","findings":0}
+{"sha":"c201cc7","subject":"202608301520-gridatlas-scope-03: Scope 3 — apply PipelineNew","vaccine":"pinned-actions","findings":0}
+{"sha":"c201cc7","subject":"202608301520-gridatlas-scope-03: Scope 3 — apply PipelineNew","vaccine":"least-permissions","findings":0}
+{"sha":"c201cc7","subject":"202608301520-gridatlas-scope-03: Scope 3 — apply PipelineNew","vaccine":"agent-quarantine","findings":0}
+{"sha":"c201cc7","subject":"202608301520-gridatlas-scope-03: Scope 3 — apply PipelineNew","vaccine":"vocabulary","findings":0}
+{"sha":"c201cc7","subject":"202608301520-gridatlas-scope-03: Scope 3 — apply PipelineNew","vaccine":"monotonic-utc-generations","findings":22}
+{"sha":"c201cc7","subject":"202608301520-gridatlas-scope-03: Scope 3 — apply PipelineNew","vaccine":"on-ledger-commits","findings":0}
+{"sha":"c201cc7","subject":"202608301520-gridatlas-scope-03: Scope 3 — apply PipelineNew","vaccine":"executor-declared","findings":4}
+{"sha":"c201cc7","subject":"202608301520-gridatlas-scope-03: Scope 3 — apply PipelineNew","vaccine":"loop-exists","findings":0}
+{"sha":"c201cc7","subject":"202608301520-gridatlas-scope-03: Scope 3 — apply PipelineNew","vaccine":"rollback-exercised","findings":1}
+{"sha":"c201cc7","subject":"202608301520-gridatlas-scope-03: Scope 3 — apply PipelineNew","vaccine":"attestation-freshness","findings":0}
+{"sha":"9a0e62f","subject":"202608301521-gridatlas-scope-04: Scope 4 — add UK postcode a","vaccine":"one-active-scope","findings":0}
+{"sha":"9a0e62f","subject":"202608301521-gridatlas-scope-04: Scope 4 — add UK postcode a","vaccine":"no-app-copies","findings":0}
+{"sha":"9a0e62f","subject":"202608301521-gridatlas-scope-04: Scope 4 — add UK postcode a","vaccine":"no-per-release-workflows","findings":0}
+{"sha":"9a0e62f","subject":"202608301521-gridatlas-scope-04: Scope 4 — add UK postcode a","vaccine":"no-expiry-windows","findings":0}
+{"sha":"9a0e62f","subject":"202608301521-gridatlas-scope-04: Scope 4 — add UK postcode a","vaccine":"self-terminating-loops","findings":0}
+{"sha":"9a0e62f","subject":"202608301521-gridatlas-scope-04: Scope 4 — add UK postcode a","vaccine":"chaining-token","findings":2}
+{"sha":"9a0e62f","subject":"202608301521-gridatlas-scope-04: Scope 4 — add UK postcode a","vaccine":"pointer-verifies","findings":0}
+{"sha":"9a0e62f","subject":"202608301521-gridatlas-scope-04: Scope 4 — add UK postcode a","vaccine":"derived-state-not-authored","findings":1}
+{"sha":"9a0e62f","subject":"202608301521-gridatlas-scope-04: Scope 4 — add UK postcode a","vaccine":"context-diet","findings":0}
+{"sha":"9a0e62f","subject":"202608301521-gridatlas-scope-04: Scope 4 — add UK postcode a","vaccine":"rollback-exists","findings":0}
+{"sha":"9a0e62f","subject":"202608301521-gridatlas-scope-04: Scope 4 — add UK postcode a","vaccine":"registry-integrity","findings":0}
+{"sha":"9a0e62f","subject":"202608301521-gridatlas-scope-04: Scope 4 — add UK postcode a","vaccine":"no-dangerous-apis","findings":0}
+{"sha":"9a0e62f","subject":"202608301521-gridatlas-scope-04: Scope 4 — add UK postcode a","vaccine":"pinned-actions","findings":0}
+{"sha":"9a0e62f","subject":"202608301521-gridatlas-scope-04: Scope 4 — add UK postcode a","vaccine":"least-permissions","findings":0}
+{"sha":"9a0e62f","subject":"202608301521-gridatlas-scope-04: Scope 4 — add UK postcode a","vaccine":"agent-quarantine","findings":0}
+{"sha":"9a0e62f","subject":"202608301521-gridatlas-scope-04: Scope 4 — add UK postcode a","vaccine":"vocabulary","findings":0}
+{"sha":"9a0e62f","subject":"202608301521-gridatlas-scope-04: Scope 4 — add UK postcode a","vaccine":"monotonic-utc-generations","findings":22}
+{"sha":"9a0e62f","subject":"202608301521-gridatlas-scope-04: Scope 4 — add UK postcode a","vaccine":"on-ledger-commits","findings":0}
+{"sha":"9a0e62f","subject":"202608301521-gridatlas-scope-04: Scope 4 — add UK postcode a","vaccine":"executor-declared","findings":5}
+{"sha":"9a0e62f","subject":"202608301521-gridatlas-scope-04: Scope 4 — add UK postcode a","vaccine":"loop-exists","findings":0}
+{"sha":"9a0e62f","subject":"202608301521-gridatlas-scope-04: Scope 4 — add UK postcode a","vaccine":"rollback-exercised","findings":1}
+{"sha":"9a0e62f","subject":"202608301521-gridatlas-scope-04: Scope 4 — add UK postcode a","vaccine":"attestation-freshness","findings":0}
+{"sha":"48a2b9e","subject":"202608301522-gridatlas-scope-05: Scope 5 — compile and attes","vaccine":"one-active-scope","findings":0}
+{"sha":"48a2b9e","subject":"202608301522-gridatlas-scope-05: Scope 5 — compile and attes","vaccine":"no-app-copies","findings":0}
+{"sha":"48a2b9e","subject":"202608301522-gridatlas-scope-05: Scope 5 — compile and attes","vaccine":"no-per-release-workflows","findings":0}
+{"sha":"48a2b9e","subject":"202608301522-gridatlas-scope-05: Scope 5 — compile and attes","vaccine":"no-expiry-windows","findings":0}
+{"sha":"48a2b9e","subject":"202608301522-gridatlas-scope-05: Scope 5 — compile and attes","vaccine":"self-terminating-loops","findings":0}
+{"sha":"48a2b9e","subject":"202608301522-gridatlas-scope-05: Scope 5 — compile and attes","vaccine":"chaining-token","findings":2}
+{"sha":"48a2b9e","subject":"202608301522-gridatlas-scope-05: Scope 5 — compile and attes","vaccine":"pointer-verifies","findings":0}
+{"sha":"48a2b9e","subject":"202608301522-gridatlas-scope-05: Scope 5 — compile and attes","vaccine":"derived-state-not-authored","findings":1}
+{"sha":"48a2b9e","subject":"202608301522-gridatlas-scope-05: Scope 5 — compile and attes","vaccine":"context-diet","findings":0}
+{"sha":"48a2b9e","subject":"202608301522-gridatlas-scope-05: Scope 5 — compile and attes","vaccine":"rollback-exists","findings":0}
+{"sha":"48a2b9e","subject":"202608301522-gridatlas-scope-05: Scope 5 — compile and attes","vaccine":"registry-integrity","findings":0}
+{"sha":"48a2b9e","subject":"202608301522-gridatlas-scope-05: Scope 5 — compile and attes","vaccine":"no-dangerous-apis","findings":0}
+{"sha":"48a2b9e","subject":"202608301522-gridatlas-scope-05: Scope 5 — compile and attes","vaccine":"pinned-actions","findings":0}
+{"sha":"48a2b9e","subject":"202608301522-gridatlas-scope-05: Scope 5 — compile and attes","vaccine":"least-permissions","findings":0}
+{"sha":"48a2b9e","subject":"202608301522-gridatlas-scope-05: Scope 5 — compile and attes","vaccine":"agent-quarantine","findings":0}
+{"sha":"48a2b9e","subject":"202608301522-gridatlas-scope-05: Scope 5 — compile and attes","vaccine":"vocabulary","findings":0}
+{"sha":"48a2b9e","subject":"202608301522-gridatlas-scope-05: Scope 5 — compile and attes","vaccine":"monotonic-utc-generations","findings":22}
+{"sha":"48a2b9e","subject":"202608301522-gridatlas-scope-05: Scope 5 — compile and attes","vaccine":"on-ledger-commits","findings":0}
+{"sha":"48a2b9e","subject":"202608301522-gridatlas-scope-05: Scope 5 — compile and attes","vaccine":"executor-declared","findings":6}
+{"sha":"48a2b9e","subject":"202608301522-gridatlas-scope-05: Scope 5 — compile and attes","vaccine":"loop-exists","findings":0}
+{"sha":"48a2b9e","subject":"202608301522-gridatlas-scope-05: Scope 5 — compile and attes","vaccine":"rollback-exercised","findings":1}
+{"sha":"48a2b9e","subject":"202608301522-gridatlas-scope-05: Scope 5 — compile and attes","vaccine":"attestation-freshness","findings":1}
+{"sha":"01466ce","subject":"202608301524-gridatlas-scope-06: Scope 6 — close and harden ","vaccine":"one-active-scope","findings":0}
+{"sha":"01466ce","subject":"202608301524-gridatlas-scope-06: Scope 6 — close and harden ","vaccine":"no-app-copies","findings":0}
+{"sha":"01466ce","subject":"202608301524-gridatlas-scope-06: Scope 6 — close and harden ","vaccine":"no-per-release-workflows","findings":0}
+{"sha":"01466ce","subject":"202608301524-gridatlas-scope-06: Scope 6 — close and harden ","vaccine":"no-expiry-windows","findings":0}
+{"sha":"01466ce","subject":"202608301524-gridatlas-scope-06: Scope 6 — close and harden ","vaccine":"self-terminating-loops","findings":0}
+{"sha":"01466ce","subject":"202608301524-gridatlas-scope-06: Scope 6 — close and harden ","vaccine":"chaining-token","findings":2}
+{"sha":"01466ce","subject":"202608301524-gridatlas-scope-06: Scope 6 — close and harden ","vaccine":"pointer-verifies","findings":0}
+{"sha":"01466ce","subject":"202608301524-gridatlas-scope-06: Scope 6 — close and harden ","vaccine":"derived-state-not-authored","findings":1}
+{"sha":"01466ce","subject":"202608301524-gridatlas-scope-06: Scope 6 — close and harden ","vaccine":"context-diet","findings":0}
+{"sha":"01466ce","subject":"202608301524-gridatlas-scope-06: Scope 6 — close and harden ","vaccine":"rollback-exists","findings":0}
+{"sha":"01466ce","subject":"202608301524-gridatlas-scope-06: Scope 6 — close and harden ","vaccine":"registry-integrity","findings":0}
+{"sha":"01466ce","subject":"202608301524-gridatlas-scope-06: Scope 6 — close and harden ","vaccine":"no-dangerous-apis","findings":0}
+{"sha":"01466ce","subject":"202608301524-gridatlas-scope-06: Scope 6 — close and harden ","vaccine":"pinned-actions","findings":0}
+{"sha":"01466ce","subject":"202608301524-gridatlas-scope-06: Scope 6 — close and harden ","vaccine":"least-permissions","findings":0}
+{"sha":"01466ce","subject":"202608301524-gridatlas-scope-06: Scope 6 — close and harden ","vaccine":"agent-quarantine","findings":0}
+{"sha":"01466ce","subject":"202608301524-gridatlas-scope-06: Scope 6 — close and harden ","vaccine":"vocabulary","findings":0}
+{"sha":"01466ce","subject":"202608301524-gridatlas-scope-06: Scope 6 — close and harden ","vaccine":"monotonic-utc-generations","findings":22}
+{"sha":"01466ce","subject":"202608301524-gridatlas-scope-06: Scope 6 — close and harden ","vaccine":"on-ledger-commits","findings":0}
+{"sha":"01466ce","subject":"202608301524-gridatlas-scope-06: Scope 6 — close and harden ","vaccine":"executor-declared","findings":7}
+{"sha":"01466ce","subject":"202608301524-gridatlas-scope-06: Scope 6 — close and harden ","vaccine":"loop-exists","findings":1}
+{"sha":"01466ce","subject":"202608301524-gridatlas-scope-06: Scope 6 — close and harden ","vaccine":"rollback-exercised","findings":1}
+{"sha":"01466ce","subject":"202608301524-gridatlas-scope-06: Scope 6 — close and harden ","vaccine":"attestation-freshness","findings":1}
+{"sha":"bb8c28a","subject":"202608301528-gridatlas: request final public cartridge accep","vaccine":"one-active-scope","findings":0}
+{"sha":"bb8c28a","subject":"202608301528-gridatlas: request final public cartridge accep","vaccine":"no-app-copies","findings":0}
+{"sha":"bb8c28a","subject":"202608301528-gridatlas: request final public cartridge accep","vaccine":"no-per-release-workflows","findings":0}
+{"sha":"bb8c28a","subject":"202608301528-gridatlas: request final public cartridge accep","vaccine":"no-expiry-windows","findings":0}
+{"sha":"bb8c28a","subject":"202608301528-gridatlas: request final public cartridge accep","vaccine":"self-terminating-loops","findings":0}
+{"sha":"bb8c28a","subject":"202608301528-gridatlas: request final public cartridge accep","vaccine":"chaining-token","findings":2}
+{"sha":"bb8c28a","subject":"202608301528-gridatlas: request final public cartridge accep","vaccine":"pointer-verifies","findings":0}
+{"sha":"bb8c28a","subject":"202608301528-gridatlas: request final public cartridge accep","vaccine":"derived-state-not-authored","findings":1}
+{"sha":"bb8c28a","subject":"202608301528-gridatlas: request final public cartridge accep","vaccine":"context-diet","findings":0}
+{"sha":"bb8c28a","subject":"202608301528-gridatlas: request final public cartridge accep","vaccine":"rollback-exists","findings":0}
+{"sha":"bb8c28a","subject":"202608301528-gridatlas: request final public cartridge accep","vaccine":"registry-integrity","findings":0}
+{"sha":"bb8c28a","subject":"202608301528-gridatlas: request final public cartridge accep","vaccine":"no-dangerous-apis","findings":0}
+{"sha":"bb8c28a","subject":"202608301528-gridatlas: request final public cartridge accep","vaccine":"pinned-actions","findings":0}
+{"sha":"bb8c28a","subject":"202608301528-gridatlas: request final public cartridge accep","vaccine":"least-permissions","findings":0}
+{"sha":"bb8c28a","subject":"202608301528-gridatlas: request final public cartridge accep","vaccine":"agent-quarantine","findings":0}
+{"sha":"bb8c28a","subject":"202608301528-gridatlas: request final public cartridge accep","vaccine":"vocabulary","findings":0}
+{"sha":"bb8c28a","subject":"202608301528-gridatlas: request final public cartridge accep","vaccine":"monotonic-utc-generations","findings":22}
+{"sha":"bb8c28a","subject":"202608301528-gridatlas: request final public cartridge accep","vaccine":"on-ledger-commits","findings":1}
+{"sha":"bb8c28a","subject":"202608301528-gridatlas: request final public cartridge accep","vaccine":"executor-declared","findings":7}
+{"sha":"bb8c28a","subject":"202608301528-gridatlas: request final public cartridge accep","vaccine":"loop-exists","findings":1}
+{"sha":"bb8c28a","subject":"202608301528-gridatlas: request final public cartridge accep","vaccine":"rollback-exercised","findings":1}
+{"sha":"bb8c28a","subject":"202608301528-gridatlas: request final public cartridge accep","vaccine":"attestation-freshness","findings":0}
+{"sha":"22ecad9","subject":"202608301430-gridatlas: record live cartridge acceptance","vaccine":"one-active-scope","findings":0}
+{"sha":"22ecad9","subject":"202608301430-gridatlas: record live cartridge acceptance","vaccine":"no-app-copies","findings":0}
+{"sha":"22ecad9","subject":"202608301430-gridatlas: record live cartridge acceptance","vaccine":"no-per-release-workflows","findings":0}
+{"sha":"22ecad9","subject":"202608301430-gridatlas: record live cartridge acceptance","vaccine":"no-expiry-windows","findings":0}
+{"sha":"22ecad9","subject":"202608301430-gridatlas: record live cartridge acceptance","vaccine":"self-terminating-loops","findings":0}
+{"sha":"22ecad9","subject":"202608301430-gridatlas: record live cartridge acceptance","vaccine":"chaining-token","findings":2}
+{"sha":"22ecad9","subject":"202608301430-gridatlas: record live cartridge acceptance","vaccine":"pointer-verifies","findings":0}
+{"sha":"22ecad9","subject":"202608301430-gridatlas: record live cartridge acceptance","vaccine":"derived-state-not-authored","findings":1}
+{"sha":"22ecad9","subject":"202608301430-gridatlas: record live cartridge acceptance","vaccine":"context-diet","findings":0}
+{"sha":"22ecad9","subject":"202608301430-gridatlas: record live cartridge acceptance","vaccine":"rollback-exists","findings":0}
+{"sha":"22ecad9","subject":"202608301430-gridatlas: record live cartridge acceptance","vaccine":"registry-integrity","findings":0}
+{"sha":"22ecad9","subject":"202608301430-gridatlas: record live cartridge acceptance","vaccine":"no-dangerous-apis","findings":0}
+{"sha":"22ecad9","subject":"202608301430-gridatlas: record live cartridge acceptance","vaccine":"pinned-actions","findings":0}
+{"sha":"22ecad9","subject":"202608301430-gridatlas: record live cartridge acceptance","vaccine":"least-permissions","findings":0}
+{"sha":"22ecad9","subject":"202608301430-gridatlas: record live cartridge acceptance","vaccine":"agent-quarantine","findings":0}
+{"sha":"22ecad9","subject":"202608301430-gridatlas: record live cartridge acceptance","vaccine":"vocabulary","findings":0}
+{"sha":"22ecad9","subject":"202608301430-gridatlas: record live cartridge acceptance","vaccine":"monotonic-utc-generations","findings":23}
+{"sha":"22ecad9","subject":"202608301430-gridatlas: record live cartridge acceptance","vaccine":"on-ledger-commits","findings":2}
+{"sha":"22ecad9","subject":"202608301430-gridatlas: record live cartridge acceptance","vaccine":"executor-declared","findings":7}
+{"sha":"22ecad9","subject":"202608301430-gridatlas: record live cartridge acceptance","vaccine":"loop-exists","findings":1}
+{"sha":"22ecad9","subject":"202608301430-gridatlas: record live cartridge acceptance","vaccine":"rollback-exercised","findings":1}
+{"sha":"22ecad9","subject":"202608301430-gridatlas: record live cartridge acceptance","vaccine":"attestation-freshness","findings":0}

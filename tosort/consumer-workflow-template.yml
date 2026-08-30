@@ -1,0 +1,17 @@
+# Copy to <repo>/.github/workflows/<12-digit-timestamp>-inoculate.yml. That is the whole integration.
+# Replace both SHAs with the commit of Ventusltd/cvaa you have reviewed. Never use @main.
+name: Inoculate against hostile amnesia
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+  security-events: write
+jobs:
+  cvaa:
+    uses: Ventusltd/cvaa/.github/workflows/202608301446-inoculate.yml@REPLACE_WITH_40_CHAR_SHA
+    with:
+      cvaa_sha: REPLACE_WITH_40_CHAR_SHA
