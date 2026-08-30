@@ -1,0 +1,65 @@
+CVAA UPLOAD ORDER  ·  GENERATION 202608301448
+Read this if you have no memory of anything. It tells you what every file is and where it goes.
+
+WHAT IS ALREADY IN github.com/Ventusltd/cvaa (do not touch)
+  README.md                                   two lines, replaced by the README.md in this batch
+  202608301321-gridatlas-amnesia-vaccine.txt  the case history the first ten vaccines came from
+  202608301431-hardening-cvaa.md              the doctrine review the next six vaccines came from
+
+THIS BATCH, generation 202608301440 to 202608301448. Upload as one commit titled
+"202608301448: hardened registry, 16 vaccines, self-test, SHA-pinned reusable workflow".
+
+  repo root
+    README.md                          overwrite. First three lines tell an amnesiac what to do.
+    inoculate.mjs                      the runner. Fail-closed registry load, vaccines.lock check,
+                                       banned-API scan, worker sandbox (no env, 5 s cap), superseded_by,
+                                       cvaa.json baselines that expire, SARIF and job summary.
+    vaccines.lock                      sha256 of every vaccine. Regenerate with: node inoculate.mjs --lock
+    cvaa.json                          this repo's own baseline: pinned-actions grandfathered at 6 until
+                                       2026-09-30. It can only fall.
+    consumer-workflow-template.yml     the six lines any other repo copies. Two SHA placeholders in it.
+    202608301448-upload-order.txt      this file.
+  tools/
+    selftest.mjs                       builds a clean fixture and 14 diseased fixtures in tmp, asserts
+                                       every antibody fires on disease and is silent on health.
+  .github/workflows/
+    202608301446-inoculate.yml         reusable workflow consumers call by commit SHA with cvaa_sha input.
+    202608301447-selftest.yml          runs on every push here: lock check, self-test, self-inoculation.
+  vaccines/                            sixteen files, timestamp order, nothing else:
+    202608301321-one-active-scope.md
+    202608301322-no-app-copies.md
+    202608301323-no-per-release-workflows.md
+    202608301324-no-expiry-windows.md
+    202608301325-self-terminating-loops.md
+    202608301326-chaining-token.md
+    202608301327-pointer-verifies.md
+    202608301328-derived-state-not-authored.md
+    202608301329-context-diet.md
+    202608301330-rollback-exists.md
+    202608301440-registry-integrity.md      new, from hardening item B3
+    202608301441-no-dangerous-apis.md       new, from B1 and A8
+    202608301442-pinned-actions.md          new, from A8 and B9
+    202608301443-least-permissions.md       new, from B9
+    202608301444-agent-quarantine.md        new, from A10 and B6
+    202608301445-vocabulary.md              new, the frozen glossary with an antibody
+
+PROOF AT BUILD TIME, 2026-08-30 14:48 UTC
+  node inoculate.mjs .          repo is immune to all vaccines on file (pinned-actions WARN under baseline)
+  node tools/selftest.mjs       all antibodies fire on disease and stay silent on health
+  node inoculate.mjs ../gridatlas   see the run recorded below this file's commit in Actions
+
+AFTER THE COMMIT, three things only a human can do, in this order
+  1. Replace the four @v4 / @v3 tags in the two workflows with 40-character commit SHAs. Take them from
+     github.com/actions/checkout, actions/setup-node and github/codeql-action releases pages. Then set
+     cvaa.json to {"legacy_workflows": 2} and delete the allow entry. Re-run: pinned-actions goes immune.
+  2. Copy consumer-workflow-template.yml into gridatlas as .github/workflows/202608301449-inoculate.yml,
+     replacing REPLACE_WITH_40_CHAR_SHA with the SHA of this commit (both places). Add cvaa.json there
+     with {"legacy_workflows": 21, "allow": [{"vaccine":"chaining-token","max":13,"expires":"2026-09-30"},
+     {"vaccine":"no-expiry-windows","max":2,"expires":"2026-09-30"},
+     {"vaccine":"least-permissions","max":2,"expires":"2026-09-30"}]}. Push. Read the Actions log.
+     For the record, gridatlas already pins every action by SHA (actions/checkout@3d3c42e5... in 25
+     workflows), so pinned-actions is immune there on day one. Its 18 findings on 2026-08-30 are:
+     chaining-token 13, no-expiry-windows 2, least-permissions 2, no-per-release-workflows 1.
+  3. When an AI or a human does something stupid, do not remember it. Write vaccines/<now>-<slug>.md with
+     Disease, Symptom, Antibody, Dose, Provenance, run node inoculate.mjs --lock, run node tools/selftest.mjs
+     after adding its diseased fixture, commit both. Every repo is immune on its next run.
