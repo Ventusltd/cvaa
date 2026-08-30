@@ -20,6 +20,7 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
+          token: ${{ secrets.CVAA_PAT || github.token }}
           persist-credentials: true
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
@@ -27,7 +28,7 @@ jobs:
       - name: Apply the full-history policy once and commit it from CI
         id: repair
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.CVAA_PAT || github.token }}
         shell: bash
         run: |
           set -euo pipefail
