@@ -1,0 +1,443 @@
+GRIDATLAS  ·  SCOPE LOOP AND AMNESIA VACCINE  ·  GENERATION 202608301321
+Repo: github.com/Ventusltd/gridatlas   Live: https://ventusltd.github.io/gridatlas/
+Consolidated 2026-08-30. Everything below is written against the real repo state on that date.
+
+=====================================================================
+PART 1  DIAGNOSIS
+=====================================================================
+On 2026-08-30 the repo has 25 timestamped workflows, 8 full copies of the app
+(202608291237-atlas-v9 through 202608300453-atlas-v9), and the current release id
+repeated in root index.html (4 places), releases/current-v5.json, state/live-set.json,
+build-manifest.json and release-manifest.json. Every workflow hard-codes RELEASE_ID,
+PARENT_RELEASE_ID and a MISSION_EXPIRES_AT window; 202608300453's expired at 08:35.
+The search cartridge 202608291818-place-postcode-search.js only knows the 9,505
+postcodes inside the REPD parquet, and its contract pins externalGeocoderRequests: 0.
+Pushes from promote/watchdog workflows use the default GITHUB_TOKEN, which GitHub
+deliberately does not chain into further workflow runs, so every step got its own cron.
+That is hostile amnesia in a repo: each session's AI built a fresh driver because it
+could not see the last one.
+
+=====================================================================
+PART 2  HOW THE VACCINE WORKS
+=====================================================================
+Memory lives in files a machine checks, never in a person or a model.
+- STATE.md: generated one-pager; what is live, what is active, what the rules are.
+- scope-of-works/: timestamped markdown files, exactly one with status active,
+  each naming its successor, so the work is a linked list on disk.
+- tools/scope/loop.mjs: lint | next | state | rollback. One script, four verbs.
+- .github/workflows/202608301321-scope-loop.yml: wakes every 30 min or on dispatch,
+  lints, finds the active scope, regenerates STATE.md, hands Claude Code only those
+  two files, requires it to write the successor and mark itself done, commits.
+- .github/workflows/202608301321-verify-live.yml: after Pages deploys, polls the
+  root until it serves what git says is current, runs the golden path in a real
+  browser (repd_ref 13599, Beacon Fen Energy Park), rolls back atlas/current.json
+  on failure.
+- lint fails on the four regressions amnesia produces: two active scopes, a full
+  app copy at the root, a new one-off workflow, a pointer at a release whose
+  sha256sums.txt does not verify. The AI has no memory but cannot break structure.
+
+Worked samples
+1. Ordinary run: loop finds 02-cartridge-manifest active, agent adds cartridges to
+   current.json, writes 03 as successor, flips 02 to done, lint passes, commit.
+   Context loaded: about three thousand words.
+2. Regression: a later session copies the app to 202609011000-atlas-v9 at root and
+   adds a workflow. Lint fails on both, run goes red, nothing pushes.
+3. Blocked: scope 3 needs pipelinenews_repo_url, still null. Agent sets blocked,
+   writes the reason, commits. Later runs find nothing active and exit in 20 s.
+4. Bad promotion: scope 4 ships the postcode cartridge, golden path fails, verify-live
+   reverts current.json to its previous commit. Site is back within one deploy.
+5. Human returns after two weeks: reads STATE.md and the one active file. Done.
+
+=====================================================================
+PART 3  HUMAN PREREQUISITES (only you can do these)
+=====================================================================
+1. Create a GitHub App on the Ventusltd org with Contents: write and Pull requests:
+   write, install it on gridatlas, store GRIDATLAS_APP_ID and
+   GRIDATLAS_APP_PRIVATE_KEY as repo secrets, alongside ANTHROPIC_API_KEY.
+   Without the App token the loop's pushes will not trigger Pages or verify-live.
+2. Paste the pipelinenews repo URL under "## inputs" in the master scope file.
+3. Merge the files in Part 4, then run the scope loop once via workflow_dispatch.
+
+=====================================================================
+PART 4  FILES  (paths are relative to the repo root)
+=====================================================================
+
+----- scope-of-works/202608301321-scope-of-works.md -----
+---
+schema: gridatlas.scope-of-works.v1
+generation: "202608301321"
+status: active          # active | done | blocked
+scope: 0                # 0 = this is the master list; 1..7 = a single scope item
+parent: null
+next: "202608301321-01-move-atlas-into-atlas-folder.md"
+---
+
+# Scope of works master, 202608301321
+
+One scope file is active at any moment. The loop workflow reads the newest file whose
+status is active, does that scope only, then writes the successor file and flips this
+one to done. Nothing here is remembered by a human or an AI; the files are the memory.
+
+1. Move the atlas into its own folder called atlas. Existing 2026082*-atlas-v9 folders
+   move under atlas/releases/ unchanged (they are immutable). Root index.html becomes a
+   two line redirect to atlas/.
+2. Modularise. atlas/index.html loads cartridges listed in atlas/current.json, each with
+   a sha256, verified in the browser with crypto.subtle before use. A new generation adds
+   or replaces a cartridge and rewrites current.json. The app shell is never copied again.
+3. Learn from the pipelinenews repo. BLOCKED until the human pastes the repo URL into
+   this file under "inputs".
+4. Location search. Ship 202608301136-place-postcode-search.js as a cartridge with the
+   postcodes.io LOCATION_ONLY lane and the contract ui/cartridges/202608301136-uk-gazetteer-flyto.mjs.
+5. Next version runs from atlas/index.html plus cartridges only; verify-live proves it.
+6. All of the above is done by the scope loop workflow, never by hand.
+7. Amnesia vaccine. tools/scope/lint.mjs fails the loop if anyone, human or AI, creates
+   a new full app copy, a new per-release workflow, or a second active scope file.
+
+## inputs
+pipelinenews_repo_url: null
+
+## acceptance for the master
+- atlas/current.json exists and names a release whose sha256sums.txt verifies
+- exactly one scope file has status active
+- STATE.md regenerated by tools/scope/loop.mjs state on every loop run
+
+----- scope-of-works/202608301321-01-move-atlas-into-atlas-folder.md -----
+---
+schema: gridatlas.scope-of-works.v1
+generation: "202608301321"
+status: active
+scope: 1
+parent: "202608301321-scope-of-works.md"
+next: null
+---
+
+# Scope 1: move the atlas into atlas/
+
+Do only this. Do not touch search, cartridges, or manifests.
+
+Steps
+- git mv every top level folder matching ^2026[0-9]{8}-atlas-v9$ to atlas/releases/<same name>
+- write atlas/current.json: {"schema":"gridatlas.current.v1","release_id":"202608300453-atlas-v9","route":"/gridatlas/atlas/releases/202608300453-atlas-v9/"}
+- replace root index.html with a meta refresh to atlas/releases/202608300453-atlas-v9/ and one anchor
+- rewrite releases/current-v5.json and state/live-set.json live_url and route to the new path
+- run node tools/scope/loop.mjs lint; it must pass
+- run sha256sum -c inside the moved release; it must pass because nothing inside changed
+
+Done when
+- curl https://ventusltd.github.io/gridatlas/ lands on atlas/releases/202608300453-atlas-v9/ (verify-live proves it)
+- write successor file 202608301321-02-cartridge-manifest.md with status active, flip this file to done, set next
+
+----- tools/scope/loop.mjs -----
+#!/usr/bin/env node
+// tools/scope/loop.mjs  —  gridatlas scope loop driver, generation 202608301321
+// Usage: node tools/scope/loop.mjs lint | next | state | rollback
+import { readdirSync, readFileSync, writeFileSync, appendFileSync, existsSync, statSync } from 'node:fs';
+import { execSync } from 'node:child_process';
+
+const SCOPE_DIR = 'scope-of-works';
+const ATLAS_DIR = 'atlas';
+const CURRENT = `${ATLAS_DIR}/current.json`;
+const LEGACY_WORKFLOWS = Number(process.env.LEGACY_WORKFLOWS || 25);
+const LIVE_ROOT = 'https://ventusltd.github.io/gridatlas/';
+const GOLDEN_REPD_REF = '13599';
+const RELEASE_RE = /^2026\d{8}-atlas-v\d+$/;
+
+const sh = (cmd, opts = {}) => execSync(cmd, { stdio: 'pipe', ...opts }).toString().trim();
+const out = (k, v) => process.env.GITHUB_OUTPUT && appendFileSync(process.env.GITHUB_OUTPUT, `${k}=${v}\n`);
+
+function frontMatter(file) {
+  const text = readFileSync(`${SCOPE_DIR}/${file}`, 'utf8');
+  const block = text.match(/^---\n([\s\S]*?)\n---/);
+  const meta = {};
+  for (const line of (block?.[1] || '').split('\n')) {
+    const m = line.match(/^(\w+):\s*"?([^"#]*?)"?\s*(#.*)?$/);
+    if (m) meta[m[1]] = m[2].trim();
+  }
+  meta.file = file;
+  return meta;
+}
+function scopes() {
+  if (!existsSync(SCOPE_DIR)) return [];
+  return readdirSync(SCOPE_DIR).filter(f => /^\d{12}.*\.md$/.test(f)).sort().map(frontMatter);
+}
+function currentPointer() {
+  return existsSync(CURRENT) ? JSON.parse(readFileSync(CURRENT, 'utf8')) : null;
+}
+
+function lint() {
+  const failures = [];
+  const fail = m => failures.push(m);
+  if (existsSync(ATLAS_DIR)) {
+    for (const f of readdirSync('.')) if (RELEASE_RE.test(f)) fail(`root release folder ${f}; releases live in ${ATLAS_DIR}/releases`);
+  }
+  const wf = existsSync('.github/workflows') ? readdirSync('.github/workflows') : [];
+  const perRelease = wf.filter(f => /^\d{12}-/.test(f) && !/scope-loop|verify-live/.test(f));
+  if (perRelease.length > LEGACY_WORKFLOWS) fail(`${perRelease.length} timestamped workflows exceed legacy ${LEGACY_WORKFLOWS}; write a scope file instead`);
+  const active = scopes().filter(s => s.status === 'active' && s.scope !== '0');
+  if (active.length > 1) fail(`${active.length} active scope files: ${active.map(s => s.file).join(', ')}`);
+  for (const s of scopes()) if (s.scope !== '0' && s.parent && !existsSync(`${SCOPE_DIR}/${s.parent}`)) fail(`${s.file} names missing parent ${s.parent}`);
+  const cur = currentPointer();
+  if (cur) {
+    const dir = `${ATLAS_DIR}/releases/${cur.release_id}`;
+    if (!existsSync(`${dir}/sha256sums.txt`)) fail(`${dir} has no sha256sums.txt`);
+    else { try { sh('sha256sum -c sha256sums.txt --quiet', { cwd: dir }); } catch (e) { fail(`${dir} checksums fail`); } }
+    for (const c of cur.cartridges || []) {
+      const p = `${ATLAS_DIR}/${c.path}`;
+      if (!existsSync(p)) { fail(`missing cartridge ${c.path}`); continue; }
+      const have = sh(`sha256sum ${p}`).split(' ')[0];
+      if (have !== c.sha256) fail(`cartridge ${c.path} sha256 ${have} != manifest ${c.sha256}`);
+      if (statSync(p).size > 400_000) fail(`cartridge ${c.path} over 400 KB; that is an app copy`);
+    }
+    if (existsSync('index.html') && /2026\d{8}-atlas-v\d+/.test(readFileSync('index.html', 'utf8'))) fail('root index.html still hard-codes a release id; it must forward to atlas/ only');
+  }
+  if (failures.length) { console.error('LINT FAIL\n' + failures.map(f => '  - ' + f).join('\n')); process.exit(1); }
+  console.log('lint ok');
+}
+
+function next() {
+  const active = scopes().filter(s => s.status === 'active' && s.scope !== '0');
+  if (active.length > 1) { console.error('AMNESIA GUARD: more than one active scope'); process.exit(2); }
+  if (!active.length) { console.log('nothing pending'); out('pending', 'false'); return; }
+  const s = active[0];
+  console.log(`active scope ${s.file}`);
+  out('pending', 'true'); out('scope_file', `${SCOPE_DIR}/${s.file}`); out('generation', s.generation); out('scope_number', s.scope);
+}
+
+function state() {
+  const cur = currentPointer();
+  const head = sh('git log -1 --format=%h%x20%s');
+  const rows = scopes().map(s => `${s.file}  status=${s.status}  scope=${s.scope}  next=${s.next || '-'}`);
+  const live = cur ? `${cur.release_id} at ${cur.route}` : 'root index.html redirect (pre-atlas; see releases/current-v5.json)';
+  const cartridges = cur?.cartridges?.length ? cur.cartridges.map(c => `  ${c.path}  ${c.sha256.slice(0, 12)}`).join('\n') : '  none yet (scope 2 introduces them)';
+  writeFileSync('STATE.md', `# STATE  (generated ${new Date().toISOString()} by tools/scope/loop.mjs; do not edit)
+
+Read this file, then read the single active scope file. Nothing else is required to continue.
+
+Live release: ${live}
+Head: ${head}
+Golden fixture: repd_ref ${GOLDEN_REPD_REF} must resolve on ${LIVE_ROOT}
+
+Cartridges
+${cartridges}
+
+Scope ledger
+${rows.join('\n') || '  no scope files'}
+
+Rules enforced by lint
+- one active scope file at a time; scope 0 is the master list
+- releases live in atlas/releases and are immutable; sha256sums.txt must verify
+- new work is a cartridge plus a current.json rewrite, never a copy of the app
+- no new timestamped workflows; the scope loop and verify-live are the only drivers
+`);
+  console.log('STATE.md written');
+}
+
+function rollback() {
+  if (!existsSync(CURRENT)) { console.log('no pointer to roll back'); return; }
+  const commits = sh(`git log -2 --format=%H -- ${CURRENT}`).split('\n');
+  if (commits.length < 2) { console.log('pointer has no previous commit'); return; }
+  sh(`git checkout ${commits[1]} -- ${CURRENT}`);
+  sh('git config user.name gridatlas-verify-live');
+  sh('git config user.email actions@users.noreply.github.com');
+  sh(`git commit -m "verify-live: roll back ${CURRENT} to ${commits[1].slice(0, 7)}"`);
+  sh('git push');
+  console.log(`rolled back to ${commits[1].slice(0, 7)}`);
+}
+
+const cmd = process.argv[2];
+({ lint, next, state, rollback }[cmd] || (() => { console.error('usage: loop.mjs lint|next|state|rollback'); process.exit(64); }))();
+
+----- .github/workflows/202608301321-scope-loop.yml -----
+name: 202608301321 Scope loop
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+concurrency:
+  group: gridatlas-scope-loop
+  cancel-in-progress: false
+jobs:
+  loop:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/create-github-app-token@v2
+        id: app
+        with:
+          app-id: ${{ secrets.GRIDATLAS_APP_ID }}
+          private-key: ${{ secrets.GRIDATLAS_APP_PRIVATE_KEY }}
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app.outputs.token }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Amnesia vaccine
+        run: node tools/scope/loop.mjs lint
+      - name: Find the single active scope
+        id: next
+        run: node tools/scope/loop.mjs next
+      - name: Nothing pending
+        if: steps.next.outputs.pending != 'true'
+        run: echo "no active scope; exiting" >> "$GITHUB_STEP_SUMMARY"
+      - name: Regenerate STATE.md
+        if: steps.next.outputs.pending == 'true'
+        run: node tools/scope/loop.mjs state
+      - name: Do exactly one scope
+        if: steps.next.outputs.pending == 'true'
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ steps.app.outputs.token }}
+          prompt: |
+            You have no memory of previous runs. Read STATE.md, then read ${{ steps.next.outputs.scope_file }}.
+            Do only what that file says. When finished: write the successor scope file it names with
+            status active, set this file's status to done, run node tools/scope/loop.mjs lint and it must pass,
+            run node tools/scope/loop.mjs state, then commit everything to main with the message
+            "<generation>: <scope title>". If you cannot finish, set status blocked, write why under
+            a "## blocker" heading, commit, and stop. Never create a folder named *-atlas-v9 at the
+            repo root and never add a workflow file.
+          claude_args: |
+            --max-turns 40
+            --allowedTools Bash,Read,Write,Edit,Glob,Grep
+      - name: Commit anything the agent left uncommitted
+        if: steps.next.outputs.pending == 'true'
+        run: |
+          git config user.name gridatlas-scope-loop
+          git config user.email actions@users.noreply.github.com
+          git add -A
+          git commit -m "scope loop: residue from ${{ steps.next.outputs.scope_file }}" || exit 0
+          git push
+
+----- .github/workflows/202608301321-verify-live.yml -----
+name: 202608301321 Verify live and roll back
+on:
+  workflow_run:
+    workflows: ["pages-build-deployment"]
+    types: [completed]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: gridatlas-verify-live
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Wait for Pages to serve the pointer that is in git
+        run: |
+          want=$(node -e "console.log(JSON.parse(require('fs').readFileSync('atlas/current.json','utf8')).release_id)" 2>/dev/null || grep -o '2026[0-9]\{8\}-atlas-v[0-9]*' index.html | head -1)
+          for i in $(seq 1 30); do
+            live=$(curl -fsSL "https://ventusltd.github.io/gridatlas/?b=$RANDOM" | grep -o '2026[0-9]\{8\}-atlas-v[0-9]*' | head -1 || true)
+            echo "try $i live=$live want=$want"
+            [ "$live" = "$want" ] && exit 0
+            sleep 20
+          done
+          echo "pages never served $want" && exit 1
+      - run: npm ci && npx playwright install --with-deps chromium
+      - name: Golden path on the live site
+        env:
+          BASE_URL: https://ventusltd.github.io/gridatlas/
+        run: node atman/202608301321-golden-live.mjs
+      - name: Roll back pointer on failure
+        if: failure() && hashFiles('atlas/current.json') != ''
+        run: node tools/scope/loop.mjs rollback
+
+----- atman/202608301321-golden-live.mjs -----
+// Golden path against the live site. Asserts DOM side effects, never canvas pixels.
+import { chromium } from 'playwright';
+const base = process.env.BASE_URL;
+const browser = await chromium.launch();
+const page = await browser.newPage();
+const fails = [];
+page.on('pageerror', e => fails.push('pageerror ' + e.message));
+await page.goto(base, { waitUntil: 'networkidle', timeout: 90_000 });
+await page.locator('.maplibregl-canvas').waitFor({ timeout: 60_000 });
+await page.goto(page.url().split('?')[0] + '?repd_ref=13599', { waitUntil: 'networkidle' });
+await page.waitForFunction(() => document.body.dataset.gridatlasRepdDeepLink === 'resolved', null, { timeout: 90_000 }).catch(() => fails.push('golden repd_ref 13599 did not resolve'));
+await page.fill('#search-input', 'SW1A 1AA');
+await page.keyboard.press('Enter');
+await page.locator('[data-location-kind="postcode"]').first().waitFor({ timeout: 30_000 }).then(async () => {
+  await page.locator('[data-location-kind="postcode"]').first().click();
+  await page.locator('.maplibregl-popup').waitFor({ timeout: 15_000 });
+}).catch(() => fails.push('postcode lane did not fly (ok before scope 4 lands)'));
+await browser.close();
+if (fails.length) { console.error(fails.join('\n')); process.exit(1); }
+console.log('golden live ok');
+
+----- atlas/current.json -----
+{
+  "schema": "gridatlas.current.v1",
+  "release_id": "202608300453-atlas-v9",
+  "route": "/gridatlas/atlas/releases/202608300453-atlas-v9/",
+  "cartridges": []
+}
+
+----- atlas/index.html -----
+<!doctype html><meta charset="utf-8"><title>Grid Atlas</title>
+<script type="module">
+// Scope 2 target shape. Until scope 2 lands this just forwards to current.route.
+const cur = await (await fetch('./current.json', { cache: 'no-store' })).json();
+const hex = b => [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join('');
+for (const c of cur.cartridges || []) {
+  const bytes = await (await fetch(c.path)).arrayBuffer();
+  if (await crypto.subtle.digest('SHA-256', bytes).then(hex) !== c.sha256) throw new Error(`cartridge ${c.path} hash mismatch`);
+  await import(URL.createObjectURL(new Blob([bytes], { type: 'text/javascript' })));
+}
+if (!(cur.cartridges || []).length) location.replace(cur.route + location.search);
+</script>
+
+----- atlas/cartridges/202608301136-place-postcode-search.js (scope 4) -----
+The full file was delivered earlier as 202608301136-place-postcode-search.js. Changes against
+202608291818-place-postcode-search.js:
+- state.schema v2, state.generation 202608301136; geocoder_requests, geocoder_failures,
+  last_location_selection added to window.__GRIDATLAS_PLACE_SEARCH__.
+- GEOCODER_BASE = https://api.postcodes.io. queryUkGazetteer(query): full postcode ->
+  /postcodes/{pc}; outcode -> /outcodes/{oc}; otherwise and on 404 -> /places?q=&limit=8
+  (OS Open Names: name_1, local_type, county_unitary, region, longitude, latitude).
+- executeSearch runs queryOfficialRepd and queryUkGazetteer with Promise.all.
+- renderResults(repd, el, locations): REPD first, then a "UK location" divider and items
+  with data-location-kind and the note "fly to only, not a REPD project".
+- selectLocation: deletes repd_ref from the URL, never calls setDeepLink, flyTo zoom
+  13/11/12 by kind, single reusable popup "Location only · postcodes.io · no project
+  identity claimed". Geocoder errors never break the REPD lane.
+- Contract ui/cartridges/202608301136-uk-gazetteer-flyto.mjs declares
+  externalGeocoderRequests 2, resultClass LOCATION_ONLY, setsDeepLink false.
+
+=====================================================================
+PART 5  OPERATING ORDER
+=====================================================================
+Every loop run, in this order:
+  node tools/scope/loop.mjs lint      fail fast on structure
+  node tools/scope/loop.mjs next      pending=false -> exit 0
+  node tools/scope/loop.mjs state     rewrite STATE.md
+  claude-code-action prompt: read STATE.md + scope file, do only that scope,
+     write successor (status active), flip own status to done or blocked,
+     run lint, run state, commit "<generation>: <scope title>"
+  git add -A && git commit || exit 0 && git push   (residue guard)
+Every Pages deploy:
+  poll root for the release id in atlas/current.json (30 x 20 s)
+  node atman/202608301321-golden-live.mjs against the live site
+  on failure: node tools/scope/loop.mjs rollback
+
+=====================================================================
+PART 6  LIMITS RESPECTED
+=====================================================================
+Cron minimum 5 min (loop uses 30). Job timeouts 45 / 20 min under the 6 h cap.
+concurrency cancel-in-progress: false so a commit is never killed mid-write.
+workflow_dispatch always present because schedules are dropped under load and disabled
+after 60 days without commits on public repos. App token expires in 1 h, fine for a
+45 min job. postcodes.io is free, unauthenticated and CORS-open with no published hard
+limit; cache default and never poll it. Playwright asserts DOM side effects
+(body.dataset.gridatlasRepdDeepLink, .maplibregl-popup), never canvas pixels.
