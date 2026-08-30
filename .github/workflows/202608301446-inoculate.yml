@@ -1,0 +1,35 @@
+name: 202608301446 Inoculate (reusable)
+on:
+  workflow_call:
+    inputs:
+      cvaa_sha:
+        type: string
+        required: true
+permissions:
+  contents: read
+  security-events: write
+jobs:
+  inoculate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: repo
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: Ventusltd/cvaa
+          ref: ${{ inputs.cvaa_sha }}
+          path: cvaa
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: cd cvaa && node tools/selftest.mjs
+      - run: cd repo && node ../cvaa/inoculate.mjs . --sarif ../cvaa.sarif
+      - uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: cvaa.sarif
+          category: cvaa
