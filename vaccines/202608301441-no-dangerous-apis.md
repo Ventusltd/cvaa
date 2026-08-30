@@ -13,7 +13,7 @@ Antibody
 ```js
 export default ({ registry }) => {
   // built from fragments so this antibody does not itself contain the words it bans
-  const words = ["fet"+"ch", "XMLHttp"+"Request", "Web"+"Socket", "child_"+"process", "process."+"env", "ev"+"al\\s*\\(", "Func"+"tion\\s*\\(", "imp"+"ort\\s*\\(", "req"+"uire\\s*\\("];
+  const words = ["fet"+"ch\\s*\\(", "XMLHttp"+"Request", "Web"+"Socket", "child_"+"process", "worker_"+"threads", "process."+"env", "ev"+"al\\s*\\(", "Func"+"tion\\s*\\(", "imp"+"ort\\s*\\(", "req"+"uire\\s*\\("];
   const re = new RegExp("\\b(" + words.join("|") + ")");
   return registry.flatMap(v => { const hit = v.code.match(re); return hit ? [`${v.file}: antibody uses ${hit[1]}; antibodies are pure functions of the context`] : []; });
 }
@@ -23,4 +23,4 @@ Dose
 Runs every-loop.
 
 Provenance
-cvaa 202608301431-hardening-cvaa.md items A8 and B1; CISA alert on CVE-2025-30066; Node docs: node:vm is not a security mechanism.
+cvaa 202608301431-hardening-cvaa.md items A8 and B1; CISA alert on CVE-2025-30066; Node docs: node:vm is not a security mechanism. Calls are banned, not harmless vocabulary such as fetch-depth.

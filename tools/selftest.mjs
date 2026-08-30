@@ -1,5 +1,5 @@
 // cvaa/tools/selftest.mjs — every antibody must fire on its diseased fixture and stay silent on a clean one.
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, existsSync, rmSync, readdirSync, copyFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { execSync } from 'node:child_process';
@@ -7,7 +7,7 @@ const here = new URL('..', import.meta.url).pathname;
 const w = (root, p, s) => { mkdirSync(join(root, p, '..'), { recursive: true }); writeFileSync(join(root, p), s); };
 const CLEAN = root => {
   w(root, 'README.md', '# clean');
-  w(root, '.github/workflows/202608301321-scope-loop.yml', 'on:\n  schedule:\n    - cron: "*/30 * * * *"\n  workflow_dispatch:\npermissions:\n  contents: read\njobs:\n  a:\n    timeout-minutes: 10\n    steps:\n      - uses: actions/checkout@0000000000000000000000000000000000000000\n      - run: node inoculate.mjs || exit 0\n');
+  w(root, '.github/workflows/202608301321-scope-loop.yml', 'on:\n  schedule:\n    - cron: "*/30 * * * *"\n  workflow_dispatch:\npermissions:\n  contents: read\njobs:\n  a:\n    timeout-minutes: 10\n    steps:\n      - uses: actions/checkout@0000000000000000000000000000000000000000\n        with:\n          fetch-depth: 0\n      - run: node inoculate.mjs || exit 0\n');
   w(root, 'scope-of-works/202608301321-a.md', '---\nstatus: done\nscope: 1\nexecutor: script\n---\n');
 };
 const DISEASED = {
@@ -30,9 +30,13 @@ const DISEASED = {
   'no-time-based-gates': r => w(r, '.github/workflows/202608300453-x.yml', 'env:\n  MISSION_EXPIRES_AT: 2026\n'),
   'executor-declared': r => w(r, 'scope-of-works/202608301322-b.md', '---\nstatus: done\nscope: 2\n---\n'),
   'loop-exists': r => w(r, '.github/workflows/202608301321-scope-loop.yml', 'on:\n  workflow_dispatch:\npermissions:\n  contents: read\njobs:\n  a:\n    timeout-minutes: 5\n    steps:\n      - run: echo || exit 0\n'),
+  'full-history-checkout': r => { w(r, '.git/shallow', '0000000000000000000000000000000000000000\n'); w(r, '.github/workflows/202608301720-cvaa.yml', 'steps:\n  - uses: actions/checkout@0000000000000000000000000000000000000000\n  - run: node cvaa/inoculate.mjs .\n'); },
   'no-expiry-windows': null,   // superseded by no-time-based-gates
 };
 let failed = 0;
+const registryNames = readdirSync(join(here, 'vaccines')).filter(file => file.endsWith('.md')).map(file => file.replace(/^\d{12}-/, '').replace(/\.md$/, ''));
+for (const name of registryNames) if (!(name in DISEASED)) { console.error(`selftest fixture missing for ${name}`); failed++; }
+for (const name of Object.keys(DISEASED)) if (!registryNames.includes(name)) { console.error(`selftest fixture has no vaccine: ${name}`); failed++; }
 const run = root => { try { return execSync(`node ${join(here, 'inoculate.mjs')} ${root} --no-lock`, { stdio: 'pipe' }).toString(); } catch (e) { return e.stdout.toString(); } };
 const clean = mkdtempSync(join(tmpdir(), 'cvaa-clean-')); CLEAN(clean);
 const cleanOut = run(clean);
@@ -46,6 +50,38 @@ for (const [name, seed] of Object.entries(DISEASED)) {
   if (!fired) failed++;
   rmSync(root, { recursive: true, force: true });
 }
-rmSync(clean, { recursive: true, force: true });
+// Machine-output contract.
+try {
+  const jsonOut = execSync(`node ${join(here, 'inoculate.mjs')} ${clean} --no-lock --no-write --json`, { stdio: 'pipe' }).toString();
+  const line = jsonOut.split('\n').find(value => value.startsWith('{"schema":"cvaa.run.v1"'));
+  const parsed = JSON.parse(line || '{}');
+  if (parsed.schema !== 'cvaa.run.v1' || parsed.shallow !== false || !Array.isArray(parsed.results)) throw new Error('invalid JSON run contract');
+} catch (error) { console.error(`JSON contract failed: ${error.message}`); failed++; }
+
+// Baseline generator preserves policy, refuses fail-closed findings and never widens a ratchet.
+const gitify = (root, generation = '202608301700') => {
+  execSync('git init -q && git config user.name selftest && git config user.email selftest@example.invalid && git add . && git commit -q -m "' + generation + ': fixture"', { cwd: root, stdio: 'pipe' });
+};
+const baseline = mkdtempSync(join(tmpdir(), 'cvaa-baseline-')); CLEAN(baseline); DISEASED['chaining-token'](baseline);
+w(baseline, '.github/workflows/unpinned.yml', 'jobs:\n  x:\n    steps:\n      - uses: actions/checkout@v4\n');
+w(baseline, 'cvaa.json', JSON.stringify({ custom: 'keep', allow: [{ vaccine: 'pinned-actions', max: 9, expires: '2099-01-01' }] }, null, 2) + '\n');
+gitify(baseline);
+try { execSync(`node ${join(here, 'inoculate.mjs')} ${baseline} --no-lock --no-write --baseline-write`, { stdio: 'pipe' }); } catch (error) { console.error(`baseline writer unexpectedly failed: ${error.stderr || error.message}`); failed++; }
+try {
+  const config = JSON.parse(readFileSync(join(baseline, 'cvaa.json'), 'utf8'));
+  const item = config.allow?.find(value => value.vaccine === 'chaining-token');
+  const warning = config.allow?.find(value => value.vaccine === 'pinned-actions');
+  if (config.custom !== 'keep' || !item || item.max !== 1 || !/^\d{4}-\d{2}-\d{2}$/.test(item.expires) || warning?.max !== 1 || warning?.expires !== '2099-01-01') throw new Error('baseline preservation or entry missing');
+} catch (error) { console.error(`baseline contract failed: ${error.message}`); failed++; }
+const beforeGrowth = readFileSync(join(baseline, 'cvaa.json'), 'utf8');
+w(baseline, '.github/workflows/202608301702-second-push.yml', 'jobs:\n  x:\n    steps:\n      - run: git push\n');
+execSync('git add . && git commit -q -m "202608301702: grow fixture debt"', { cwd: baseline, stdio: 'pipe' });
+let growthRejected = false;
+try { execSync(`node ${join(here, 'inoculate.mjs')} ${baseline} --no-lock --no-write --baseline-write`, { stdio: 'pipe' }); } catch (error) { growthRejected = /ratchets never widen/.test(String(error.stderr || '')); }
+if (!growthRejected || readFileSync(join(baseline, 'cvaa.json'), 'utf8') !== beforeGrowth) { console.error('baseline writer widened or rewrote a ratchet'); failed++; }
+const bad = mkdtempSync(join(tmpdir(), 'cvaa-bad-history-')); CLEAN(bad); w(bad, '.github/workflows/202608301720-cvaa.yml', 'steps:\n  - uses: actions/checkout@0000000000000000000000000000000000000000\n  - run: node inoculate.mjs .\n'); gitify(bad, '202608301703');
+try { execSync(`node ${join(here, 'inoculate.mjs')} ${bad} --no-lock --no-write --baseline-write`, { stdio: 'pipe' }); } catch {}
+if (existsSync(join(bad, 'cvaa.json'))) { console.error('baseline writer grandfathered full-history-checkout'); failed++; }
+for (const root of [clean, baseline, bad]) rmSync(root, { recursive: true, force: true });
 console.log(failed ? `\n${failed} antibody problem(s)` : '\nall antibodies fire on disease and stay silent on health');
 process.exit(failed ? 1 : 0);

@@ -3,23 +3,24 @@
 // Runs every vaccine in vaccines/ in timestamp order against a target repo.
 // Usage: node inoculate.mjs <repo-path> [--sarif out.sarif] [--no-lock]
 // Exit 1 on any finding or any malformed vaccine (fail closed). Exit 0 only when immune.
-import { readdirSync, readFileSync, existsSync, statSync, writeFileSync, appendFileSync } from 'node:fs';
+import { readdirSync, readFileSync, existsSync, statSync, writeFileSync, appendFileSync, renameSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { Worker } from 'node:worker_threads';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
 const target = args.find(a => !a.startsWith('--')) || '.';
 const sarifPath = args.includes('--sarif') ? args[args.indexOf('--sarif') + 1] : null;
 const useLock = !args.includes('--no-lock');
+const asJson = args.includes('--json');
+const writeBaseline = args.includes('--baseline-write');
 const vdir = join(here, 'vaccines');
 const REQUIRED_SECTIONS = ['Disease', 'Symptom', 'Antibody', 'Dose', 'Provenance'];
 const FILENAME = /^(\d{12})-([a-z0-9]+(?:-[a-z0-9]+)*)\.md$/;
 const DOSES = new Set(['every-loop', 'every-deploy', 'every-commit']);
-const BANNED = /\b(fetch|XMLHttpRequest|WebSocket|child_process|worker_threads|process\.env|import\s*\(|require\s*\(|eval\s*\(|Function\s*\()/;
+const BANNED = /\b(fetch\s*\(|XMLHttpRequest|WebSocket|child_process|worker_threads|process\.env|import\s*\(|require\s*\(|eval\s*\(|Function\s*\()/;
 
 function frontMatter(text) {
   const m = text.match(/^---\n([\s\S]*?)\n---/);
@@ -78,6 +79,10 @@ function buildContext(root) {
   const pointer = pointerPath ? JSON.parse(read(pointerPath)) : null;
   const rootDirs = readdirSync(root).filter(f => f !== '.git' && statSync(join(root, f)).isDirectory());
   const config = exists('cvaa.json') ? JSON.parse(read('cvaa.json')) : {};
+  const shallowState = sh('git rev-parse --is-shallow-repository');
+  const gitAvailable = shallowState !== null;
+  const shallow = shallowState === 'true';
+  const commitCount = gitAvailable ? Number(sh('git rev-list --count HEAD') || 0) : 0;
   // precompute anything that needs sh so the worker never gets a shell
   const checksums = {};
   if (pointer) { const dir = `atlas/releases/${pointer.release_id}`; checksums[dir] = exists(`${dir}/sha256sums.txt`) ? sh(`cd ${dir} && sha256sum -c sha256sums.txt --quiet && echo ok`) === 'ok' : null; }
@@ -87,7 +92,7 @@ function buildContext(root) {
   const files = { STATE: exists('STATE.md') ? read('STATE.md') : null, index: exists('index.html') ? read('index.html') : null };
   const commits = (sh("git log --format=%H%x09%an%x09%aI%x09%s -200") || "").split("\n").filter(Boolean).map(l => { const [sha, author, date, subject] = l.split("\t"); return { sha, author, date, subject, generation: (subject.match(/^(\d{12})/) || [])[1] || null, bot: /noreply|bot|\[bot\]/.test(author + (sh(`git log -1 --format=%ae ${sha}`) || "")) }; });
   const registry = vaccines.map(v => ({ file: v.file, ...v.meta, code: v.code }));
-  return { scopes, workflows, pointer, pointerPath, rootDirs, config, checksums, cartridgeHashes, stateFresh, files, registry, commits, exists: null };
+  return { scopes, workflows, pointer, pointerPath, rootDirs, config, checksums, cartridgeHashes, stateFresh, files, registry, commits, shallow, gitAvailable, commitCount, exists: null };
 }
 const ctx = buildContext(target);
 const existsList = new Set(); // antibodies get an exists() built from a snapshot, not the fs
@@ -118,13 +123,14 @@ for (const v of vaccines) {
   const grand = ctx.config.allow?.find(a => a.vaccine === v.meta.vaccine);
   const res = await runAntibody(v);
   const list = res.ok ? res.r : [`antibody failed: ${res.e}`];
-  let level = v.meta.level === 'warning' ? 'warning' : 'error';
+  const intrinsicLevel = v.meta.level === 'warning' ? 'warning' : 'error';
+  let level = intrinsicLevel;
   if (grand && res.ok) {
     if (grand.expires && Date.parse(grand.expires) < Date.now()) list.push(`allowlist for ${v.meta.vaccine} expired ${grand.expires}`);
     else if (list.length <= grand.max) level = 'warning';
   }
   if (list.length && level === 'error') findings += list.length;
-  results.push({ v, list, level });
+  results.push({ v, list, level, intrinsicLevel });
   console.log(`${list.length ? (level === 'error' ? 'FAIL  ' : 'WARN  ') : 'immune'} ${v.meta.vaccine}${grand ? ` (baseline ${grand.max})` : ''}`);
   for (const r of list) console.log(`         - ${r}`);
 }
@@ -147,5 +153,68 @@ if (process.env.GITHUB_STEP_SUMMARY) {
   const rows = results.map(r => `| ${r.v.meta.vaccine} | ${r.list.length ? (r.level === 'error' ? 'FAIL' : 'WARN') : 'immune'} | ${r.list.length} |`).join('\n');
   appendFileSync(process.env.GITHUB_STEP_SUMMARY, `## cvaa\n\n| vaccine | state | findings |\n|---|---|---|\n${rows}\n`);
 }
-console.log(findings ? `\n${findings} finding(s); repo is not immune` : '\nrepo is immune to all vaccines on file');
-process.exit(findings ? 1 : 0);
+let baseline = { written: false, path: null, expires: null, managed: [], blocked: [] };
+if (writeBaseline) {
+  const history = results.find(r => r.v.meta.vaccine === 'full-history-checkout');
+  if (!ctx.gitAvailable || ctx.shallow || history?.list.length) {
+    console.error('baseline refused: full repository history is required and full-history-checkout must be immune');
+    process.exit(1);
+  }
+  const neverBaseline = new Set(['registry-integrity', 'no-dangerous-apis', 'full-history-checkout']);
+  const blocked = results.filter(r => r.list.length && r.intrinsicLevel === 'error' && neverBaseline.has(r.v.meta.vaccine));
+  if (blocked.length) {
+    baseline.blocked = blocked.map(r => ({ vaccine: r.v.meta.vaccine, findings: r.list.length }));
+    console.error('baseline refused: fail-closed registry findings must be fixed, not grandfathered');
+    for (const item of baseline.blocked) console.error(`  - ${item.vaccine}: ${item.findings}`);
+    process.exit(1);
+  }
+  const expiry = new Date(Date.now() + 30 * 864e5).toISOString().slice(0, 10);
+  const configPath = join(target, 'cvaa.json');
+  const config = existsSync(configPath) ? JSON.parse(readFileSync(configPath, 'utf8')) : {};
+  const existing = Array.isArray(config.allow) ? config.allow.map(item => ({ ...item })) : [];
+  const byVaccine = new Map(existing.map(item => [item.vaccine, item]));
+  const resultByVaccine = new Map(results.map(r => [r.v.meta.vaccine, r]));
+  for (const [name, item] of [...byVaccine]) {
+    const result = resultByVaccine.get(name);
+    if (!result) continue;
+    if (item.expires && Date.parse(item.expires) < Date.now() && result.list.length) {
+      console.error(`baseline refused: ${name} expired ${item.expires}; remediation or explicit review is required`);
+      process.exit(1);
+    }
+    if (result.list.length > Number(item.max)) {
+      console.error(`baseline refused: ${name} grew from ${item.max} to ${result.list.length}; ratchets never widen`);
+      process.exit(1);
+    }
+    if (!result.list.length) byVaccine.delete(name);
+    else item.max = result.list.length;
+  }
+  for (const result of results) {
+    if (!result.list.length || result.intrinsicLevel !== 'error') continue;
+    const name = result.v.meta.vaccine;
+    if (!byVaccine.has(name)) byVaccine.set(name, { vaccine: name, max: result.list.length, expires: expiry });
+  }
+  const legacy = ctx.workflows.filter(w => /^\d{12}-/.test(w.file)).length;
+  if (Number.isInteger(config.legacy_workflows) && legacy > config.legacy_workflows) {
+    console.error(`baseline refused: legacy_workflows grew from ${config.legacy_workflows} to ${legacy}; ratchets never widen`);
+    process.exit(1);
+  }
+  config.legacy_workflows = legacy;
+  config.allow = [...byVaccine.values()].sort((a, b) => String(a.vaccine).localeCompare(String(b.vaccine)));
+  const tmp = `${configPath}.tmp-${process.pid}`;
+  writeFileSync(tmp, JSON.stringify(config, null, 2) + '\n');
+  renameSync(tmp, configPath);
+  baseline = { written: true, path: configPath, expires: expiry, managed: config.allow.map(item => item.vaccine), blocked: [] };
+  console.log(`cvaa.json written: ${config.allow.length} dated ratchets; new entries expire ${expiry}; existing policy preserved`);
+}
+if (asJson) console.log(JSON.stringify({
+  schema: 'cvaa.run.v1',
+  target,
+  status: findings ? (baseline.written ? 'baselined' : 'not-immune') : 'immune',
+  shallow: ctx.shallow,
+  context: { git_available: ctx.gitAvailable, commit_count: ctx.commitCount, workflows: ctx.workflows.length, scopes: ctx.scopes.length },
+  findings,
+  baseline,
+  results: results.map(r => ({ vaccine: r.v.meta.vaccine, intrinsic_level: r.intrinsicLevel, level: r.level, state: r.list.length ? (r.level === 'error' ? 'fail' : 'warn') : 'immune', findings: r.list }))
+}));
+console.log(findings ? (baseline.written ? '\nbaseline written; rerun cvaa to prove the dated warnings' : `\n${findings} finding(s); repo is not immune`) : '\nrepo is immune to all vaccines on file');
+process.exit(baseline.written ? 0 : findings ? 1 : 0);
