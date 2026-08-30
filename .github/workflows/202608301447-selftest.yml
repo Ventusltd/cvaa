@@ -40,20 +40,9 @@ jobs:
           from pathlib import Path
           import json
 
-          reusable = Path('.github/workflows/202608301446-inoculate.yml')
-          text = reusable.read_text(encoding='utf-8')
-          replacements = {
-              "          path: repo\n          persist-credentials: false":
-              "          path: repo\n          fetch-depth: 0\n          persist-credentials: false",
-              "          path: cvaa\n          persist-credentials: false":
-              "          path: cvaa\n          fetch-depth: 0\n          persist-credentials: false",
-          }
-          for old, new in replacements.items():
-              if new not in text:
-                  if text.count(old) != 1:
-                      raise SystemExit(f'expected one reusable checkout block: {old!r}')
-                  text = text.replace(old, new, 1)
-          reusable.write_text(text, encoding='utf-8')
+          reusable = Path('.github/workflows/202608301446-inoculate.yml').read_text(encoding='utf-8')
+          if reusable.count('fetch-depth: 0') != 2:
+              raise SystemExit('reusable inoculation workflow must use full history for both repositories')
 
           own = Path('.github/workflows/202608301447-selftest.yml').read_text(encoding='utf-8')
           if own.count('fetch-depth: 0') < 2:
@@ -98,7 +87,6 @@ jobs:
           PY
 
           changed_paths=(
-            .github/workflows/202608301446-inoculate.yml
             consumer-workflow-template.yml
             cvaa.json
             studies/202608301900-study-results.md
