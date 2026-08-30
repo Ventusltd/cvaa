@@ -1,1 +1,15 @@
-{ "legacy_workflows": 2, "allow": [ { "vaccine": "pinned-actions", "max": 6, "expires": "2026-09-30" } ] }
+{
+  "legacy_workflows": 2,
+  "allow": [
+    {
+      "vaccine": "pinned-actions",
+      "max": 6,
+      "expires": "2026-09-30"
+    },
+    {
+      "vaccine": "monotonic-utc-generations",
+      "max": 2,
+      "expires": "2026-09-30"
+    }
+  ]
+}

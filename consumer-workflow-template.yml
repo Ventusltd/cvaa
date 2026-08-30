@@ -1,5 +1,6 @@
 # Copy to <repo>/.github/workflows/<12-digit-timestamp>-inoculate.yml. That is the whole integration.
 # Replace both SHAs with the commit of Ventusltd/cvaa you have reviewed. Never use @main.
+# Full-history contract: the pinned reusable workflow checks out both the consumer and CVAA with fetch-depth: 0.
 name: Inoculate against hostile amnesia
 on:
   push:
