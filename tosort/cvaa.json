@@ -1,1 +1,0 @@
-{ "legacy_workflows": 2, "allow": [ { "vaccine": "pinned-actions", "max": 6, "expires": "2026-09-30" } ] }

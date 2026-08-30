@@ -8,7 +8,7 @@ const w = (root, p, s) => { mkdirSync(join(root, p, '..'), { recursive: true });
 const CLEAN = root => {
   w(root, 'README.md', '# clean');
   w(root, '.github/workflows/202608301321-scope-loop.yml', 'on:\n  schedule:\n    - cron: "*/30 * * * *"\n  workflow_dispatch:\npermissions:\n  contents: read\njobs:\n  a:\n    timeout-minutes: 10\n    steps:\n      - uses: actions/checkout@0000000000000000000000000000000000000000\n      - run: node inoculate.mjs || exit 0\n');
-  w(root, 'scope-of-works/202608301321-a.md', '---\nstatus: done\nscope: 1\n---\n');
+  w(root, 'scope-of-works/202608301321-a.md', '---\nstatus: done\nscope: 1\nexecutor: script\n---\n');
 };
 const DISEASED = {
   'one-active-scope': r => { w(r, 'scope-of-works/202608301321-a.md', '---\nstatus: active\nscope: 1\n---\n'); w(r, 'scope-of-works/202608301322-b.md', '---\nstatus: active\nscope: 2\n---\n'); },
@@ -25,7 +25,12 @@ const DISEASED = {
   'least-permissions': r => w(r, '.github/workflows/202608300453-x.yml', 'on: push\njobs: {}\n'),
   'agent-quarantine': r => w(r, '.github/workflows/202608300453-x.yml', 'steps:\n  - uses: anthropics/claude-code-action@v1\n    with:\n      prompt: do things\n'),
   'vocabulary': r => w(r, 'scope-of-works/202608301321-a.md', '---\nstatus: closed\nscope: 1\n---\n'),
-  'registry-integrity': null, 'no-dangerous-apis': null,   // these test the registry itself; covered by the runner's fail-closed load
+  'registry-integrity': null, 'no-dangerous-apis': null,   // registry-level: covered by the runner's fail-closed load
+  'monotonic-utc-generations': null, 'on-ledger-commits': null, 'rollback-exercised': null, 'attestation-freshness': null,  // history-level: need a git repo; covered by tools/replay.mjs evidence in studies/
+  'no-time-based-gates': r => w(r, '.github/workflows/202608300453-x.yml', 'env:\n  MISSION_EXPIRES_AT: 2026\n'),
+  'executor-declared': r => w(r, 'scope-of-works/202608301322-b.md', '---\nstatus: done\nscope: 2\n---\n'),
+  'loop-exists': r => w(r, '.github/workflows/202608301321-scope-loop.yml', 'on:\n  workflow_dispatch:\npermissions:\n  contents: read\njobs:\n  a:\n    timeout-minutes: 5\n    steps:\n      - run: echo || exit 0\n'),
+  'no-expiry-windows': null,   // superseded by no-time-based-gates
 };
 let failed = 0;
 const run = root => { try { return execSync(`node ${join(here, 'inoculate.mjs')} ${root} --no-lock`, { stdio: 'pipe' }).toString(); } catch (e) { return e.stdout.toString(); } };
@@ -33,10 +38,10 @@ const clean = mkdtempSync(join(tmpdir(), 'cvaa-clean-')); CLEAN(clean);
 const cleanOut = run(clean);
 for (const line of cleanOut.split('\n')) if (/^FAIL/.test(line)) { console.error(`clean fixture flagged: ${line}`); failed++; }
 for (const [name, seed] of Object.entries(DISEASED)) {
-  if (!seed) { console.log(`skip   ${name} (registry-level)`); continue; }
+  if (!seed) { console.log(`skip   ${name} (registry-level, history-level or superseded)`); continue; }
   const root = mkdtempSync(join(tmpdir(), `cvaa-${name}-`)); CLEAN(root); seed(root);
   const out = run(root);
-  const fired = new RegExp(`^FAIL\\s+${name}`, 'm').test(out);
+  const fired = new RegExp(`^(FAIL|WARN)\\s+${name}`, 'm').test(out);
   console.log(`${fired ? 'fires ' : 'SILENT'} ${name}`);
   if (!fired) failed++;
   rmSync(root, { recursive: true, force: true });

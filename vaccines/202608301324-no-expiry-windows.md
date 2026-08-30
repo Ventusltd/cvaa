@@ -2,6 +2,7 @@
 vaccine: no-expiry-windows
 generation: "202608301324"
 dose: every-loop
+superseded_by: no-time-based-gates
 ---
 Disease
 A session encodes its own lifetime into automation, so the automation dies when the session does.

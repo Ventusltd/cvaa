@@ -85,25 +85,32 @@ function buildContext(root) {
   for (const c of pointer?.cartridges || []) if (exists(`atlas/${c.path}`)) cartridgeHashes[c.path] = { sha256: sha256(readFileSync(join(root, 'atlas', c.path))), size: size(`atlas/${c.path}`) };
   const stateFresh = exists('STATE.md') && exists('tools/scope/loop.mjs') ? sh('node tools/scope/loop.mjs state --stdout') : null;
   const files = { STATE: exists('STATE.md') ? read('STATE.md') : null, index: exists('index.html') ? read('index.html') : null };
+  const commits = (sh("git log --format=%H%x09%an%x09%aI%x09%s -200") || "").split("\n").filter(Boolean).map(l => { const [sha, author, date, subject] = l.split("\t"); return { sha, author, date, subject, generation: (subject.match(/^(\d{12})/) || [])[1] || null, bot: /noreply|bot|\[bot\]/.test(author + (sh(`git log -1 --format=%ae ${sha}`) || "")) }; });
   const registry = vaccines.map(v => ({ file: v.file, ...v.meta, code: v.code }));
-  return { scopes, workflows, pointer, pointerPath, rootDirs, config, checksums, cartridgeHashes, stateFresh, files, registry, exists: null };
+  return { scopes, workflows, pointer, pointerPath, rootDirs, config, checksums, cartridgeHashes, stateFresh, files, registry, commits, exists: null };
 }
 const ctx = buildContext(target);
 const existsList = new Set(); // antibodies get an exists() built from a snapshot, not the fs
 const snapshot = (function walk(dir, prefix = '') { for (const f of readdirSync(dir)) { if (f === '.git' || f === 'node_modules') continue; const p = join(dir, f); const rel = prefix + f; existsList.add(rel); if (statSync(p).isDirectory()) walk(p, rel + '/'); } return existsList; })(target);
 ctx.paths = [...snapshot];
 
-// ---- 3. run each antibody in a worker: no env, no fs, no network, 5 s cap ----
+// ---- 3. run each antibody in a child process: Node permission model (no fs, no child_process),
+//         inside a network namespace when unshare is available (no sockets), 5 s cap, empty env ----
+import { spawn, spawnSync } from 'node:child_process';
+const RUNNER = join(here, 'tools', 'antibody-runner.mjs');
+const HAVE_UNSHARE = spawnSync('unshare', ['-rnp', '--fork', 'true'], { stdio: 'ignore' }).status === 0;
+if (!HAVE_UNSHARE) console.warn('warning: unshare -rn unavailable; antibodies run without a network namespace');
 function runAntibody(v) {
   return new Promise(resolve => {
-    const src = `import { parentPort, workerData } from 'node:worker_threads';\nconst ctx = workerData; ctx.exists = p => ctx.pathSet.has(p);\nconst antibody = (${v.code.replace(/^\s*export\s+default\s*/, '').trim().replace(/;\s*$/, '')});\nPromise.resolve().then(() => antibody(ctx)).then(r => parentPort.postMessage({ ok: true, r: r || [] })).catch(e => parentPort.postMessage({ ok: false, e: String(e && e.message || e) }));`;
-    const w = new Worker(src, { eval: true, env: {}, workerData: { ...ctx, pathSet: new Set(ctx.paths) }, resourceLimits: { maxOldGenerationSizeMb: 128 } });
-    const t = setTimeout(() => { w.terminate(); resolve({ ok: false, e: 'antibody timed out (5 s)' }); }, 5000);
-    w.once('message', m => { clearTimeout(t); resolve(m); });
-    w.once('error', e => { clearTimeout(t); resolve({ ok: false, e: String(e.message || e) }); });
+    const nodeArgs = ['--experimental-permission', `--allow-fs-read=${RUNNER}`, '--no-warnings', RUNNER];
+    const child = HAVE_UNSHARE ? spawn('unshare', ['-rnp', '--fork', process.execPath, ...nodeArgs], { env: {}, stdio: ['pipe', 'pipe', 'pipe'] })
+                               : spawn(process.execPath, nodeArgs, { env: {}, stdio: ['pipe', 'pipe', 'pipe'] });
+    let out = ''; child.stdout.on('data', d => out += d);
+    const t = setTimeout(() => { child.kill('SIGKILL'); resolve({ ok: false, e: 'antibody timed out (5 s)' }); }, 5000);
+    child.on('close', () => { clearTimeout(t); try { resolve(JSON.parse(out)); } catch { resolve({ ok: false, e: 'antibody produced no result' }); } });
+    child.stdin.end(JSON.stringify({ code: v.code, ctx: { ...ctx, paths: ctx.paths } }));
   });
 }
-
 const results = [];
 let findings = 0;
 for (const v of vaccines) {
@@ -111,7 +118,7 @@ for (const v of vaccines) {
   const grand = ctx.config.allow?.find(a => a.vaccine === v.meta.vaccine);
   const res = await runAntibody(v);
   const list = res.ok ? res.r : [`antibody failed: ${res.e}`];
-  let level = 'error';
+  let level = v.meta.level === 'warning' ? 'warning' : 'error';
   if (grand && res.ok) {
     if (grand.expires && Date.parse(grand.expires) < Date.now()) list.push(`allowlist for ${v.meta.vaccine} expired ${grand.expires}`);
     else if (list.length <= grand.max) level = 'warning';
@@ -122,6 +129,14 @@ for (const v of vaccines) {
   for (const r of list) console.log(`         - ${r}`);
 }
 
+// ---- 3b. last_fired sidecar (never touches vaccine files, so the lock stays stable) ----
+const lfPath = join(here, 'vaccines', 'last-fired.json');
+const headSha = (() => { try { return execSync('git rev-parse HEAD', { cwd: target, stdio: 'pipe' }).toString().trim(); } catch { return null; } })();
+if (headSha && !args.includes('--no-write')) {
+  const lf = existsSync(lfPath) ? JSON.parse(readFileSync(lfPath, 'utf8')) : {};
+  for (const r of results) if (r.list.length) lf[r.v.meta.vaccine] = { sha: headSha, at: new Date().toISOString() };
+  writeFileSync(lfPath, JSON.stringify(lf, null, 2) + '\n');
+}
 // ---- 4. reporting: SARIF + job summary ----
 if (sarifPath) {
   const sarif = { $schema: 'https://json.schemastore.org/sarif-2.1.0.json', version: '2.1.0', runs: [{ tool: { driver: { name: 'cvaa', rules: results.map(r => ({ id: r.v.meta.vaccine, shortDescription: { text: r.v.text.match(/Disease\n([^\n]+)/)?.[1] || r.v.meta.vaccine } })) } },

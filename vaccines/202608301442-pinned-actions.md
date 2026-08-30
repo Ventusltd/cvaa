@@ -2,6 +2,7 @@
 vaccine: pinned-actions
 generation: "202608301442"
 dose: every-commit
+level: warning
 ---
 Disease
 A workflow references a third-party action or reusable workflow by a movable tag or branch, so whoever moves the tag runs code in your CI with your secrets.

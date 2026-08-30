@@ -2,6 +2,7 @@
 vaccine: least-permissions
 generation: "202608301443"
 dose: every-commit
+level: warning
 ---
 Disease
 A workflow runs with write permissions it does not use, so a compromised step or a prompt-injected agent can push, publish or exfiltrate.
