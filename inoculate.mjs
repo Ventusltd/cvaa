@@ -38,7 +38,11 @@ const registryErrors = [];
 const vaccines = [];
 let lastTs = 0;
 for (const f of files) {
-  const text = readFileSync(join(vdir, f), 'utf8');
+  // Normalise CRLF on read. Every parse below (front matter, sections, the ```js block)
+  // is written against LF, so a Windows checkout otherwise fails the whole registry with
+  // "missing front matter" and cvaa cannot run on a developer machine at all. Normalising
+  // also keeps vaccines.lock hashes identical to a LF checkout, so the lock stays portable.
+  const text = readFileSync(join(vdir, f), 'utf8').split(String.fromCharCode(13, 10)).join(String.fromCharCode(10));
   const fm = FILENAME.exec(f);
   if (!fm) { registryErrors.push(`${f}: filename must be <12 digits>-<kebab-slug>.md`); continue; }
   const ts = Number(fm[1]);
@@ -105,14 +109,30 @@ import { spawn, spawnSync } from 'node:child_process';
 const RUNNER = join(here, 'tools', 'antibody-runner.mjs');
 const HAVE_UNSHARE = spawnSync('unshare', ['-rnp', '--fork', 'true'], { stdio: 'ignore' }).status === 0;
 if (!HAVE_UNSHARE) console.warn('warning: unshare -rn unavailable; antibodies run without a network namespace');
+// Node renamed --experimental-permission to --permission in v23. Probe, never assume: an
+// unaccepted flag kills every child before it runs, which used to surface as
+// "antibody produced no result" on every vaccine and read as a diseased repo.
+const PERM_FLAG = ['--permission', '--experimental-permission'].find(f =>
+  spawnSync(process.execPath, [f, '--allow-fs-read=*', '-e', '0'], { stdio: 'ignore' }).status === 0);
+if (!PERM_FLAG) { console.error(`fatal: ${process.version} accepts neither --permission nor --experimental-permission; antibodies cannot be sandboxed`); process.exit(2); }
 function runAntibody(v) {
   return new Promise(resolve => {
-    const nodeArgs = ['--experimental-permission', `--allow-fs-read=${RUNNER}`, '--no-warnings', RUNNER];
+    const nodeArgs = [PERM_FLAG, `--allow-fs-read=${RUNNER}`, '--no-warnings', RUNNER];
     const child = HAVE_UNSHARE ? spawn('unshare', ['-rnp', '--fork', process.execPath, ...nodeArgs], { env: {}, stdio: ['pipe', 'pipe', 'pipe'] })
                                : spawn(process.execPath, nodeArgs, { env: {}, stdio: ['pipe', 'pipe', 'pipe'] });
-    let out = ''; child.stdout.on('data', d => out += d);
+    let out = '', err = ''; child.stdout.on('data', d => out += d); child.stderr.on('data', d => err += d);
     const t = setTimeout(() => { child.kill('SIGKILL'); resolve({ ok: false, e: 'antibody timed out (5 s)' }); }, 5000);
-    child.on('close', () => { clearTimeout(t); try { resolve(JSON.parse(out)); } catch { resolve({ ok: false, e: 'antibody produced no result' }); } });
+    child.on('error', e => { clearTimeout(t); resolve({ ok: false, fatal: true, e: `antibody runner could not spawn: ${e.message}` }); });
+    child.on('close', code => {
+      clearTimeout(t);
+      try { return resolve(JSON.parse(out)); } catch {}
+      // A non-zero exit with empty stdout is the runner failing to start, not the antibody
+      // reporting. Different diseases; say which one, and never dress the first as a finding.
+      if (!out.trim()) return resolve({ ok: false, fatal: code !== 0, e: code !== 0
+        ? `antibody runner exited ${code} before running: ${err.trim().slice(0, 160) || 'no stderr'}`
+        : 'antibody produced no result' });
+      resolve({ ok: false, e: `antibody returned unparseable output: ${out.trim().slice(0, 120)}` });
+    });
     child.stdin.end(JSON.stringify({ code: v.code, ctx: { ...ctx, paths: ctx.paths } }));
   });
 }
@@ -122,6 +142,7 @@ for (const v of vaccines) {
   if (v.meta.superseded_by) { console.log(`skip   ${v.meta.vaccine} (superseded by ${v.meta.superseded_by})`); continue; }
   const grand = ctx.config.allow?.find(a => a.vaccine === v.meta.vaccine);
   const res = await runAntibody(v);
+  if (res.fatal) { console.error(`fatal: ${res.e}`); console.error('       every vaccine would report this. Refusing to emit findings from a runner that never ran.'); process.exit(2); }
   const list = res.ok ? res.r : [`antibody failed: ${res.e}`];
   const intrinsicLevel = v.meta.level === 'warning' ? 'warning' : 'error';
   let level = intrinsicLevel;
