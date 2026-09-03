@@ -34,7 +34,10 @@ const DISEASED = {
   'agent-quarantine': r => w(r, '.github/workflows/202608300453-x.yml', 'steps:\n  - uses: anthropics/claude-code-action@v1\n    with:\n      prompt: do things\n'),
   'vocabulary': r => w(r, 'scope-of-works/202608301321-a.md', '---\nstatus: closed\nscope: 1\n---\n'),
   'registry-integrity': null, 'no-dangerous-apis': null,   // registry-level: covered by the runner's fail-closed load
-  'monotonic-utc-generations': null, 'on-ledger-commits': null, 'rollback-exercised': null, 'attestation-freshness': r => {
+  'monotonic-utc-generations': null, 'on-ledger-commits': null, 'rollback-exercised': r => {
+    w(r, 'atlas/current.json', '{"release_id":"202608300453-atlas-v9"}');
+    w(r, 'atlas/state/rollback-drills.json', '{"drills":[{"at":"202609030100","release_id":"202608300453-atlas-v9","outcome":"failed: pointer would not move"}]}');
+  }, 'attestation-freshness': r => {
     w(r, 'atlas/current.json', '{"generation":"202609030234","release_id":"202608300453-atlas-v9"}');
     w(r, 'atlas/state/live-set.json', '{"generation":"202608292311","release_id":"202608292311-atlas-v9"}');
   },  // history-level: need a git repo; covered by tools/replay.mjs evidence in studies/

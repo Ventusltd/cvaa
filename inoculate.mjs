@@ -107,12 +107,18 @@ function buildContext(root) {
   // The live attestation, parsed. attestation-freshness used to infer freshness
   // from commit prose because it had no way to read this; antibodies are sandboxed
   // and see only what the context carries.
+  /* The record of rollback drills that were actually run. rollback-exercised used to
+     infer this from commit subjects, which is why a commit describing a rollback
+     design satisfied it. Antibodies are sandboxed, so the context must carry it. */
+  const rollbackDrills = exists('atlas/state/rollback-drills.json')
+    ? (() => { try { return JSON.parse(read('atlas/state/rollback-drills.json')); } catch { return null; } })()
+    : null;
   const liveSet = exists('atlas/state/live-set.json')
     ? (() => { try { return JSON.parse(read('atlas/state/live-set.json')); } catch { return null; } })()
     : null;
   const commits = (sh("git log --format=%H%x09%an%x09%aI%x09%s -200") || "").split("\n").filter(Boolean).map(l => { const [sha, author, date, subject] = l.split("\t"); return { sha, author, date, subject, generation: (subject.match(/^(\d{12})/) || [])[1] || null, bot: /noreply|bot|\[bot\]/.test(author + (sh(`git log -1 --format=%ae ${sha}`) || "")) }; });
   const registry = vaccines.map(v => ({ file: v.file, ...v.meta, code: v.code }));
-  return { scopes, workflows, pointer, pointerPath, liveSet, rootDirs, config, checksums, cartridgeHashes, stateFresh, files, registry, commits, shallow, gitAvailable, commitCount, exists: null };
+  return { scopes, workflows, pointer, pointerPath, liveSet, rollbackDrills, rootDirs, config, checksums, cartridgeHashes, stateFresh, files, registry, commits, shallow, gitAvailable, commitCount, exists: null };
 }
 const ctx = buildContext(target);
 const existsList = new Set(); // antibodies get an exists() built from a snapshot, not the fs
