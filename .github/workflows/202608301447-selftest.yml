@@ -25,7 +25,7 @@ jobs:
           set -euo pipefail
           test "$(git rev-parse --is-shallow-repository)" = false
           test "$(git rev-list --count HEAD)" -gt 1
-          test "$(find vaccines -maxdepth 1 -type f -name '*.md' | wc -l)" -eq "$(node -e "console.log(Object.keys(require('./vaccines.lock')).length)")"
+          test "$(find vaccines -maxdepth 1 -type f -name '*.md' | wc -l)" -eq "$(node -e "console.log(Object.keys(JSON.parse(require('fs').readFileSync('vaccines.lock','utf8'))).length)")"
           node tools/selftest.mjs | tee /tmp/selftest.log
           test "$(tail -n 1 /tmp/selftest.log)" = 'all antibodies fire on disease and stay silent on health'
           node inoculate.mjs . --no-write | tee /tmp/inoculate.log
