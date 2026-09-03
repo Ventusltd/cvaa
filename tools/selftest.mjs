@@ -6,6 +6,12 @@ import { tmpdir } from 'node:os';
 import { execSync } from 'node:child_process';
 const here = dirname(dirname(fileURLToPath(import.meta.url)));
 const w = (root, p, s) => { mkdirSync(join(root, p, '..'), { recursive: true }); writeFileSync(join(root, p), s); };
+// Declared here, not beside the baseline block below, because history-level fixtures need it
+// while the DISEASED table is being seeded - a const referenced before its line is a TDZ error.
+const gitify = (root, generation = '202608301700', extra = []) => {
+  execSync('git init -q && git config user.name selftest && git config user.email selftest@example.invalid && git add . && git commit -q -m "' + generation + ': fixture"', { cwd: root, stdio: 'pipe' });
+  for (const subject of extra) execSync('git commit -q --allow-empty -m ' + JSON.stringify(subject), { cwd: root, stdio: 'pipe' });
+};
 const CLEAN = root => {
   w(root, 'README.md', '# clean');
   w(root, '.github/workflows/202608301321-scope-loop.yml', 'on:\n  schedule:\n    - cron: "*/30 * * * *"\n  workflow_dispatch:\npermissions:\n  contents: read\njobs:\n  a:\n    timeout-minutes: 10\n    steps:\n      - uses: actions/checkout@0000000000000000000000000000000000000000\n        with:\n          fetch-depth: 0\n      - run: node inoculate.mjs || exit 0\n');
@@ -34,7 +40,17 @@ const DISEASED = {
   'agent-quarantine': r => w(r, '.github/workflows/202608300453-x.yml', 'steps:\n  - uses: anthropics/claude-code-action@v1\n    with:\n      prompt: do things\n'),
   'vocabulary': r => w(r, 'scope-of-works/202608301321-a.md', '---\nstatus: closed\nscope: 1\n---\n'),
   'registry-integrity': null, 'no-dangerous-apis': null,   // registry-level: covered by the runner's fail-closed load
-  'monotonic-utc-generations': null, 'on-ledger-commits': null, 'rollback-exercised': r => {
+  'monotonic-utc-generations': null,
+  // History-level, and fixturable: gitify gives the fixture a real commit graph. The scope ledger
+  // declares generation 202608301321; the second commit stamps a later generation that no scope
+  // file claims, so it must be reported. Its subject is a real gridatlas subject, and it contains
+  // the word "drill" on purpose - under the removed prose exemption this fixture stayed SILENT,
+  // which is what makes it a control rather than a restatement of code that already passes.
+  'on-ledger-commits': r => {
+    w(r, 'scope-of-works/202608301321-a.md', '---\ngeneration: "202608301321"\nstatus: done\nscope: 1\nexecutor: script\n---\n');
+    gitify(r, '202608301321', ['202608301822: record A-roads forensic drill request']);
+  },
+  'rollback-exercised': r => {
     w(r, 'atlas/current.json', '{"release_id":"202608300453-atlas-v9"}');
     w(r, 'atlas/state/rollback-drills.json', '{"drills":[{"at":"202609030100","release_id":"202608300453-atlas-v9","outcome":"failed: pointer would not move"}]}');
   }, 'attestation-freshness': r => {
@@ -51,7 +67,7 @@ let failed = 0;
 const registryNames = readdirSync(join(here, 'vaccines')).filter(file => file.endsWith('.md')).map(file => file.replace(/^\d{12}-/, '').replace(/\.md$/, ''));
 for (const name of registryNames) if (!(name in DISEASED)) { console.error(`selftest fixture missing for ${name}`); failed++; }
 for (const name of Object.keys(DISEASED)) if (!registryNames.includes(name)) { console.error(`selftest fixture has no vaccine: ${name}`); failed++; }
-const run = root => { try { return execSync(`node ${join(here, 'inoculate.mjs')} ${root} --no-lock`, { stdio: 'pipe' }).toString(); } catch (e) { return e.stdout.toString(); } };
+const run = root => { try { return execSync(`node ${join(here, 'inoculate.mjs')} ${root} --no-lock --no-write`, { stdio: 'pipe' }).toString(); } catch (e) { return e.stdout.toString(); } };
 const clean = mkdtempSync(join(tmpdir(), 'cvaa-clean-')); CLEAN(clean);
 const cleanOut = run(clean);
 for (const line of cleanOut.split('\n')) if (/^FAIL/.test(line)) { console.error(`clean fixture flagged: ${line}`); failed++; }
@@ -90,9 +106,6 @@ if (!/^skip\s+derived-state-not-authored/m.test(hostileOut)) { console.error('de
 rmSync(hostile, { recursive: true, force: true });
 
 // Baseline generator preserves policy, refuses fail-closed findings and never widens a ratchet.
-const gitify = (root, generation = '202608301700') => {
-  execSync('git init -q && git config user.name selftest && git config user.email selftest@example.invalid && git add . && git commit -q -m "' + generation + ': fixture"', { cwd: root, stdio: 'pipe' });
-};
 const baseline = mkdtempSync(join(tmpdir(), 'cvaa-baseline-')); CLEAN(baseline); DISEASED['chaining-token'](baseline);
 w(baseline, '.github/workflows/unpinned.yml', 'jobs:\n  x:\n    steps:\n      - uses: actions/checkout@v4\n');
 w(baseline, 'cvaa.json', JSON.stringify({ custom: 'keep', allow: [{ vaccine: 'pinned-actions', max: 9, expires: '2099-01-01' }] }, null, 2) + '\n');
