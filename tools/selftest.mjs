@@ -1,9 +1,10 @@
 // cvaa/tools/selftest.mjs — every antibody must fire on its diseased fixture and stay silent on a clean one.
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, existsSync, rmSync, readdirSync, copyFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
 import { execSync } from 'node:child_process';
-const here = new URL('..', import.meta.url).pathname;
+const here = dirname(dirname(fileURLToPath(import.meta.url)));
 const w = (root, p, s) => { mkdirSync(join(root, p, '..'), { recursive: true }); writeFileSync(join(root, p), s); };
 const CLEAN = root => {
   w(root, 'README.md', '# clean');
@@ -21,6 +22,8 @@ const DISEASED = {
   'derived-state-not-authored': r => w(r, 'STATE.md', 'hand written'),
   'context-diet': r => w(r, '.github/workflows/202608300453-x.yml', 'steps:\n  - with:\n      prompt: |\n        read a.md b.md c.md d.md e.json\n'),
   'rollback-exists': r => { w(r, 'atlas/current.json', '{"release_id":"x"}'); w(r, '.github/workflows/202608300453-x.yml', 'run: echo > atlas/current.json\n'); },
+  'release-name-convention': r => w(r, 'index.html', 'const AREAS = [\n  { name:"Pipeline News — 202608260159", url:"./a/" },\n  { name:"Pipeline News — 202608291447", url:"./b/" },\n  { name:"Pipeline News — Project Intelligence 202608311343", url:"./c/" }\n];\n'),
+  'page-data-block-parses': r => w(r, 'index.html', 'const AREAS = [\n  { name:"A", url:"./a/" },\n  { name:"B, url:"./b/" }\n];\n'),
   'pinned-actions': r => w(r, '.github/workflows/202608300453-x.yml', 'steps:\n  - uses: actions/checkout@v4\n'),
   'least-permissions': r => w(r, '.github/workflows/202608300453-x.yml', 'on: push\njobs: {}\n'),
   'agent-quarantine': r => w(r, '.github/workflows/202608300453-x.yml', 'steps:\n  - uses: anthropics/claude-code-action@v1\n    with:\n      prompt: do things\n'),
