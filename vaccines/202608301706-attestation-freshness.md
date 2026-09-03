@@ -9,8 +9,6 @@ A live-site attestation written once is trusted forever.
 Symptom
 gridatlas atlas/state/live-set.json attested by its own verifier, never re-run.
 
-Antibody
-```js
 Limitation, measured 2026-09-03
 This rule compares the attestation's generation and release_id to the pointer's.
 Across the twelve distinct generations gridatlas cut on 2-3 September the two
@@ -27,6 +25,8 @@ an immune result here as "pointer and attestation agree", not as "this has been
 verified recently". Recorded rather than left implied, because a rule that
 overstates what it measures is the defect this one was just repaired for.
 
+Antibody
+```js
 export default ({ pointer, liveSet }) => {
   if (!pointer || !liveSet) return [];
   const out = [];
