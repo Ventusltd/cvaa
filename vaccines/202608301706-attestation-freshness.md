@@ -11,6 +11,22 @@ gridatlas atlas/state/live-set.json attested by its own verifier, never re-run.
 
 Antibody
 ```js
+Limitation, measured 2026-09-03
+This rule compares the attestation's generation and release_id to the pointer's.
+Across the twelve distinct generations gridatlas cut on 2-3 September the two
+never diverged: atlas/current.json and atlas/state/live-set.json are written by
+the same compose step, so equality is near-tautological in normal operation and
+the rule earns its keep only against a partial write.
+
+It therefore does NOT measure what its name claims - whether anyone re-verified
+the composition. Nothing in live-set.json records when verification ran or what
+it checked; verified_at appears only in archived workflows and in
+atman/202608291237-verify-live-release.mjs. Measuring freshness of verification
+needs an attestation artefact the estate does not yet emit. Until it does, read
+an immune result here as "pointer and attestation agree", not as "this has been
+verified recently". Recorded rather than left implied, because a rule that
+overstates what it measures is the defect this one was just repaired for.
+
 export default ({ pointer, liveSet }) => {
   if (!pointer || !liveSet) return [];
   const out = [];
