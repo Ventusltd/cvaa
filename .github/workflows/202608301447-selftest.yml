@@ -38,7 +38,9 @@ jobs:
           const run = JSON.parse(lines[0]);
           if (run.status !== 'immune') throw new Error(`registry state is ${run.status}`);
           if (run.shallow !== false || run.context?.commit_count < 2) throw new Error('history context is incomplete');
-          if (run.results.length !== 23) throw new Error(`expected 23 active results, got ${run.results.length}`);
+          const active = fs.readdirSync('vaccines').filter(f => f.endsWith('.md'))
+            .filter(f => !/^superseded_by:/m.test(fs.readFileSync(`vaccines/${f}`, 'utf8'))).length;
+          if (run.results.length !== active) throw new Error(`expected ${active} active results (vaccines on file minus superseded), got ${run.results.length}`);
           NODE
 
   fleet-audit:
