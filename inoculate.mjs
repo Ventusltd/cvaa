@@ -94,9 +94,15 @@ function buildContext(root) {
   for (const c of pointer?.cartridges || []) if (exists(`atlas/${c.path}`)) cartridgeHashes[c.path] = { sha256: sha256(readFileSync(join(root, 'atlas', c.path))), size: size(`atlas/${c.path}`) };
   const stateFresh = exists('STATE.md') && exists('tools/scope/loop.mjs') ? sh('node tools/scope/loop.mjs state --stdout') : null;
   const files = { STATE: exists('STATE.md') ? read('STATE.md') : null, index: exists('index.html') ? read('index.html') : null };
+  // The live attestation, parsed. attestation-freshness used to infer freshness
+  // from commit prose because it had no way to read this; antibodies are sandboxed
+  // and see only what the context carries.
+  const liveSet = exists('atlas/state/live-set.json')
+    ? (() => { try { return JSON.parse(read('atlas/state/live-set.json')); } catch { return null; } })()
+    : null;
   const commits = (sh("git log --format=%H%x09%an%x09%aI%x09%s -200") || "").split("\n").filter(Boolean).map(l => { const [sha, author, date, subject] = l.split("\t"); return { sha, author, date, subject, generation: (subject.match(/^(\d{12})/) || [])[1] || null, bot: /noreply|bot|\[bot\]/.test(author + (sh(`git log -1 --format=%ae ${sha}`) || "")) }; });
   const registry = vaccines.map(v => ({ file: v.file, ...v.meta, code: v.code }));
-  return { scopes, workflows, pointer, pointerPath, rootDirs, config, checksums, cartridgeHashes, stateFresh, files, registry, commits, shallow, gitAvailable, commitCount, exists: null };
+  return { scopes, workflows, pointer, pointerPath, liveSet, rootDirs, config, checksums, cartridgeHashes, stateFresh, files, registry, commits, shallow, gitAvailable, commitCount, exists: null };
 }
 const ctx = buildContext(target);
 const existsList = new Set(); // antibodies get an exists() built from a snapshot, not the fs

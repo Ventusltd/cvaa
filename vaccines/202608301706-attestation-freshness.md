@@ -11,12 +11,14 @@ gridatlas atlas/state/live-set.json attested by its own verifier, never re-run.
 
 Antibody
 ```js
-export default ({ files, commits, pointer, exists }) => {
-  if (!pointer || !exists("atlas/state/live-set.json")) return [];
-  const last = commits.find(c => /live|verif|accept/i.test(c.subject));
-  const pointerCommit = commits.find(c => /scope|cartridge|compos|promote/i.test(c.subject));
-  if (last && pointerCommit && commits.indexOf(last) > commits.indexOf(pointerCommit)) return ["pointer changed after the last live attestation; re-verify"];
-  return [];
+export default ({ pointer, liveSet }) => {
+  if (!pointer || !liveSet) return [];
+  const out = [];
+  if (liveSet.generation && pointer.generation && liveSet.generation !== pointer.generation)
+    out.push(`the live attestation names generation ${liveSet.generation} while the pointer is at ${pointer.generation}; re-verify`);
+  else if (liveSet.release_id && pointer.release_id && liveSet.release_id !== pointer.release_id)
+    out.push(`the live attestation names release ${liveSet.release_id} while the pointer is at ${pointer.release_id}; re-verify`);
+  return out;
 };
 ```
 
