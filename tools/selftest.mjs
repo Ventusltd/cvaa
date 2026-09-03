@@ -61,6 +61,19 @@ const DISEASED = {
   'executor-declared': r => w(r, 'scope-of-works/202608301322-b.md', '---\nstatus: done\nscope: 2\n---\n'),
   'loop-exists': r => w(r, '.github/workflows/202608301321-scope-loop.yml', 'on:\n  workflow_dispatch:\npermissions:\n  contents: read\njobs:\n  a:\n    timeout-minutes: 5\n    steps:\n      - run: echo || exit 0\n'),
   'full-history-checkout': r => { w(r, '.git/shallow', '0000000000000000000000000000000000000000\n'); w(r, '.github/workflows/202608301720-cvaa.yml', 'steps:\n  - uses: actions/checkout@0000000000000000000000000000000000000000\n  - run: node cvaa/inoculate.mjs .\n'); },
+  // A store that is present and incomplete. Session aaaa converted 4871 of 5092 lines -
+  // the hole a query can never see - and session bbbb is named by the manifest with no
+  // file behind it. Both are structural: nothing here is decided from prose.
+  'memory-store-complete': r => {
+    w(r, 'logs/parquet/session_aaaa.parquet', 'PAR1');
+    w(r, 'logs/reports/memory-manifest.json', JSON.stringify({
+      generation: '202609031019',
+      sessions: [
+        { session_id: 'aaaa', project: 'claude', parquet_file: 'logs/parquet/session_aaaa.parquet', source_lines: 5092, rows: 4871 },
+        { session_id: 'bbbb', project: 'claude', parquet_file: 'logs/parquet/session_bbbb.parquet', source_lines: 300, rows: 300 },
+      ],
+    }));
+  },
   'no-expiry-windows': null,   // superseded by no-time-based-gates
 };
 let failed = 0;
@@ -104,6 +117,14 @@ if (existsSync(join(hostile, 'EXECUTED-TARGET-CODE'))) { console.error('cvaa exe
 // return [] and print `immune` - a skip is not a pass.
 if (!/^skip\s+derived-state-not-authored/m.test(hostileOut)) { console.error('derived-state-not-authored reported a verdict it could not reach'); failed++; }
 rmSync(hostile, { recursive: true, force: true });
+
+// A memory store with no manifest is the case the rule must refuse to answer. Counting
+// parquet files would let it print `immune` over a store missing ten of eleven sessions,
+// because the sessions that were never converted leave nothing behind to count.
+const unmanifested = mkdtempSync(join(tmpdir(), 'cvaa-nomanifest-')); CLEAN(unmanifested);
+w(unmanifested, 'logs/parquet/session_aaaa.parquet', 'PAR1');
+if (!/^skip\s+memory-store-complete/m.test(run(unmanifested))) { console.error('memory-store-complete reported a verdict over a store it could not audit'); failed++; }
+rmSync(unmanifested, { recursive: true, force: true });
 
 // Baseline generator preserves policy, refuses fail-closed findings and never widens a ratchet.
 const baseline = mkdtempSync(join(tmpdir(), 'cvaa-baseline-')); CLEAN(baseline); DISEASED['chaining-token'](baseline);

@@ -116,9 +116,16 @@ function buildContext(root) {
   const liveSet = exists('atlas/state/live-set.json')
     ? (() => { try { return JSON.parse(read('atlas/state/live-set.json')); } catch { return null; } })()
     : null;
+  /* What the session memory store claims to contain, parsed. memory-store-complete
+     compares it against the parquet files actually present; the alternative - counting
+     files, or reading a README - measures the store against itself and can never see a
+     session that was never converted at all. */
+  const memoryManifest = exists('logs/reports/memory-manifest.json')
+    ? (() => { try { return JSON.parse(read('logs/reports/memory-manifest.json')); } catch { return null; } })()
+    : null;
   const commits = (sh("git log --format=%H%x09%an%x09%aI%x09%s -200") || "").split("\n").filter(Boolean).map(l => { const [sha, author, date, subject] = l.split("\t"); return { sha, author, date, subject, generation: (subject.match(/^(\d{12})/) || [])[1] || null, bot: /noreply|bot|\[bot\]/.test(author + (sh(`git log -1 --format=%ae ${sha}`) || "")) }; });
   const registry = vaccines.map(v => ({ file: v.file, ...v.meta, code: v.code }));
-  return { scopes, workflows, pointer, pointerPath, liveSet, rollbackDrills, rootDirs, config, checksums, cartridgeHashes, stateFresh, files, registry, commits, shallow, gitAvailable, commitCount, exists: null };
+  return { scopes, workflows, pointer, pointerPath, liveSet, rollbackDrills, memoryManifest, rootDirs, config, checksums, cartridgeHashes, stateFresh, files, registry, commits, shallow, gitAvailable, commitCount, exists: null };
 }
 const ctx = buildContext(target);
 const existsList = new Set(); // antibodies get an exists() built from a snapshot, not the fs
