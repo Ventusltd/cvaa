@@ -9,6 +9,11 @@ const w = (root, p, s) => { mkdirSync(join(root, p, '..'), { recursive: true });
 const CLEAN = root => {
   w(root, 'README.md', '# clean');
   w(root, '.github/workflows/202608301321-scope-loop.yml', 'on:\n  schedule:\n    - cron: "*/30 * * * *"\n  workflow_dispatch:\npermissions:\n  contents: read\njobs:\n  a:\n    timeout-minutes: 10\n    steps:\n      - uses: actions/checkout@0000000000000000000000000000000000000000\n        with:\n          fetch-depth: 0\n      - run: node inoculate.mjs || exit 0\n');
+  // A workflow that only MENTIONS cvaa, in a comment, and runs something
+  // else. full-history-checkout must scope by invocation, not by mention:
+  // gridatlas's cartridge proof began failing the moment someone
+  // documented why its actions were pinned.
+  w(root, '.github/workflows/cvaa-mention.yml', '# cvaa reported three of them here\non: push\npermissions:\n  contents: read\njobs:\n  a:\n    timeout-minutes: 10\n    steps:\n      - uses: actions/checkout@0000000000000000000000000000000000000000\n      - run: node tools/proofs/run-current.mjs\n');
   w(root, 'scope-of-works/202608301321-a.md', '---\nstatus: done\nscope: 1\nexecutor: script\n---\n');
 };
 const DISEASED = {
