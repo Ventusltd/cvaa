@@ -6,6 +6,8 @@ import { tmpdir } from 'node:os';
 import { execSync } from 'node:child_process';
 const here = dirname(dirname(fileURLToPath(import.meta.url)));
 const w = (root, p, s) => { mkdirSync(join(root, p, '..'), { recursive: true }); writeFileSync(join(root, p), s); };
+const OID = '0'.repeat(40);
+const HASH = '0'.repeat(64);
 // Declared here, not beside the baseline block below, because history-level fixtures need it
 // while the DISEASED table is being seeded - a const referenced before its line is a TDZ error.
 const gitify = (root, generation = '202608301700', extra = []) => {
@@ -21,6 +23,25 @@ const CLEAN = root => {
   // documented why its actions were pinned.
   w(root, '.github/workflows/cvaa-mention.yml', '# cvaa reported three of them here\non: push\npermissions:\n  contents: read\njobs:\n  a:\n    timeout-minutes: 10\n    steps:\n      - uses: actions/checkout@0000000000000000000000000000000000000000\n      - run: node tools/proofs/run-current.mjs\n');
   w(root, 'scope-of-works/202608301321-a.md', '---\nstatus: done\nscope: 1\nexecutor: script\n---\n');
+  w(root, '.cvaa/contracts/serial-release-cutter.json', JSON.stringify({
+    schema: 'cvaa.serial-release-cutter.v1', execution: 'serial', no_op: 'reject',
+    same_input_replay: 'same-release', divergent_reuse: 'reject',
+    expected_parent: OID, input_sha256: HASH,
+  }));
+  w(root, '.cvaa/contracts/source-classification.json', JSON.stringify({
+    schema: 'cvaa.source-classification.v1', expected_ref: OID, checkout_ref: OID,
+    current_ref: OID, buffer_sha256: HASH, classified_sha256: HASH,
+    receipt_sha256: HASH, source_reads: 1, outcome: 'not-applicable', status: 'pass',
+  }));
+  w(root, '.cvaa/contracts/promotion-authority.json', JSON.stringify({
+    schema: 'cvaa.promotion-authority.v1',
+    build: { branch_only: true, permissions: 'read', may_promote: false },
+    promotion: { explicit_dispatch: true, authority: 'human principal', may_push_main: true },
+  }));
+  w(root, '.cvaa/contracts/observers.json', JSON.stringify({
+    schema: 'cvaa.observers.v1',
+    observers: [{ name: 'snapshot reader', input: 'snapshot', data_only: true, executes_target_code: false, side_effects: [] }],
+  }));
 };
 const DISEASED = {
   'one-active-scope': r => { w(r, 'scope-of-works/202608301321-a.md', '---\nstatus: active\nscope: 1\n---\n'); w(r, 'scope-of-works/202608301322-b.md', '---\nstatus: active\nscope: 2\n---\n'); },
@@ -39,6 +60,21 @@ const DISEASED = {
   'least-permissions': r => w(r, '.github/workflows/202608300453-x.yml', 'on: push\njobs: {}\n'),
   'agent-quarantine': r => w(r, '.github/workflows/202608300453-x.yml', 'steps:\n  - uses: anthropics/claude-code-action@v1\n    with:\n      prompt: do things\n'),
   'vocabulary': r => w(r, 'scope-of-works/202608301321-a.md', '---\nstatus: closed\nscope: 1\n---\n'),
+  'serial-release-cutter': r => w(r, '.cvaa/contracts/serial-release-cutter.json', '{}'),
+  'source-receipt-classification': r => w(r, '.cvaa/contracts/source-classification.json', JSON.stringify({
+    schema: 'cvaa.source-classification.v1', expected_ref: OID, checkout_ref: '1'.repeat(40),
+    current_ref: OID, buffer_sha256: HASH, classified_sha256: '1'.repeat(64),
+    receipt_sha256: HASH, source_reads: 2, outcome: 'unknown', status: 'pass',
+  })),
+  'promotion-authority-separated': r => w(r, '.cvaa/contracts/promotion-authority.json', JSON.stringify({
+    schema: 'cvaa.promotion-authority.v1',
+    build: { branch_only: true, permissions: 'write', may_promote: true },
+    promotion: { explicit_dispatch: false, authority: '', may_push_main: true },
+  })),
+  'observer-data-only': r => w(r, '.cvaa/contracts/observers.json', JSON.stringify({
+    schema: 'cvaa.observers.v1',
+    observers: [{ name: 'unsafe observer', input: 'repository', data_only: false, executes_target_code: true, side_effects: ['write'] }],
+  })),
   'registry-integrity': null, 'no-dangerous-apis': null,   // registry-level: covered by the runner's fail-closed load
   'monotonic-utc-generations': null,
   // History-level, and fixturable: gitify gives the fixture a real commit graph. The scope ledger

@@ -79,6 +79,16 @@ function buildContext(root) {
   const sh = cmd => { try { return execSync(cmd, { cwd: root, stdio: 'pipe' }).toString().trim(); } catch { return null; } };
   const scopes = list('scope-of-works').filter(f => /^\d{12}.*\.md$/.test(f)).sort().map(f => ({ file: f, ...(frontMatter(read(`scope-of-works/${f}`)) || {}) }));
   const workflows = list('.github/workflows').filter(f => /\.ya?ml$/.test(f)).map(f => ({ file: f, text: read(`.github/workflows/${f}`) }));
+  // Reusable automation contracts are deliberately data, not executable probes.
+  // Antibodies can inspect these bounded JSON declarations without importing or
+  // running anything owned by the target repository.
+  const controlContracts = list('.cvaa/contracts').filter(f => /\.json$/.test(f)).sort().map(file => {
+    const path = `.cvaa/contracts/${file}`;
+    const bytes = size(path);
+    if (bytes > 65536) return { file, document: null, error: `contract is ${bytes} bytes; limit is 65536` };
+    try { return { file, document: JSON.parse(read(path)), error: null }; }
+    catch (error) { return { file, document: null, error: `invalid JSON: ${error.message}` }; }
+  });
   const pointerPath = ['atlas/current.json', 'current.json', 'releases/current.json'].find(exists) || null;
   const pointer = pointerPath ? JSON.parse(read(pointerPath)) : null;
   const rootDirs = readdirSync(root).filter(f => f !== '.git' && statSync(join(root, f)).isDirectory());
@@ -125,7 +135,7 @@ function buildContext(root) {
     : null;
   const commits = (sh("git log --format=%H%x09%an%x09%aI%x09%s -200") || "").split("\n").filter(Boolean).map(l => { const [sha, author, date, subject] = l.split("\t"); return { sha, author, date, subject, generation: (subject.match(/^(\d{12})/) || [])[1] || null, bot: /noreply|bot|\[bot\]/.test(author + (sh(`git log -1 --format=%ae ${sha}`) || "")) }; });
   const registry = vaccines.map(v => ({ file: v.file, ...v.meta, code: v.code }));
-  return { scopes, workflows, pointer, pointerPath, liveSet, rollbackDrills, memoryManifest, rootDirs, config, checksums, cartridgeHashes, stateFresh, files, registry, commits, shallow, gitAvailable, commitCount, exists: null };
+  return { scopes, workflows, controlContracts, pointer, pointerPath, liveSet, rollbackDrills, memoryManifest, rootDirs, config, checksums, cartridgeHashes, stateFresh, files, registry, commits, shallow, gitAvailable, commitCount, exists: null };
 }
 const ctx = buildContext(target);
 const existsList = new Set(); // antibodies get an exists() built from a snapshot, not the fs
