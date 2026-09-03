@@ -19,17 +19,35 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: '22'
-      - name: Prove full history, registry and JSON contract
-        shell: bash
+      - name: History is complete, not shallow
         run: |
           set -euo pipefail
           test "$(git rev-parse --is-shallow-repository)" = false
           test "$(git rev-list --count HEAD)" -gt 1
-          test "$(find vaccines -maxdepth 1 -type f -name '*.md' | wc -l)" -eq "$(node -e "console.log(Object.keys(JSON.parse(require('fs').readFileSync('vaccines.lock','utf8'))).length)")"
+
+      - name: Every vaccine on disk is in the lock, and every lock entry on disk
+        run: |
+          set -euo pipefail
+          files=$(find vaccines -maxdepth 1 -type f -name '*.md' | wc -l)
+          lock=$(node -e "console.log(Object.keys(JSON.parse(require('fs').readFileSync('vaccines.lock','utf8'))).length)")
+          echo "vaccine files: $files   lock entries: $lock"
+          test "$files" -eq "$lock"
+
+      - name: Antibodies fire on disease and stay silent on health
+        run: |
+          set -euo pipefail
           node tools/selftest.mjs | tee /tmp/selftest.log
           test "$(tail -n 1 /tmp/selftest.log)" = 'all antibodies fire on disease and stay silent on health'
+
+      - name: The registry is immune to its own vaccines
+        run: |
+          set -euo pipefail
           node inoculate.mjs . --no-write | tee /tmp/inoculate.log
           test "$(tail -n 1 /tmp/inoculate.log)" = 'repo is immune to all vaccines on file'
+
+      - name: The JSON run record agrees with the registry on disk
+        run: |
+          set -euo pipefail
           node inoculate.mjs . --no-write --json > /tmp/run.jsonl
           node - <<'NODE'
           const fs = require('fs');
