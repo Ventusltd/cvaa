@@ -7,7 +7,7 @@ Disease
 A branch build can promote itself, turning validation authority into publication authority.
 
 Symptom
-A declared build lane can write or promote, or the promotion lane has no named authority and explicit dispatch.
+A declared build lane can write or promote, or the promotion lane has no named explicitly authorised principal and explicit dispatch.
 
 Antibody
 ```js
@@ -20,7 +20,7 @@ export default ({ controlContracts = [] }) => {
   if (b.branch_only !== true || b.permissions !== "read" || b.may_promote !== false)
     out.push("candidate build is not branch-only, read-only and promotion-free");
   if (p.explicit_dispatch !== true || typeof p.authority !== "string" || !p.authority.trim())
-    out.push("promotion lacks explicit dispatch or a named human authority");
+    out.push("promotion lacks explicit dispatch or a named explicitly authorised principal");
   if (p.may_push_main !== true) out.push("the promotion capability is not isolated in the authorised lane");
   return out;
 };

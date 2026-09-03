@@ -36,7 +36,7 @@ const CLEAN = root => {
   w(root, '.cvaa/contracts/promotion-authority.json', JSON.stringify({
     schema: 'cvaa.promotion-authority.v1',
     build: { branch_only: true, permissions: 'read', may_promote: false },
-    promotion: { explicit_dispatch: true, authority: 'human principal', may_push_main: true },
+    promotion: { explicit_dispatch: true, authority: 'codex CEO lane', may_push_main: true },
   }));
   w(root, '.cvaa/contracts/observers.json', JSON.stringify({
     schema: 'cvaa.observers.v1',
