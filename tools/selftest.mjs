@@ -69,8 +69,8 @@ const DISEASED = {
     w(r, 'logs/reports/memory-manifest.json', JSON.stringify({
       generation: '202609031019',
       sessions: [
-        { session_id: 'aaaa', project: 'claude', parquet_file: 'logs/parquet/session_aaaa.parquet', source_lines: 5092, rows: 4871 },
-        { session_id: 'bbbb', project: 'claude', parquet_file: 'logs/parquet/session_bbbb.parquet', source_lines: 300, rows: 300 },
+        { session_id: 'aaaa', project: 'claude', parquet_file: 'logs/parquet/session_aaaa.parquet', source_lines: 5092, distinct_source_lines: 4871, rows: 4871 },
+        { session_id: 'bbbb', project: 'claude', parquet_file: 'logs/parquet/session_bbbb.parquet', source_lines: 300, distinct_source_lines: 300, rows: 300 },
       ],
     }));
   },
@@ -125,6 +125,21 @@ const unmanifested = mkdtempSync(join(tmpdir(), 'cvaa-nomanifest-')); CLEAN(unma
 w(unmanifested, 'logs/parquet/session_aaaa.parquet', 'PAR1');
 if (!/^skip\s+memory-store-complete/m.test(run(unmanifested))) { console.error('memory-store-complete reported a verdict over a store it could not audit'); failed++; }
 rmSync(unmanifested, { recursive: true, force: true });
+
+// A HEALTHY store where rows exceed source lines, which is normal and must stay silent.
+// One transcript line carrying three images and a caption becomes four rows - that is
+// what the converter's block_no column is for. This rule was first written asserting
+// rows === source_lines; claude's session_9556e57d is 2360 rows over 2356 complete
+// lines, so that invariant would have fired forever on a healthy store, and the only
+// way to satisfy it would have been to make the converter discard content blocks.
+const blocky = mkdtempSync(join(tmpdir(), 'cvaa-blocks-')); CLEAN(blocky);
+w(blocky, 'logs/parquet/session_cccc.parquet', 'PAR1');
+w(blocky, 'logs/reports/memory-manifest.json', JSON.stringify({
+  generation: '202609031019',
+  sessions: [{ session_id: 'cccc', project: 'claude', parquet_file: 'logs/parquet/session_cccc.parquet', source_lines: 2356, distinct_source_lines: 2356, rows: 2360 }],
+}));
+if (!/^immune\s+memory-store-complete/m.test(run(blocky))) { console.error('memory-store-complete flagged a complete store for expanding blocks into rows'); failed++; }
+rmSync(blocky, { recursive: true, force: true });
 
 // Baseline generator preserves policy, refuses fail-closed findings and never widens a ratchet.
 const baseline = mkdtempSync(join(tmpdir(), 'cvaa-baseline-')); CLEAN(baseline); DISEASED['chaining-token'](baseline);
