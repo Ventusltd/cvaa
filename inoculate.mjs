@@ -92,7 +92,17 @@ function buildContext(root) {
   if (pointer) { const dir = `atlas/releases/${pointer.release_id}`; checksums[dir] = exists(`${dir}/sha256sums.txt`) ? sh(`cd ${dir} && sha256sum -c sha256sums.txt --quiet && echo ok`) === 'ok' : null; }
   const cartridgeHashes = {};
   for (const c of pointer?.cartridges || []) if (exists(`atlas/${c.path}`)) cartridgeHashes[c.path] = { sha256: sha256(readFileSync(join(root, 'atlas', c.path))), size: size(`atlas/${c.path}`) };
-  const stateFresh = exists('STATE.md') && exists('tools/scope/loop.mjs') ? sh('node tools/scope/loop.mjs state --stdout') : null;
+  /* Executing a script the TARGET owns, with cwd set to the target, is arbitrary
+     code execution from the repository under inspection - and cvaa exists to scan
+     repositories it has no particular reason to trust. Every antibody is sandboxed
+     (permission model, no fs, no network, 5 s cap, empty env); this one line ran
+     outside all of it. It also wrote: gridatlas's `state --stdout` silently ignored
+     the flag and took its normal path, which WRITES STATE.md, so a scan that
+     promised --no-write rewrote a file in the repository it was inspecting.
+     Off by default. --exec-target opts in; --no-write can never opt in. */
+  const execTarget = args.includes('--exec-target') && !args.includes('--no-write');
+  const stateFresh = execTarget && exists('STATE.md') && exists('tools/scope/loop.mjs')
+    ? sh('node tools/scope/loop.mjs state --stdout') : null;
   const files = { STATE: exists('STATE.md') ? read('STATE.md') : null, index: exists('index.html') ? read('index.html') : null };
   // The live attestation, parsed. attestation-freshness used to infer freshness
   // from commit prose because it had no way to read this; antibodies are sandboxed
@@ -149,7 +159,11 @@ for (const v of vaccines) {
   const grand = ctx.config.allow?.find(a => a.vaccine === v.meta.vaccine);
   const res = await runAntibody(v);
   if (res.fatal) { console.error(`fatal: ${res.e}`); console.error('       every vaccine would report this. Refusing to emit findings from a runner that never ran.'); process.exit(2); }
-  const list = res.ok ? res.r : [`antibody failed: ${res.e}`];
+  /* An antibody that cannot evaluate its question must not answer it. Before this,
+     any non-array return was coerced to [] by the runner and printed as `immune`,
+     so a rule that never ran reported the same word as a rule that passed. */
+  const skipped = res.ok && res.skip ? res.skip : null;
+  const list = skipped ? [] : (res.ok ? res.r : [`antibody failed: ${res.e}`]);
   const intrinsicLevel = v.meta.level === 'warning' ? 'warning' : 'error';
   let level = intrinsicLevel;
   if (grand && res.ok) {
@@ -157,8 +171,9 @@ for (const v of vaccines) {
     else if (list.length <= grand.max) level = 'warning';
   }
   if (list.length && level === 'error') findings += list.length;
-  results.push({ v, list, level, intrinsicLevel });
-  console.log(`${list.length ? (level === 'error' ? 'FAIL  ' : 'WARN  ') : 'immune'} ${v.meta.vaccine}${grand ? ` (baseline ${grand.max})` : ''}`);
+  results.push({ v, list, level, intrinsicLevel, skipped });
+  console.log(`${list.length ? (level === 'error' ? 'FAIL  ' : 'WARN  ') : (skipped ? 'skip  ' : 'immune')} ${v.meta.vaccine}${grand ? ` (baseline ${grand.max})` : ''}`);
+  if (skipped) console.log(`         - not evaluated: ${skipped}`);
   for (const r of list) console.log(`         - ${r}`);
 }
 
@@ -241,7 +256,12 @@ if (asJson) console.log(JSON.stringify({
   context: { git_available: ctx.gitAvailable, commit_count: ctx.commitCount, workflows: ctx.workflows.length, scopes: ctx.scopes.length },
   findings,
   baseline,
-  results: results.map(r => ({ vaccine: r.v.meta.vaccine, intrinsic_level: r.intrinsicLevel, level: r.level, state: r.list.length ? (r.level === 'error' ? 'fail' : 'warn') : 'immune', findings: r.list }))
+  results: results.map(r => ({ vaccine: r.v.meta.vaccine, intrinsic_level: r.intrinsicLevel, level: r.level, state: r.list.length ? (r.level === 'error' ? 'fail' : 'warn') : (r.skipped ? 'skipped' : 'immune'), skipped: r.skipped || null, findings: r.list }))
 }));
-console.log(findings ? (baseline.written ? '\nbaseline written; rerun cvaa to prove the dated warnings' : `\n${findings} finding(s); repo is not immune`) : '\nrepo is immune to all vaccines on file');
+const skipCount = results.filter(r => r.skipped).length;
+/* Immunity is a claim about rules that ran. Saying `immune to all vaccines on file`
+   while some were never evaluated is the false pass this repository exists to stop. */
+console.log(findings ? (baseline.written ? '\nbaseline written; rerun cvaa to prove the dated warnings' : `\n${findings} finding(s); repo is not immune`)
+  : (skipCount ? `\nno findings, but ${skipCount} rule(s) were not evaluated; immunity is not established`
+               : '\nrepo is immune to all vaccines on file'));
 process.exit(baseline.written ? 0 : findings ? 1 : 0);

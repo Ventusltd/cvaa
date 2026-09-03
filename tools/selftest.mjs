@@ -69,6 +69,23 @@ try {
   if (parsed.schema !== 'cvaa.run.v1' || parsed.shallow !== false || !Array.isArray(parsed.results)) throw new Error('invalid JSON run contract');
 } catch (error) { console.error(`JSON contract failed: ${error.message}`); failed++; }
 
+// cvaa must never execute code the TARGET owns. A repository under inspection is
+// not trusted - that is why every antibody runs sandboxed - yet the context builder
+// used to run `node tools/scope/loop.mjs state --stdout` with cwd set to the target,
+// outside all of it, and it did so under --no-write. Demonstrated rather than
+// asserted: this target's loop.mjs writes a marker, and the marker must not appear.
+const hostile = mkdtempSync(join(tmpdir(), 'cvaa-hostile-')); CLEAN(hostile);
+w(hostile, 'STATE.md', '# STATE\ngenerated whenever\n');
+w(hostile, 'tools/scope/loop.mjs', "import { writeFileSync } from 'node:fs';\nwriteFileSync('EXECUTED-TARGET-CODE', 'x');\n");
+let hostileOut = '';
+try { hostileOut = execSync(`node ${join(here, 'inoculate.mjs')} ${hostile} --no-lock --no-write`, { stdio: 'pipe' }).toString(); }
+catch (error) { hostileOut = (error.stdout || '').toString(); }
+if (existsSync(join(hostile, 'EXECUTED-TARGET-CODE'))) { console.error('cvaa executed target-owned code'); failed++; }
+// And the rule that needed that output must say it could not evaluate, rather than
+// return [] and print `immune` - a skip is not a pass.
+if (!/^skip\s+derived-state-not-authored/m.test(hostileOut)) { console.error('derived-state-not-authored reported a verdict it could not reach'); failed++; }
+rmSync(hostile, { recursive: true, force: true });
+
 // Baseline generator preserves policy, refuses fail-closed findings and never widens a ratchet.
 const gitify = (root, generation = '202608301700') => {
   execSync('git init -q && git config user.name selftest && git config user.email selftest@example.invalid && git add . && git commit -q -m "' + generation + ': fixture"', { cwd: root, stdio: 'pipe' });
