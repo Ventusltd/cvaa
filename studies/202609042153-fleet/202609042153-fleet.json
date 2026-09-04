@@ -1,0 +1,3240 @@
+{
+  "schema": "cvaa.fleet.v1",
+  "generated_at": "2026-09-04T21:54:20.627Z",
+  "repositories": [
+    {
+      "name": "globalgrid2050",
+      "path": "../globalgrid2050",
+      "exit_code": 1,
+      "errors": 96,
+      "warnings": 620,
+      "shallow": false,
+      "results": [
+        {
+          "vaccine": "one-active-scope",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-app-copies",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-per-release-workflows",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "9 timestamped workflows exceed baseline 0; add a scope file, not a workflow"
+          ]
+        },
+        {
+          "vaccine": "self-terminating-loops",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "000_freeze_all_workflows_to_manual.yml is scheduled but has no exit-0 path when nothing is pending"
+          ]
+        },
+        {
+          "vaccine": "chaining-token",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "add-v4-detailed-disclaimer.yml pushes with the default token; use an App token so downstream workflows run",
+            "backfill_generation_fuelhh_halfhourly_v6.yml pushes with the default token; use an App token so downstream workflows run",
+            "build_generation_fuelhh_browser_slim.yml pushes with the default token; use an App token so downstream workflows run",
+            "catalogue-gridatlas-v9.yml pushes with the default token; use an App token so downstream workflows run",
+            "clone-v3-to-v4-once.yml pushes with the default token; use an App token so downstream workflows run",
+            "compare_uk_energy_v5_v6_v2.yml pushes with the default token; use an App token so downstream workflows run",
+            "compare_uk_energy_v5_v6_v3.yml pushes with the default token; use an App token so downstream workflows run",
+            "diagnose_repair_v6_price_v5_ui_split.yml pushes with the default token; use an App token so downstream workflows run",
+            "fetch_heavy_emitters_uk.yml pushes with the default token; use an App token so downstream workflows run",
+            "fetch_naei_point_sources.yml pushes with the default token; use an App token so downstream workflows run",
+            "fetch_uk_frequency_v6.yml pushes with the default token; use an App token so downstream workflows run",
+            "generate_deep_subsea.yml pushes with the default token; use an App token so downstream workflows run",
+            "generate_global_hydrocarbons.yml pushes with the default token; use an App token so downstream workflows run",
+            "generate_repo_structure.yml pushes with the default token; use an App token so downstream workflows run",
+            "generation_ecg_all_tech_mvp.yml pushes with the default token; use an App token so downstream workflows run",
+            "generation_heartbeat_mvp.yml pushes with the default token; use an App token so downstream workflows run",
+            "gridbot_mega_upgrade.yml pushes with the default token; use an App token so downstream workflows run",
+            "gridbot_solar_10_year_backfill.yml pushes with the default token; use an App token so downstream workflows run",
+            "gridbot_solar_daily_mwh_chart_upgrade.yml pushes with the default token; use an App token so downstream workflows run",
+            "gridbot_solar_historic_backfill.yml pushes with the default token; use an App token so downstream workflows run",
+            "gridbot_solar_immediate_data.yml pushes with the default token; use an App token so downstream workflows run",
+            "gridbot_solar_monthly_backfill.yml pushes with the default token; use an App token so downstream workflows run",
+            "gridbot_solar_peak_integrity_audit.yml pushes with the default token; use an App token so downstream workflows run",
+            "gridbot_v3_consolidated_price_history.yml pushes with the default token; use an App token so downstream workflows run",
+            "inspect_data_science_discipline.yml pushes with the default token; use an App token so downstream workflows run",
+            "major_project_news_v4.yml pushes with the default token; use an App token so downstream workflows run",
+            "major_project_news_v5.yml pushes with the default token; use an App token so downstream workflows run",
+            "major_project_news_v6.yml pushes with the default token; use an App token so downstream workflows run",
+            "modularize-v3-once.yml pushes with the default token; use an App token so downstream workflows run",
+            "overnight_generation_mw_backfill.yml pushes with the default token; use an App token so downstream workflows run",
+            "patch_v3_price_axis_table_fullscreen.yml pushes with the default token; use an App token so downstream workflows run",
+            "patch_v3_price_history_correctness.yml pushes with the default token; use an App token so downstream workflows run",
+            "patch_v3_price_history_date_window.yml pushes with the default token; use an App token so downstream workflows run",
+            "patch_v3_price_history_fullscreen.yml pushes with the default token; use an App token so downstream workflows run",
+            "patch_v3_price_history_merge_system.yml pushes with the default token; use an App token so downstream workflows run",
+            "patch_v3_price_lazy_selectors.yml pushes with the default token; use an App token so downstream workflows run",
+            "patch_v3_price_range_fullscreen_fix.yml pushes with the default token; use an App token so downstream workflows run",
+            "repair_v5_news_loader.yml pushes with the default token; use an App token so downstream workflows run",
+            "repair_v6_chart_boxes_no_summary.yml pushes with the default token; use an App token so downstream workflows run",
+            "repair_v6_event_boxes_visible.yml pushes with the default token; use an App token so downstream workflows run",
+            "repair_v6_fullscreen_summary_box.yml pushes with the default token; use an App token so downstream workflows run",
+            "repair_v6_fullscreen_swipe.yml pushes with the default token; use an App token so downstream workflows run",
+            "repair_v6_high_low_trackers.yml pushes with the default token; use an App token so downstream workflows run",
+            "repair_v6_inpage_chart_real_estate.yml pushes with the default token; use an App token so downstream workflows run",
+            "repair_v6_mobile_chart_readability.yml pushes with the default token; use an App token so downstream workflows run",
+            "repair_v6_mobile_chart_stabilise.yml pushes with the default token; use an App token so downstream workflows run",
+            "repair_v6_price_annotations_v5_style.yml pushes with the default token; use an App token so downstream workflows run",
+            "repair_v6_price_annotation_layout.yml pushes with the default token; use an App token so downstream workflows run",
+            "repair_v6_restore_v5_panels.yml pushes with the default token; use an App token so downstream workflows run",
+            "repd_sync.yml pushes with the default token; use an App token so downstream workflows run",
+            "repo_guard.yml pushes with the default token; use an App token so downstream workflows run",
+            "stamp_data_spine_doctrine.yml pushes with the default token; use an App token so downstream workflows run",
+            "track_repository_size.yml pushes with the default token; use an App token so downstream workflows run",
+            "update_v5_v6_granular_change_tracker.yml pushes with the default token; use an App token so downstream workflows run",
+            "update_v6_transport_energy_sources.yml pushes with the default token; use an App token so downstream workflows run",
+            "v6-migrate-from-v5.yml pushes with the default token; use an App token so downstream workflows run",
+            "v6-sanity-label-fix.yml pushes with the default token; use an App token so downstream workflows run",
+            "wire_generation_ecg_candidate.yml pushes with the default token; use an App token so downstream workflows run"
+          ]
+        },
+        {
+          "vaccine": "pointer-verifies",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "derived-state-not-authored",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "context-diet",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "rollback-exists",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "registry-integrity",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-dangerous-apis",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "pinned-actions",
+          "intrinsic_level": "warning",
+          "level": "warning",
+          "state": "warn",
+          "findings": [
+            "000_freeze_all_workflows_to_manual.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "add-v4-detailed-disclaimer.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "add-v6-v7-all-apps-a4-print-formatting.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "add-v6-v7-all-apps-a4-print-formatting.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "add-v6-v7-external-analysis-dashboard-links.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "add-v6-v7-external-analysis-dashboard-links.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "add-v6-v7-gis-sld-operating-asset-layers.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "add-v6-v7-gis-sld-operating-asset-layers.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "add-v6-v7-gis-sld-print-formatting.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "add-v6-v7-gis-sld-print-formatting.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "add-v6-v7-gis-sld-print-map-pack.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "add-v6-v7-gis-sld-print-map-pack.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "add-v6-v7-print-v2-compact-report-mode.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "add-v6-v7-print-v2-compact-report-mode.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "add-v6-v7-print-v3-financials-patch.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "add-v6-v7-print-v3-financials-patch.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "add-v7-gis-sld-array-visibility-and-mwp-sizing.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "add-v7-gis-sld-array-visibility-and-mwp-sizing.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "add-v7-gis-sld-large-asset-markers-and-search.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "add-v7-gis-sld-large-asset-markers-and-search.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "add-v7-gis-sld-site-intelligence-panel.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "add-v7-gis-sld-site-intelligence-panel.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "add-v8-bess-geospatial-layout-drawing.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "add-v8-bess-geospatial-layout-drawing.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "add_v3_homepage_link.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "add_v3_homepage_link.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "audit_generation_data_coverage_v6.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "audit_generation_data_coverage_v6.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "auto_test_generation_sources_2026_v6.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "auto_test_generation_sources_2026_v6.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "backfill_generation_aggregates_manual_v6.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "backfill_generation_aggregates_manual_v6.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "backfill_generation_aggregates_sequence_v6.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "backfill_generation_aggregates_sequence_v6.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "backfill_generation_clean_halfhourly_month_v6.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "backfill_generation_clean_halfhourly_month_v6.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "backfill_generation_fuelhh_halfhourly_v6.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "backfill_generation_fuelhh_halfhourly_v6.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "backfill_generation_fuelhh_halfhourly_v6.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "backfill_generation_sources_decade_v6.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "backfill_generation_sources_decade_v6.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "backfill_generation_sources_overnight_sequence_v6.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "backfill_generation_sources_overnight_sequence_v6.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "backfill_generation_sources_staggered_years_v6.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "backfill_generation_sources_staggered_years_v6.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "backfill_generation_sources_year_v6.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "backfill_generation_sources_year_v6.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "backfill_uk_frequency_weekly_v5.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "backfill_uk_frequency_weekly_v5.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "build-v8-bess-gis-sld-financial-sandbox.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "build-v8-bess-gis-sld-financial-sandbox.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "build_generation_fuelhh_browser_slim.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "build_generation_fuelhh_browser_slim.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "build_generation_fuelhh_browser_slim.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "clone-v3-to-v4-once.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "clone-v4-to-v5.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "clone-v4-to-v5.yml: stefanzweifel/git-auto-commit-action@v5 is not pinned to a 40-character commit SHA",
+            "clone_generation_history_v6_to_v6_2.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "clone_generation_history_v6_to_v6_2.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "clone_uk_energy_tracking_v2.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "clone_uk_energy_tracking_v2.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "clone_uk_energy_tracking_v2_to_v3.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "clone_uk_energy_tracking_v2_to_v3.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "clone_uk_energy_tracking_v4_to_v5.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "clone_uk_energy_tracking_v4_to_v5.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "compare_uk_energy_v5_v6.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "compare_uk_energy_v5_v6.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "compare_uk_energy_v5_v6_v2.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "compare_uk_energy_v5_v6_v3.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "create-v8-bess-electrical-topology-review.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "create-v8-bess-electrical-topology-review.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "create-v8-bess-pcs-standalone.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "create-v8-bess-pcs-standalone.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "create_uk_energy_tracking_v4.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "create_uk_energy_tracking_v4.yml: stefanzweifel/git-auto-commit-action@v5 is not pinned to a 40-character commit SHA",
+            "dependencies_v4.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "dependencies_v4.yml: stefanzweifel/git-auto-commit-action@v5 is not pinned to a 40-character commit SHA",
+            "deploy-pages.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "deploy-pages.yml: actions/configure-pages@v5 is not pinned to a 40-character commit SHA",
+            "deploy-pages.yml: actions/jekyll-build-pages@v1 is not pinned to a 40-character commit SHA",
+            "deploy-pages.yml: actions/upload-pages-artifact@v3 is not pinned to a 40-character commit SHA",
+            "deploy-pages.yml: actions/deploy-pages@v4 is not pinned to a 40-character commit SHA",
+            "deploy-pages.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "deploy-pages.yml: actions/setup-node@v4 is not pinned to a 40-character commit SHA",
+            "diagnose_repair_v6_price_v5_ui_split.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "document_uk_energy_trackers.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "document_uk_energy_trackers.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "elexon_generation_sources_weekly.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "elexon_generation_sources_weekly.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "elexon_system_prices.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "elexon_system_prices.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "elexon_system_prices_backfill_10y.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "elexon_system_prices_backfill_10y.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "fetch_elizabeth_line.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "fetch_elizabeth_line.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "fetch_eurostar.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "fetch_eurostar.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "fetch_global_ports.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "fetch_global_ports.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "fetch_heavy_emitters_uk.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "fetch_heavy_emitters_uk.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "fetch_motorway_services.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "fetch_motorway_services.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "fetch_naei_point_sources.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "fetch_naei_point_sources.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "fetch_stadiums.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "fetch_stadiums.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "fetch_subsea_data_cables.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "fetch_subsea_data_cables.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "fetch_uk_energy_and_prices.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "fetch_uk_energy_and_prices.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "fetch_uk_energy_and_prices_v2.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "fetch_uk_energy_and_prices_v2.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "fetch_uk_energy_and_prices_v3.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "fetch_uk_energy_and_prices_v3.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "fetch_uk_energy_and_prices_v4.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "fetch_uk_energy_and_prices_v4.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "fetch_uk_energy_and_prices_v5.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "fetch_uk_energy_and_prices_v5.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "fetch_uk_energy_and_prices_v6.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "fetch_uk_energy_and_prices_v6.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "fetch_uk_frequency_v5.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "fetch_uk_frequency_v5.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "fetch_uk_frequency_v6.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "fetch_uk_frequency_v6.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "fetch_uk_railways.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "fetch_uk_railways.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "fetch_uk_roads.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "fetch_uk_roads.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "fix-uk-renewables-pipeline-csv-export.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "fix-uk-renewables-pipeline-csv-export.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "fix-v5-js-filenames.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "fix-v5-js-filenames.yml: stefanzweifel/git-auto-commit-action@v5 is not pinned to a 40-character commit SHA",
+            "fix-v6-v7-gis-sld-print-simple-safe.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "fix-v6-v7-gis-sld-print-simple-safe.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "fix-v7-gis-sld-mobile-array-toggle-visibility.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "fix-v7-gis-sld-mobile-array-toggle-visibility.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "fix-v7-gis-sld-mobile-mwp-sizing-visibility.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "fix-v7-gis-sld-mobile-mwp-sizing-visibility.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "fix-v7-gis-sld-mobile-tool-overlay-spacing.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "fix-v7-gis-sld-mobile-tool-overlay-spacing.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "fix-v7-gis-sld-mobile-tools-energy-layer-clearance.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "fix-v7-gis-sld-mobile-tools-energy-layer-clearance.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "force_uk_energy_tracking_v3_price_history.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "force_uk_energy_tracking_v3_price_history.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "generate-gis-sld-full-code-reports.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "generate-gis-sld-full-code-reports.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "generate-v8-codebase-blueprint.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "generate-v8-codebase-blueprint.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "generate_deep_subsea.yml: actions/checkout@v3 is not pinned to a 40-character commit SHA",
+            "generate_deep_subsea.yml: actions/setup-python@v4 is not pinned to a 40-character commit SHA",
+            "generate_global_hydrocarbons.yml: actions/checkout@v3 is not pinned to a 40-character commit SHA",
+            "generate_global_hydrocarbons.yml: actions/setup-python@v4 is not pinned to a 40-character commit SHA",
+            "generate_price_history_4bucket_v2.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "generate_price_history_4bucket_v2.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "generate_repo_structure.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "generate_v6_architectural_integrity_protocol.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "generate_v6_architectural_integrity_protocol.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "generation_ecg_all_tech_mvp.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "generation_ecg_all_tech_mvp.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "generation_ecg_all_tech_mvp.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "generation_heartbeat_mvp.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "generation_heartbeat_mvp.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "generation_heartbeat_mvp.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot-feature-install.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot-feature-install.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "gridbot_app_repo_bootstrap.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_app_repo_bootstrap.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_audit_process_documentation.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_audit_process_documentation.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_bulk_data_workflow_freeze.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_bulk_data_workflow_freeze.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_daily_mwh_multi_technology_wiring.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_daily_mwh_multi_technology_wiring.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_daily_mwh_seasonal_colouring.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_daily_mwh_seasonal_colouring.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_daily_mwh_titles_labels.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_daily_mwh_titles_labels.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_deprecated_tracker_stale_data_audit.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_deprecated_tracker_stale_data_audit.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_generation_daily_mwh_fuelhh_chunks.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_generation_daily_mwh_fuelhh_chunks.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_generation_history_solar.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_generation_history_solar.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "gridbot_generation_history_solar.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_generation_history_solar_recent.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_generation_history_solar_recent.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "gridbot_generation_history_solar_recent.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_generation_history_v6_2_backup_mirror.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_generation_history_v6_2_backup_mirror.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_generation_interconnector_split.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_generation_interconnector_split.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_generation_interconnector_split_v2.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_generation_interconnector_split_v2.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_generation_mwh_active_v6_source_audit.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_generation_mwh_active_v6_source_audit.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "gridbot_generation_mwh_active_v6_source_audit.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_generation_mwh_interconnector_split_v6.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_generation_mwh_interconnector_split_v6.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_generation_mwh_interconnector_ui_guard.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_generation_mwh_interconnector_ui_guard.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_interconnector_bar_ui_match.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_interconnector_bar_ui_match.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_interconnector_mobile_ui_repair.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_interconnector_mobile_ui_repair.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_london_solar_daylight_geometry.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_london_solar_daylight_geometry.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_london_sunrise_sunset_ui_chart.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_london_sunrise_sunset_ui_chart.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_mega_upgrade.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_mega_upgrade.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "gridbot_mega_upgrade.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_mwh_mobile_bounds_repair.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_mwh_mobile_bounds_repair.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_repo_split_inventory.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_repo_split_inventory.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_root_homepage_directory_audit.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_root_homepage_directory_audit.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_solar_10_year_backfill.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_solar_10_year_backfill.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_solar_daily_mwh_chart_upgrade.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_solar_daily_mwh_chart_upgrade.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_solar_daily_mwh_interaction_upgrade.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_solar_daily_mwh_interaction_upgrade.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_solar_daily_mwh_readability_upgrade.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_solar_daily_mwh_readability_upgrade.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_solar_daily_mwh_standalone_upgrade.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_solar_daily_mwh_standalone_upgrade.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_solar_historic_backfill.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_solar_historic_backfill.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_solar_immediate_data.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_solar_immediate_data.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_solar_monthly_backfill.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_solar_monthly_backfill.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_solar_monthly_backfill_auto.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_solar_peak_integrity_audit.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_solar_peak_integrity_audit.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_sunrise_sunset_time_bands.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_sunrise_sunset_time_bands.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_sunrise_sunset_visible_attribution.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_sunrise_sunset_visible_attribution.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_v3_consolidated_price_history.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_v6_same_slot_reconciliation_audit.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_v6_same_slot_reconciliation_audit.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "homepage-restore-point-check.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "homepage-restore-point-check.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "inspect_data_science_discipline.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "inspect_data_science_discipline.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "install_solar_dc_er_section.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "install_solar_dc_er_subsections.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "isolate_uk_energy_tracking_v2.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "isolate_uk_energy_tracking_v2.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "jekyll-gh-pages.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "jekyll-gh-pages.yml: actions/configure-pages@v5 is not pinned to a 40-character commit SHA",
+            "jekyll-gh-pages.yml: actions/jekyll-build-pages@v1 is not pinned to a 40-character commit SHA",
+            "jekyll-gh-pages.yml: actions/upload-pages-artifact@v3 is not pinned to a 40-character commit SHA",
+            "jekyll-gh-pages.yml: actions/deploy-pages@v4 is not pinned to a 40-character commit SHA",
+            "major_project_news_v4.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "major_project_news_v4.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "major_project_news_v5.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "major_project_news_v5.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "major_project_news_v6.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "major_project_news_v6.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "modularise_solar_er.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "modularize-v3-once.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "ons_mwh_energy_use_annual_v6.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "ons_mwh_energy_use_annual_v6.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "overnight_generation_mw_backfill.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "overnight_generation_mw_backfill.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "overnight_generation_mw_backfill.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "patch_uk_energy_oil_dashboard.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "patch_uk_energy_oil_dashboard.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "patch_uk_energy_tracking_v2_oil_graph.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "patch_uk_energy_tracking_v2_oil_graph.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "patch_uk_energy_tracking_v2_transport.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "patch_uk_energy_tracking_v2_transport.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "patch_v3_price_axis_table_fullscreen.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "patch_v3_price_history_correctness.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "patch_v3_price_history_date_window.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "patch_v3_price_history_fullscreen.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "patch_v3_price_history_merge_system.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "patch_v3_price_history_ui.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "patch_v3_price_lazy_selectors.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "patch_v3_price_range_fullscreen_fix.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "patch_v4_live_tracker_modular_structure.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "patch_v4_live_tracker_modular_structure.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "patch_v5_chart_dynamic_annotations.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "patch_v5_chart_dynamic_annotations.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "patch_v5_chart_overlap_controls.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "patch_v5_chart_overlap_controls.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "patch_v5_fullscreen_glow_controls.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "patch_v5_fullscreen_glow_controls.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "rebuild-v8-bess-from-v7-gis-frame.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "rebuild-v8-bess-from-v7-gis-frame.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "remove-benchmark-block-from-v6-v7-gis-sld.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "remove-benchmark-block-from-v6-v7-gis-sld.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "remove-project-x-from-v6-v7-gis-sld.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "remove-project-x-from-v6-v7-gis-sld.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "repair_public_grid_study_period_selector.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "repair_public_grid_study_period_selector.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "repair_public_grid_study_selector_binding.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "repair_public_grid_study_selector_binding.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "repair_v5_news_loader.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "repair_v6_adaptive_weekly_time_ticks.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "repair_v6_adaptive_weekly_time_ticks.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "repair_v6_chart_boxes_no_summary.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "repair_v6_chart_context_labels.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "repair_v6_chart_context_labels.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "repair_v6_chart_inspect_arrows.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "repair_v6_chart_inspect_arrows.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "repair_v6_connect_inspect_overlay.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "repair_v6_connect_inspect_overlay.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "repair_v6_connect_inspect_overlay.yml: stefanzweifel/git-auto-commit-action@v5 is not pinned to a 40-character commit SHA",
+            "repair_v6_electricity_annual_year_selector.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "repair_v6_electricity_annual_year_selector.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "repair_v6_event_boxes_visible.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "repair_v6_fullscreen_summary_box.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "repair_v6_fullscreen_swipe.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "repair_v6_half_hourly_short_window_modes.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "repair_v6_half_hourly_short_window_modes.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "repair_v6_high_low_trackers.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "repair_v6_inpage_chart_real_estate.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "repair_v6_inspect_cache_buster.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "repair_v6_inspect_cache_buster.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "repair_v6_mobile_chart_readability.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "repair_v6_mobile_chart_stabilise.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "repair_v6_mobile_inspect_buttons.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "repair_v6_mobile_inspect_buttons.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "repair_v6_price_annotations_v5_style.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "repair_v6_price_annotation_layout.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "repair_v6_restore_v5_panels.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "repair_v6_weekly_axis_padding.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "repair_v6_weekly_axis_padding.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "repd_sync.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "repd_sync.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "replace-v7-gis-sld-asset-buttons-with-pipeline-dropdown-status.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "replace-v7-gis-sld-asset-buttons-with-pipeline-dropdown-status.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "replace-v7-gis-sld-asset-buttons-with-pipeline-dropdown.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "replace-v7-gis-sld-asset-buttons-with-pipeline-dropdown.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "repo_guard.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "repo_guard.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "repo_size_guard.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "restore-v8-bess-maplibre-standalone.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "rollback-v8-bess-v7-frame-rebuild.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "run_v2_safe_patch.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "run_v2_safe_patch.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "stamp_data_spine_doctrine.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "stamp_data_spine_doctrine.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "stamp_data_spine_doctrine.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "step1_fetch_pvlive_solar_candidate_v6.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "step1_fetch_pvlive_solar_candidate_v6.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "step2_build_pvlive_solar_browser_v6.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "step2_build_pvlive_solar_browser_v6.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "step3_wire_pvlive_solar_ui_v6.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "step3_wire_pvlive_solar_ui_v6.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "track_repository_size.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "track_repository_size.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "update-grid-data.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "update-grid-data.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "update_11kv_ukpn.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "update_11kv_ukpn.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "update_elexon_system_prices_daily_v4.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "update_elexon_system_prices_daily_v4.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "update_ev_chargers.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "update_ev_chargers.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "update_generation_aggregates_ytd_v6.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "update_generation_aggregates_ytd_v6.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "update_generation_recent_mw_v6.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "update_generation_recent_mw_v6.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "update_metros_trams.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "update_metros_trams.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "update_oil_prices.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "update_oil_prices.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "update_prices.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "update_prices.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "update_supermarkets.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "update_supermarkets.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "update_tube_stations.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "update_tube_stations.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "update_uk_frequency_daily_v5.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "update_uk_frequency_daily_v5.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "update_uk_fuel_prices.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "update_uk_fuel_prices.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "update_v5_v6_granular_change_tracker.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "update_v6_transport_energy_sources.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "update_v6_transport_energy_sources.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "v3_ui_patch.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v3_ui_patch.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "v5-dc-ac-lv-01-html.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v5-dc-ac-lv-01-html.yml: stefanzweifel/git-auto-commit-action@v5 is not pinned to a 40-character commit SHA",
+            "v5-dc-ac-lv-02-css.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v5-dc-ac-lv-02-css.yml: stefanzweifel/git-auto-commit-action@v5 is not pinned to a 40-character commit SHA",
+            "v5-dc-ac-lv-03-js.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v5-dc-ac-lv-03-js.yml: stefanzweifel/git-auto-commit-action@v5 is not pinned to a 40-character commit SHA",
+            "v5-dc-ac-lv-04-link.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v5-dc-ac-lv-04-link.yml: stefanzweifel/git-auto-commit-action@v5 is not pinned to a 40-character commit SHA",
+            "v5-dc-ac-lv-topology-trigger.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v5-dc-ac-lv-topology-trigger.yml: stefanzweifel/git-auto-commit-action@v5 is not pinned to a 40-character commit SHA",
+            "v5-engineering-clarity-upgrade.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v5-engineering-clarity-upgrade.yml: stefanzweifel/git-auto-commit-action@v5 is not pinned to a 40-character commit SHA",
+            "v5-geometry-visualiser-migration.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v5-geometry-visualiser-migration.yml: stefanzweifel/git-auto-commit-action@v5 is not pinned to a 40-character commit SHA",
+            "v5-skid-mva-controls-upgrade.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v5-skid-mva-controls-upgrade.yml: stefanzweifel/git-auto-commit-action@v5 is not pinned to a 40-character commit SHA",
+            "v6-add-atlas-v8-dashboard-link.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v6-add-atlas-v8-dashboard-link.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "v6-cable-geometry-modularise.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v6-cable-geometry-modularise.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "v6-complex-upgrade-install.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v6-complex-upgrade-install.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "v6-gis-sld-validation-test.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v6-gis-sld-validation-test.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "v6-migrate-from-v5.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v6-sanity-label-fix.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v6_guardrail_preflight.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v7-add-atlas-v8-dashboard-link.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v7-add-atlas-v8-dashboard-link.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "v7-migrate-from-v6.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v7-migrate-from-v6.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "v7-north-star.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v7-north-star.yml: actions/setup-node@v4 is not pinned to a 40-character commit SHA",
+            "v9-3-validate.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v9-3-validate.yml: actions/setup-node@v4 is not pinned to a 40-character commit SHA",
+            "v9-4-validate.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v9-4-validate.yml: actions/setup-node@v4 is not pinned to a 40-character commit SHA",
+            "v9-5-1-validate.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v9-5-1-validate.yml: actions/setup-node@v4 is not pinned to a 40-character commit SHA",
+            "v9-5-validate.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v9-5-validate.yml: actions/setup-node@v4 is not pinned to a 40-character commit SHA",
+            "v9-6-1-validate.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v9-6-1-validate.yml: actions/setup-node@v4 is not pinned to a 40-character commit SHA",
+            "v9-6-2-validate.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v9-6-2-validate.yml: actions/setup-node@v4 is not pinned to a 40-character commit SHA",
+            "v9-6-validate.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v9-6-validate.yml: actions/setup-node@v4 is not pinned to a 40-character commit SHA",
+            "v9-7-validate.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "v9-7-validate.yml: actions/setup-node@v4 is not pinned to a 40-character commit SHA",
+            "verify-published-versions.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "verify-published-versions.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "wire_generation_ecg_candidate.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "wire_generation_ecg_candidate.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "wire_generation_ecg_candidate.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA"
+          ]
+        },
+        {
+          "vaccine": "least-permissions",
+          "intrinsic_level": "warning",
+          "level": "warning",
+          "state": "warn",
+          "findings": [
+            "202608300232-sync-promoted-gridatlas-v9.yml: no timeout-minutes; runaway jobs run six hours",
+            "202608300310-sync-current-gridatlas-v9.yml: no timeout-minutes; runaway jobs run six hours",
+            "202608301102-repair-atlas-v9-catalogue-sync.yml: no timeout-minutes; runaway jobs run six hours",
+            "202608301102-repair-gridatlas-homepage-anchor.yml: no timeout-minutes; runaway jobs run six hours",
+            "202608301110-repair-gridatlas-homepage-anchor-v2.yml: no timeout-minutes; runaway jobs run six hours",
+            "202608301115-dispatch-gridatlas-sync.yml: no timeout-minutes; runaway jobs run six hours",
+            "202608301115-repair-atlas-v9-catalogue-sync-v2.yml: no timeout-minutes; runaway jobs run six hours",
+            "202608301140-repair-gridatlas-homepage-idempotence.yml: no timeout-minutes; runaway jobs run six hours",
+            "202608301159-repair-gridatlas-homepage-and-cartridge.yml: no timeout-minutes; runaway jobs run six hours",
+            "add-v4-detailed-disclaimer.yml: no timeout-minutes; runaway jobs run six hours",
+            "add-v6-v7-all-apps-a4-print-formatting.yml: no timeout-minutes; runaway jobs run six hours",
+            "add-v6-v7-external-analysis-dashboard-links.yml: no timeout-minutes; runaway jobs run six hours",
+            "add-v6-v7-gis-sld-operating-asset-layers.yml: no timeout-minutes; runaway jobs run six hours",
+            "add-v6-v7-gis-sld-print-formatting.yml: no timeout-minutes; runaway jobs run six hours",
+            "add-v6-v7-gis-sld-print-map-pack.yml: no timeout-minutes; runaway jobs run six hours",
+            "add-v6-v7-print-v2-compact-report-mode.yml: no timeout-minutes; runaway jobs run six hours",
+            "add-v6-v7-print-v3-financials-patch.yml: no timeout-minutes; runaway jobs run six hours",
+            "add-v7-gis-sld-array-visibility-and-mwp-sizing.yml: no timeout-minutes; runaway jobs run six hours",
+            "add-v7-gis-sld-large-asset-markers-and-search.yml: no timeout-minutes; runaway jobs run six hours",
+            "add-v7-gis-sld-site-intelligence-panel.yml: no timeout-minutes; runaway jobs run six hours",
+            "add-v8-bess-geospatial-layout-drawing.yml: no timeout-minutes; runaway jobs run six hours",
+            "add_v3_homepage_link.yml: no timeout-minutes; runaway jobs run six hours",
+            "audit_generation_data_coverage_v6.yml: no timeout-minutes; runaway jobs run six hours",
+            "build-v8-bess-gis-sld-financial-sandbox.yml: no timeout-minutes; runaway jobs run six hours",
+            "clone-v3-to-v4-once.yml: no timeout-minutes; runaway jobs run six hours",
+            "clone-v4-to-v5.yml: no timeout-minutes; runaway jobs run six hours",
+            "clone_generation_history_v6_to_v6_2.yml: no timeout-minutes; runaway jobs run six hours",
+            "clone_uk_energy_tracking_v2.yml: no timeout-minutes; runaway jobs run six hours",
+            "clone_uk_energy_tracking_v2_to_v3.yml: no permissions block; default is too broad",
+            "clone_uk_energy_tracking_v2_to_v3.yml: no timeout-minutes; runaway jobs run six hours",
+            "clone_uk_energy_tracking_v4_to_v5.yml: no timeout-minutes; runaway jobs run six hours",
+            "compare_uk_energy_v5_v6.yml: no timeout-minutes; runaway jobs run six hours",
+            "compare_uk_energy_v5_v6_v2.yml: no timeout-minutes; runaway jobs run six hours",
+            "compare_uk_energy_v5_v6_v3.yml: no timeout-minutes; runaway jobs run six hours",
+            "create-v8-bess-electrical-topology-review.yml: no timeout-minutes; runaway jobs run six hours",
+            "create-v8-bess-pcs-standalone.yml: no timeout-minutes; runaway jobs run six hours",
+            "create_uk_energy_tracking_v4.yml: no timeout-minutes; runaway jobs run six hours",
+            "dependencies_v4.yml: no timeout-minutes; runaway jobs run six hours",
+            "diagnose_repair_v6_price_v5_ui_split.yml: no timeout-minutes; runaway jobs run six hours",
+            "document_uk_energy_trackers.yml: no timeout-minutes; runaway jobs run six hours",
+            "elexon_generation_sources_weekly.yml: no timeout-minutes; runaway jobs run six hours",
+            "elexon_system_prices.yml: no timeout-minutes; runaway jobs run six hours",
+            "fetch_elizabeth_line.yml: no timeout-minutes; runaway jobs run six hours",
+            "fetch_eurostar.yml: no timeout-minutes; runaway jobs run six hours",
+            "fetch_global_ports.yml: no timeout-minutes; runaway jobs run six hours",
+            "fetch_heavy_emitters_uk.yml: no permissions block; default is too broad",
+            "fetch_heavy_emitters_uk.yml: no timeout-minutes; runaway jobs run six hours",
+            "fetch_motorway_services.yml: no timeout-minutes; runaway jobs run six hours",
+            "fetch_naei_point_sources.yml: no permissions block; default is too broad",
+            "fetch_naei_point_sources.yml: no timeout-minutes; runaway jobs run six hours",
+            "fetch_stadiums.yml: no timeout-minutes; runaway jobs run six hours",
+            "fetch_subsea_data_cables.yml: no timeout-minutes; runaway jobs run six hours",
+            "fetch_uk_energy_and_prices.yml: no timeout-minutes; runaway jobs run six hours",
+            "fetch_uk_energy_and_prices_v2.yml: no timeout-minutes; runaway jobs run six hours",
+            "fetch_uk_energy_and_prices_v3.yml: no timeout-minutes; runaway jobs run six hours",
+            "fetch_uk_energy_and_prices_v4.yml: no timeout-minutes; runaway jobs run six hours",
+            "fetch_uk_energy_and_prices_v5.yml: no timeout-minutes; runaway jobs run six hours",
+            "fetch_uk_energy_and_prices_v6.yml: no timeout-minutes; runaway jobs run six hours",
+            "fetch_uk_railways.yml: no timeout-minutes; runaway jobs run six hours",
+            "fetch_uk_roads.yml: no timeout-minutes; runaway jobs run six hours",
+            "fix-uk-renewables-pipeline-csv-export.yml: no timeout-minutes; runaway jobs run six hours",
+            "fix-v5-js-filenames.yml: no timeout-minutes; runaway jobs run six hours",
+            "fix-v6-v7-gis-sld-print-simple-safe.yml: no timeout-minutes; runaway jobs run six hours",
+            "fix-v7-gis-sld-mobile-array-toggle-visibility.yml: no timeout-minutes; runaway jobs run six hours",
+            "fix-v7-gis-sld-mobile-mwp-sizing-visibility.yml: no timeout-minutes; runaway jobs run six hours",
+            "fix-v7-gis-sld-mobile-tool-overlay-spacing.yml: no timeout-minutes; runaway jobs run six hours",
+            "fix-v7-gis-sld-mobile-tools-energy-layer-clearance.yml: no timeout-minutes; runaway jobs run six hours",
+            "force_uk_energy_tracking_v3_price_history.yml: no timeout-minutes; runaway jobs run six hours",
+            "generate-gis-sld-full-code-reports.yml: no timeout-minutes; runaway jobs run six hours",
+            "generate-v8-codebase-blueprint.yml: no timeout-minutes; runaway jobs run six hours",
+            "generate_deep_subsea.yml: no permissions block; default is too broad",
+            "generate_deep_subsea.yml: no timeout-minutes; runaway jobs run six hours",
+            "generate_global_hydrocarbons.yml: no permissions block; default is too broad",
+            "generate_global_hydrocarbons.yml: no timeout-minutes; runaway jobs run six hours",
+            "generate_price_history_4bucket_v2.yml: no timeout-minutes; runaway jobs run six hours",
+            "generate_repo_structure.yml: no timeout-minutes; runaway jobs run six hours",
+            "generate_v6_architectural_integrity_protocol.yml: no timeout-minutes; runaway jobs run six hours",
+            "gridbot-feature-install.yml: no timeout-minutes; runaway jobs run six hours",
+            "gridbot_app_repo_bootstrap.yml: no timeout-minutes; runaway jobs run six hours",
+            "gridbot_audit_process_documentation.yml: no timeout-minutes; runaway jobs run six hours",
+            "gridbot_bulk_data_workflow_freeze.yml: no timeout-minutes; runaway jobs run six hours",
+            "gridbot_daily_mwh_multi_technology_wiring.yml: no timeout-minutes; runaway jobs run six hours",
+            "gridbot_daily_mwh_seasonal_colouring.yml: no timeout-minutes; runaway jobs run six hours",
+            "gridbot_daily_mwh_titles_labels.yml: no timeout-minutes; runaway jobs run six hours",
+            "gridbot_generation_daily_mwh_fuelhh_chunks.yml: no timeout-minutes; runaway jobs run six hours",
+            "gridbot_generation_history_v6_2_backup_mirror.yml: no timeout-minutes; runaway jobs run six hours",
+            "gridbot_generation_mwh_active_v6_source_audit.yml: no timeout-minutes; runaway jobs run six hours",
+            "gridbot_generation_mwh_interconnector_ui_guard.yml: no timeout-minutes; runaway jobs run six hours",
+            "gridbot_repo_split_inventory.yml: no timeout-minutes; runaway jobs run six hours",
+            "gridbot_solar_daily_mwh_chart_upgrade.yml: no timeout-minutes; runaway jobs run six hours",
+            "gridbot_solar_daily_mwh_interaction_upgrade.yml: no timeout-minutes; runaway jobs run six hours",
+            "gridbot_solar_peak_integrity_audit.yml: no timeout-minutes; runaway jobs run six hours",
+            "gridbot_v3_consolidated_price_history.yml: no timeout-minutes; runaway jobs run six hours",
+            "homepage-restore-point-check.yml: no timeout-minutes; runaway jobs run six hours",
+            "inspect_data_science_discipline.yml: no timeout-minutes; runaway jobs run six hours",
+            "install_solar_dc_er_section.yml: no timeout-minutes; runaway jobs run six hours",
+            "install_solar_dc_er_subsections.yml: no timeout-minutes; runaway jobs run six hours",
+            "isolate_uk_energy_tracking_v2.yml: no timeout-minutes; runaway jobs run six hours",
+            "jekyll-gh-pages.yml: no timeout-minutes; runaway jobs run six hours",
+            "major_project_news_v4.yml: no timeout-minutes; runaway jobs run six hours",
+            "modularise_solar_er.yml: no timeout-minutes; runaway jobs run six hours",
+            "modularize-v3-once.yml: no timeout-minutes; runaway jobs run six hours",
+            "ons_mwh_energy_use_annual_v6.yml: no timeout-minutes; runaway jobs run six hours",
+            "patch_uk_energy_tracking_v2_oil_graph.yml: no timeout-minutes; runaway jobs run six hours",
+            "patch_uk_energy_tracking_v2_transport.yml: no timeout-minutes; runaway jobs run six hours",
+            "patch_v3_price_axis_table_fullscreen.yml: no timeout-minutes; runaway jobs run six hours",
+            "patch_v3_price_history_correctness.yml: no timeout-minutes; runaway jobs run six hours",
+            "patch_v3_price_history_date_window.yml: no timeout-minutes; runaway jobs run six hours",
+            "patch_v3_price_history_fullscreen.yml: no timeout-minutes; runaway jobs run six hours",
+            "patch_v3_price_history_merge_system.yml: no timeout-minutes; runaway jobs run six hours",
+            "patch_v3_price_history_ui.yml: no timeout-minutes; runaway jobs run six hours",
+            "patch_v3_price_lazy_selectors.yml: no timeout-minutes; runaway jobs run six hours",
+            "patch_v3_price_range_fullscreen_fix.yml: no timeout-minutes; runaway jobs run six hours",
+            "patch_v4_live_tracker_modular_structure.yml: no timeout-minutes; runaway jobs run six hours",
+            "patch_v5_chart_dynamic_annotations.yml: no timeout-minutes; runaway jobs run six hours",
+            "patch_v5_chart_overlap_controls.yml: no timeout-minutes; runaway jobs run six hours",
+            "patch_v5_fullscreen_glow_controls.yml: no timeout-minutes; runaway jobs run six hours",
+            "rebuild-v8-bess-from-v7-gis-frame.yml: no timeout-minutes; runaway jobs run six hours",
+            "remove-benchmark-block-from-v6-v7-gis-sld.yml: no timeout-minutes; runaway jobs run six hours",
+            "remove-project-x-from-v6-v7-gis-sld.yml: no timeout-minutes; runaway jobs run six hours",
+            "repair_public_grid_study_period_selector.yml: no timeout-minutes; runaway jobs run six hours",
+            "repair_public_grid_study_selector_binding.yml: no timeout-minutes; runaway jobs run six hours",
+            "repair_v6_adaptive_weekly_time_ticks.yml: no timeout-minutes; runaway jobs run six hours",
+            "repair_v6_chart_boxes_no_summary.yml: no timeout-minutes; runaway jobs run six hours",
+            "repair_v6_chart_context_labels.yml: no timeout-minutes; runaway jobs run six hours",
+            "repair_v6_chart_inspect_arrows.yml: no timeout-minutes; runaway jobs run six hours",
+            "repair_v6_connect_inspect_overlay.yml: no timeout-minutes; runaway jobs run six hours",
+            "repair_v6_electricity_annual_year_selector.yml: no timeout-minutes; runaway jobs run six hours",
+            "repair_v6_event_boxes_visible.yml: no timeout-minutes; runaway jobs run six hours",
+            "repair_v6_fullscreen_summary_box.yml: no timeout-minutes; runaway jobs run six hours",
+            "repair_v6_fullscreen_swipe.yml: no timeout-minutes; runaway jobs run six hours",
+            "repair_v6_half_hourly_short_window_modes.yml: no timeout-minutes; runaway jobs run six hours",
+            "repair_v6_high_low_trackers.yml: no timeout-minutes; runaway jobs run six hours",
+            "repair_v6_inpage_chart_real_estate.yml: no timeout-minutes; runaway jobs run six hours",
+            "repair_v6_inspect_cache_buster.yml: no timeout-minutes; runaway jobs run six hours",
+            "repair_v6_mobile_chart_readability.yml: no timeout-minutes; runaway jobs run six hours",
+            "repair_v6_mobile_chart_stabilise.yml: no timeout-minutes; runaway jobs run six hours",
+            "repair_v6_mobile_inspect_buttons.yml: no timeout-minutes; runaway jobs run six hours",
+            "repair_v6_price_annotations_v5_style.yml: no timeout-minutes; runaway jobs run six hours",
+            "repair_v6_price_annotation_layout.yml: no timeout-minutes; runaway jobs run six hours",
+            "repair_v6_restore_v5_panels.yml: no timeout-minutes; runaway jobs run six hours",
+            "repair_v6_weekly_axis_padding.yml: no timeout-minutes; runaway jobs run six hours",
+            "repd_sync.yml: no permissions block; default is too broad",
+            "repd_sync.yml: no timeout-minutes; runaway jobs run six hours",
+            "replace-v7-gis-sld-asset-buttons-with-pipeline-dropdown-status.yml: no timeout-minutes; runaway jobs run six hours",
+            "replace-v7-gis-sld-asset-buttons-with-pipeline-dropdown.yml: no timeout-minutes; runaway jobs run six hours",
+            "repo_guard.yml: no timeout-minutes; runaway jobs run six hours",
+            "repo_size_guard.yml: no timeout-minutes; runaway jobs run six hours",
+            "restore-v8-bess-maplibre-standalone.yml: no timeout-minutes; runaway jobs run six hours",
+            "rollback-v8-bess-v7-frame-rebuild.yml: no timeout-minutes; runaway jobs run six hours",
+            "run_v2_safe_patch.yml: no timeout-minutes; runaway jobs run six hours",
+            "track_repository_size.yml: no timeout-minutes; runaway jobs run six hours",
+            "update-grid-data.yml: no timeout-minutes; runaway jobs run six hours",
+            "update_11kv_ukpn.yml: no timeout-minutes; runaway jobs run six hours",
+            "update_elexon_system_prices_daily_v4.yml: no timeout-minutes; runaway jobs run six hours",
+            "update_ev_chargers.yml: no timeout-minutes; runaway jobs run six hours",
+            "update_metros_trams.yml: no timeout-minutes; runaway jobs run six hours",
+            "update_supermarkets.yml: no timeout-minutes; runaway jobs run six hours",
+            "update_tube_stations.yml: no timeout-minutes; runaway jobs run six hours",
+            "update_v5_v6_granular_change_tracker.yml: no timeout-minutes; runaway jobs run six hours",
+            "v3_ui_patch.yml: no timeout-minutes; runaway jobs run six hours",
+            "v5-dc-ac-lv-01-html.yml: no timeout-minutes; runaway jobs run six hours",
+            "v5-dc-ac-lv-02-css.yml: no timeout-minutes; runaway jobs run six hours",
+            "v5-dc-ac-lv-03-js.yml: no timeout-minutes; runaway jobs run six hours",
+            "v5-dc-ac-lv-04-link.yml: no timeout-minutes; runaway jobs run six hours",
+            "v5-dc-ac-lv-topology-trigger.yml: no timeout-minutes; runaway jobs run six hours",
+            "v5-engineering-clarity-upgrade.yml: no timeout-minutes; runaway jobs run six hours",
+            "v5-geometry-visualiser-migration.yml: no timeout-minutes; runaway jobs run six hours",
+            "v5-skid-mva-controls-upgrade.yml: no timeout-minutes; runaway jobs run six hours",
+            "v6-add-atlas-v8-dashboard-link.yml: no timeout-minutes; runaway jobs run six hours",
+            "v6-cable-geometry-modularise.yml: no timeout-minutes; runaway jobs run six hours",
+            "v6-complex-upgrade-install.yml: no timeout-minutes; runaway jobs run six hours",
+            "v6-gis-sld-validation-test.yml: no timeout-minutes; runaway jobs run six hours",
+            "v6-migrate-from-v5.yml: no timeout-minutes; runaway jobs run six hours",
+            "v6-sanity-label-fix.yml: no timeout-minutes; runaway jobs run six hours",
+            "v6_guardrail_preflight.yml: no timeout-minutes; runaway jobs run six hours",
+            "v7-add-atlas-v8-dashboard-link.yml: no timeout-minutes; runaway jobs run six hours",
+            "v7-migrate-from-v6.yml: no timeout-minutes; runaway jobs run six hours"
+          ]
+        },
+        {
+          "vaccine": "agent-quarantine",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "vocabulary",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "monotonic-utc-generations",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "d29cbdb generation 202608300232 is earlier than previous 202608301700",
+            "db6a650 generation 202608300453 is earlier than previous 202608301115",
+            "3cec2fb generation 202608300453 is earlier than previous 202608301128",
+            "dfb20d4 generation 202608301159 is earlier than previous 202608301201",
+            "373186e generation 202608301102 is earlier than previous 202608301159",
+            "ea97bf0 generation 202609032335 is earlier than previous 202609040025",
+            "generation 202608290656 is 60 minutes off its UTC commit time 202608290556; generations are read from date -u at commit time, never chosen",
+            "generation 202608291504 is 38 minutes off its UTC commit time 202608291426; generations are read from date -u at commit time, never chosen",
+            "generation 202608300310 is 66 minutes off its UTC commit time 202608300204; generations are read from date -u at commit time, never chosen",
+            "generation 202608300340 is 72 minutes off its UTC commit time 202608300228; generations are read from date -u at commit time, never chosen",
+            "generation 202608301700 is 828 minutes off its UTC commit time 202608300312; generations are read from date -u at commit time, never chosen",
+            "generation 202608300232 is 44 minutes off its UTC commit time 202608300316; generations are read from date -u at commit time, never chosen",
+            "generation 202608300232 is 45 minutes off its UTC commit time 202608300317; generations are read from date -u at commit time, never chosen",
+            "generation 202608300232 is 48 minutes off its UTC commit time 202608300320; generations are read from date -u at commit time, never chosen",
+            "generation 202608300424 is 59 minutes off its UTC commit time 202608300325; generations are read from date -u at commit time, never chosen",
+            "generation 202608301102 is 54 minutes off its UTC commit time 202608301008; generations are read from date -u at commit time, never chosen",
+            "generation 202608301110 is 60 minutes off its UTC commit time 202608301010; generations are read from date -u at commit time, never chosen",
+            "generation 202608301110 is 59 minutes off its UTC commit time 202608301011; generations are read from date -u at commit time, never chosen",
+            "generation 202608301115 is 64 minutes off its UTC commit time 202608301011; generations are read from date -u at commit time, never chosen",
+            "generation 202608300453 is 319 minutes off its UTC commit time 202608301012; generations are read from date -u at commit time, never chosen",
+            "generation 202608301128 is 69 minutes off its UTC commit time 202608301019; generations are read from date -u at commit time, never chosen",
+            "generation 202608300453 is 330 minutes off its UTC commit time 202608301023; generations are read from date -u at commit time, never chosen",
+            "generation 202608301136 is 67 minutes off its UTC commit time 202608301029; generations are read from date -u at commit time, never chosen",
+            "generation 202608301140 is 69 minutes off its UTC commit time 202608301031; generations are read from date -u at commit time, never chosen",
+            "generation 202608301159 is 60 minutes off its UTC commit time 202608301059; generations are read from date -u at commit time, never chosen",
+            "generation 202608301201 is 61 minutes off its UTC commit time 202608301100; generations are read from date -u at commit time, never chosen",
+            "generation 202608301159 is 58 minutes off its UTC commit time 202608301101; generations are read from date -u at commit time, never chosen",
+            "generation 202608301102 is 25 minutes off its UTC commit time 202608301127; generations are read from date -u at commit time, never chosen",
+            "generation 202608301300 is 48 minutes off its UTC commit time 202608301212; generations are read from date -u at commit time, never chosen",
+            "generation 202608301702 is 57 minutes off its UTC commit time 202608301605; generations are read from date -u at commit time, never chosen",
+            "generation 202608311343 is 19 minutes off its UTC commit time 202608311402; generations are read from date -u at commit time, never chosen",
+            "generation 202608312339 is 101 minutes off its UTC commit time 202609010120; generations are read from date -u at commit time, never chosen",
+            "generation 202609030340 is 23 minutes off its UTC commit time 202609030317; generations are read from date -u at commit time, never chosen",
+            "generation 202609040025 is 54 minutes off its UTC commit time 202609032331; generations are read from date -u at commit time, never chosen"
+          ]
+        },
+        {
+          "vaccine": "on-ledger-commits",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "executor-declared",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "loop-exists",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "rollback-exercised",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "attestation-freshness",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "full-history-checkout",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-time-based-gates",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "catalogue-gridatlas-v9.yml carries a wall-clock gate; loops must be perpetual with an exit-0 path"
+          ]
+        },
+        {
+          "vaccine": "release-name-convention",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "page-data-block-parses",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "disk-is-not-what-ships",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "no .gitattributes: the working copy and the blob can differ, so any check that reads a file off disk is asking a different question from any check that reads what ships"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pipelinenews",
+      "path": "../pipelinenews",
+      "exit_code": 1,
+      "errors": 114,
+      "warnings": 123,
+      "shallow": false,
+      "results": [
+        {
+          "vaccine": "one-active-scope",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-app-copies",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-per-release-workflows",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "45 timestamped workflows exceed baseline 0; add a scope file, not a workflow"
+          ]
+        },
+        {
+          "vaccine": "self-terminating-loops",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "202608290146-adaptive-controller-contract-gate.yml is scheduled but has no exit-0 path when nothing is pending"
+          ]
+        },
+        {
+          "vaccine": "chaining-token",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "202608270844-live-news-discovery.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608271329-atlas-v8-deep-link.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608271457-mobile-ui-comparator.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608271524-news-chronology-candidate.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608271600-mobile-ui-comparator.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608271620-mobile-ui-comparator.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608271631-mobile-ui-comparator.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608271638-mobile-ui-comparator.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608271656-mobile-ui-comparator.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608271906-mobile-css-repair.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608271934-mobile-css-repair.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608271957-mobile-css-repair.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608272001-mobile-css-repair.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608272130-sector-intelligence-candidate.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608282150-v9-6-2-equivalence-gate.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608300232-sync-atlas-v9-deep-links.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608300309-current-gridatlas-v9-deep-link-successor.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608300327-bound-hourly-atlas-v9-mission.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608300430-bootstrap-five-hour-atlas-integration.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608300434-repair-five-hour-bootstrap.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608300522-resume-exact-atlas-pages-promotion.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608301209-scope-atlas-runtime-receiver-check.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608301211-authorise-frozen-pointer-release-tree.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608311458-build-intelligence-release.yml pushes with the default token; use an App token so downstream workflows run",
+            "202609010134-sector-intelligence-candidate.yml pushes with the default token; use an App token so downstream workflows run",
+            "202609010140-sector-intelligence-candidate.yml pushes with the default token; use an App token so downstream workflows run",
+            "202609010143-sector-intelligence-candidate.yml pushes with the default token; use an App token so downstream workflows run",
+            "202609010145-sector-intelligence-candidate.yml pushes with the default token; use an App token so downstream workflows run",
+            "202609010200-sector-intelligence-candidate.yml pushes with the default token; use an App token so downstream workflows run",
+            "202609010719-sector-intelligence-candidate.yml pushes with the default token; use an App token so downstream workflows run",
+            "atman-v8-architecture-report.yml pushes with the default token; use an App token so downstream workflows run",
+            "build-pipelinenews-v8-candidate.yml pushes with the default token; use an App token so downstream workflows run",
+            "build-v8-fast-site.yml pushes with the default token; use an App token so downstream workflows run",
+            "build-v8-foundation.yml pushes with the default token; use an App token so downstream workflows run"
+          ]
+        },
+        {
+          "vaccine": "pointer-verifies",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "derived-state-not-authored",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "context-diet",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "rollback-exists",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "registry-integrity",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-dangerous-apis",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "pinned-actions",
+          "intrinsic_level": "warning",
+          "level": "warning",
+          "state": "warn",
+          "findings": [
+            "202608270844-live-news-discovery.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608270844-live-news-discovery.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608270844-live-news-discovery.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271329-atlas-v8-deep-link.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271329-atlas-v8-deep-link.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608271329-atlas-v8-deep-link.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271329-atlas-v8-deep-link.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271329-atlas-v8-deep-link.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271329-atlas-v8-deep-link.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608271329-atlas-v8-deep-link.yml: actions/download-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271329-audit-atlas-v8-deep-link-quarantine.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271329-audit-atlas-v8-deep-link-quarantine.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608271329-audit-atlas-v8-deep-link-quarantine.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271457-mobile-ui-comparator.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271457-mobile-ui-comparator.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608271457-mobile-ui-comparator.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271457-mobile-ui-comparator.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271457-mobile-ui-comparator.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271457-mobile-ui-comparator.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608271457-mobile-ui-comparator.yml: actions/download-artifact@v5 is not pinned to a 40-character commit SHA",
+            "202608271524-news-chronology-candidate.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271524-news-chronology-candidate.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608271524-news-chronology-candidate.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271524-news-chronology-candidate.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271524-news-chronology-candidate.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271524-news-chronology-candidate.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608271524-news-chronology-candidate.yml: actions/download-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271600-mobile-ui-comparator.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271600-mobile-ui-comparator.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608271600-mobile-ui-comparator.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271600-mobile-ui-comparator.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271600-mobile-ui-comparator.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608271600-mobile-ui-comparator.yml: actions/download-artifact@v5 is not pinned to a 40-character commit SHA",
+            "202608271600-mobile-ui-comparator.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271600-mobile-ui-comparator.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271600-mobile-ui-comparator.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271600-mobile-ui-comparator.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608271600-mobile-ui-comparator.yml: actions/download-artifact@v5 is not pinned to a 40-character commit SHA",
+            "202608271620-mobile-ui-comparator.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271620-mobile-ui-comparator.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608271620-mobile-ui-comparator.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271620-mobile-ui-comparator.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271620-mobile-ui-comparator.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608271620-mobile-ui-comparator.yml: actions/download-artifact@v5 is not pinned to a 40-character commit SHA",
+            "202608271620-mobile-ui-comparator.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271620-mobile-ui-comparator.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271620-mobile-ui-comparator.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271620-mobile-ui-comparator.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608271620-mobile-ui-comparator.yml: actions/download-artifact@v5 is not pinned to a 40-character commit SHA",
+            "202608271631-mobile-ui-comparator.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271631-mobile-ui-comparator.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608271631-mobile-ui-comparator.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271631-mobile-ui-comparator.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271631-mobile-ui-comparator.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608271631-mobile-ui-comparator.yml: actions/download-artifact@v5 is not pinned to a 40-character commit SHA",
+            "202608271631-mobile-ui-comparator.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271631-mobile-ui-comparator.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271631-mobile-ui-comparator.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271631-mobile-ui-comparator.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608271631-mobile-ui-comparator.yml: actions/download-artifact@v5 is not pinned to a 40-character commit SHA",
+            "202608271638-mobile-ui-comparator.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271638-mobile-ui-comparator.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608271638-mobile-ui-comparator.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271638-mobile-ui-comparator.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271638-mobile-ui-comparator.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608271638-mobile-ui-comparator.yml: actions/download-artifact@v5 is not pinned to a 40-character commit SHA",
+            "202608271638-mobile-ui-comparator.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271638-mobile-ui-comparator.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271638-mobile-ui-comparator.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271638-mobile-ui-comparator.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608271638-mobile-ui-comparator.yml: actions/download-artifact@v5 is not pinned to a 40-character commit SHA",
+            "202608271656-mobile-ui-comparator.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271656-mobile-ui-comparator.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608271656-mobile-ui-comparator.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271656-mobile-ui-comparator.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271656-mobile-ui-comparator.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608271656-mobile-ui-comparator.yml: actions/download-artifact@v5 is not pinned to a 40-character commit SHA",
+            "202608271656-mobile-ui-comparator.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271656-mobile-ui-comparator.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271656-mobile-ui-comparator.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271656-mobile-ui-comparator.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608271656-mobile-ui-comparator.yml: actions/download-artifact@v5 is not pinned to a 40-character commit SHA",
+            "202608271906-mobile-css-repair.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271906-mobile-css-repair.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608271906-mobile-css-repair.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271934-mobile-css-repair.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271934-mobile-css-repair.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608271934-mobile-css-repair.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271934-mobile-css-repair.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271934-mobile-css-repair.yml: actions/download-artifact@v5 is not pinned to a 40-character commit SHA",
+            "202608271957-mobile-css-repair.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271957-mobile-css-repair.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608271957-mobile-css-repair.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608271957-mobile-css-repair.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608271957-mobile-css-repair.yml: actions/download-artifact@v5 is not pinned to a 40-character commit SHA",
+            "202608272001-mobile-css-repair.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608272001-mobile-css-repair.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "202608272001-mobile-css-repair.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "202608272001-mobile-css-repair.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "202608272001-mobile-css-repair.yml: actions/download-artifact@v5 is not pinned to a 40-character commit SHA",
+            "atman-v8-architecture-report.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "atman-v8-architecture-report.yml: actions/setup-node@v4 is not pinned to a 40-character commit SHA",
+            "atman-v8-architecture-report.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "build-pipelinenews-v8-candidate.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "build-pipelinenews-v8-candidate.yml: actions/setup-node@v4 is not pinned to a 40-character commit SHA",
+            "build-pipelinenews-v8-candidate.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "build-v8-fast-site.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "build-v8-fast-site.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "build-v8-fast-site.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "build-v8-foundation.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "build-v8-foundation.yml: actions/setup-node@v4 is not pinned to a 40-character commit SHA",
+            "build-v8-foundation.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "compile-v8-with-companies.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "compile-v8-with-companies.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "compile-v8-with-companies.yml: actions/setup-node@v4 is not pinned to a 40-character commit SHA",
+            "compile-v8-with-companies.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "compile-v8-with-companies.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gate-v8-foundation.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gate-v8-foundation.yml: actions/setup-node@v4 is not pinned to a 40-character commit SHA",
+            "gate-v8-foundation.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "performance-audit.yml: actions/checkout@v5 is not pinned to a 40-character commit SHA",
+            "performance-audit.yml: actions/setup-node@v5 is not pinned to a 40-character commit SHA",
+            "performance-audit.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA"
+          ]
+        },
+        {
+          "vaccine": "least-permissions",
+          "intrinsic_level": "warning",
+          "level": "warning",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "agent-quarantine",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "vocabulary",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "monotonic-utc-generations",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "bb76e46 generation 202608312244 is earlier than previous 202608312245",
+            "5872eb4 generation 202608312320 is earlier than previous 202608312331",
+            "c7dac70 generation 202608312327 is earlier than previous 202608312340",
+            "f16d6b5 generation 202609010134 is earlier than previous 202609010135",
+            "e741ceb generation 202609010200 is earlier than previous 202609010202",
+            "b5a90b4 generation 202609011222 is earlier than previous 202609011248",
+            "dbac1ea generation 202609011446 is earlier than previous 202609011530",
+            "04d81c1 generation 202609011400 is earlier than previous 202609011446",
+            "e42a34f generation 202609011459 is earlier than previous 202609011735",
+            "8abae5b generation 202609011808 is earlier than previous 202609011810",
+            "2f315c0 generation 202609011852 is earlier than previous 202609011855",
+            "1f66eeb generation 202609011925 is earlier than previous 202609011927",
+            "4fe02d0 generation 202609012200 is earlier than previous 202609012315",
+            "c000456 generation 202609020010 is earlier than previous 202609020030",
+            "6e64319 generation 202609020009 is earlier than previous 202609020010",
+            "7c40695 generation 202609020611 is earlier than previous 202609020620",
+            "3335fe6 generation 202609021630 is earlier than previous 202609040144",
+            "generation 202608312340 is 17 minutes off its UTC commit time 202608312323; generations are read from date -u at commit time, never chosen",
+            "generation 202609010219 is 17 minutes off its UTC commit time 202609010202; generations are read from date -u at commit time, never chosen",
+            "generation 202609010232 is 286 minutes off its UTC commit time 202609010718; generations are read from date -u at commit time, never chosen",
+            "generation 202609010738 is 17 minutes off its UTC commit time 202609010721; generations are read from date -u at commit time, never chosen",
+            "generation 202609010745 is 16 minutes off its UTC commit time 202609010729; generations are read from date -u at commit time, never chosen",
+            "generation 202609011248 is 63 minutes off its UTC commit time 202609011145; generations are read from date -u at commit time, never chosen",
+            "generation 202609011530 is 104 minutes off its UTC commit time 202609011346; generations are read from date -u at commit time, never chosen",
+            "generation 202609011446 is 58 minutes off its UTC commit time 202609011348; generations are read from date -u at commit time, never chosen",
+            "generation 202609011600 is 111 minutes off its UTC commit time 202609011409; generations are read from date -u at commit time, never chosen",
+            "generation 202609011735 is 67 minutes off its UTC commit time 202609011628; generations are read from date -u at commit time, never chosen",
+            "generation 202609011459 is 91 minutes off its UTC commit time 202609011630; generations are read from date -u at commit time, never chosen",
+            "generation 202609011732 is 59 minutes off its UTC commit time 202609011633; generations are read from date -u at commit time, never chosen",
+            "generation 202609011739 is 63 minutes off its UTC commit time 202609011636; generations are read from date -u at commit time, never chosen",
+            "generation 202609011742 is 64 minutes off its UTC commit time 202609011638; generations are read from date -u at commit time, never chosen",
+            "generation 202609011756 is 69 minutes off its UTC commit time 202609011647; generations are read from date -u at commit time, never chosen",
+            "generation 202609011800 is 72 minutes off its UTC commit time 202609011648; generations are read from date -u at commit time, never chosen",
+            "generation 202609011810 is 74 minutes off its UTC commit time 202609011656; generations are read from date -u at commit time, never chosen",
+            "generation 202609011808 is 70 minutes off its UTC commit time 202609011658; generations are read from date -u at commit time, never chosen",
+            "generation 202609011823 is 80 minutes off its UTC commit time 202609011703; generations are read from date -u at commit time, never chosen",
+            "generation 202609011830 is 87 minutes off its UTC commit time 202609011703; generations are read from date -u at commit time, never chosen",
+            "generation 202609011855 is 105 minutes off its UTC commit time 202609011710; generations are read from date -u at commit time, never chosen",
+            "generation 202609011852 is 96 minutes off its UTC commit time 202609011716; generations are read from date -u at commit time, never chosen",
+            "generation 202609011922 is 118 minutes off its UTC commit time 202609011724; generations are read from date -u at commit time, never chosen",
+            "generation 202609011927 is 121 minutes off its UTC commit time 202609011726; generations are read from date -u at commit time, never chosen",
+            "generation 202609011925 is 119 minutes off its UTC commit time 202609011726; generations are read from date -u at commit time, never chosen",
+            "generation 202609011929 is 121 minutes off its UTC commit time 202609011728; generations are read from date -u at commit time, never chosen",
+            "generation 202609011955 is 140 minutes off its UTC commit time 202609011735; generations are read from date -u at commit time, never chosen",
+            "generation 202609012012 is 151 minutes off its UTC commit time 202609011741; generations are read from date -u at commit time, never chosen",
+            "generation 202609012015 is 153 minutes off its UTC commit time 202609011742; generations are read from date -u at commit time, never chosen",
+            "generation 202609012020 is 156 minutes off its UTC commit time 202609011744; generations are read from date -u at commit time, never chosen",
+            "generation 202609012025 is 159 minutes off its UTC commit time 202609011746; generations are read from date -u at commit time, never chosen",
+            "generation 202609012050 is 178 minutes off its UTC commit time 202609011752; generations are read from date -u at commit time, never chosen",
+            "generation 202609012055 is 183 minutes off its UTC commit time 202609011752; generations are read from date -u at commit time, never chosen",
+            "generation 202609012115 is 188 minutes off its UTC commit time 202609011807; generations are read from date -u at commit time, never chosen",
+            "generation 202609012140 is 207 minutes off its UTC commit time 202609011813; generations are read from date -u at commit time, never chosen",
+            "generation 202609012205 is 217 minutes off its UTC commit time 202609011828; generations are read from date -u at commit time, never chosen",
+            "generation 202609012235 is 238 minutes off its UTC commit time 202609011837; generations are read from date -u at commit time, never chosen",
+            "generation 202609012300 is 239 minutes off its UTC commit time 202609011901; generations are read from date -u at commit time, never chosen",
+            "generation 202609012315 is 253 minutes off its UTC commit time 202609011902; generations are read from date -u at commit time, never chosen",
+            "generation 202609020030 is 62 minutes off its UTC commit time 202609012328; generations are read from date -u at commit time, never chosen",
+            "generation 202609020010 is 53 minutes off its UTC commit time 202609012317; generations are read from date -u at commit time, never chosen",
+            "generation 202609020053 is 296 minutes off its UTC commit time 202609020549; generations are read from date -u at commit time, never chosen",
+            "generation 202609020056 is 295 minutes off its UTC commit time 202609020551; generations are read from date -u at commit time, never chosen",
+            "generation 202609020710 is 43 minutes off its UTC commit time 202609020627; generations are read from date -u at commit time, never chosen",
+            "generation 202609020730 is 56 minutes off its UTC commit time 202609020634; generations are read from date -u at commit time, never chosen",
+            "generation 202609021630 is 2431 minutes off its UTC commit time 202609040901; generations are read from date -u at commit time, never chosen"
+          ]
+        },
+        {
+          "vaccine": "on-ledger-commits",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "executor-declared",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "loop-exists",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "rollback-exercised",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "attestation-freshness",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "full-history-checkout",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-time-based-gates",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "202608300232-sync-atlas-v9-deep-links.yml carries a wall-clock gate; loops must be perpetual with an exit-0 path",
+            "202608300232-sync-atlas-v9-deep-links.yml cron \"20 4-8 30 8 *\" is pinned to one calendar day",
+            "202608300309-current-gridatlas-v9-deep-link-successor.yml carries a wall-clock gate; loops must be perpetual with an exit-0 path",
+            "202608300309-current-gridatlas-v9-deep-link-successor.yml cron \"30 4-8 30 8 *\" is pinned to one calendar day",
+            "202608300327-bound-hourly-atlas-v9-mission.yml carries a wall-clock gate; loops must be perpetual with an exit-0 path",
+            "202608300327-bound-hourly-atlas-v9-mission.yml cron \"20 3-5 30 8 *\" is pinned to one calendar day",
+            "202608300327-bound-hourly-atlas-v9-mission.yml cron \"20 3-5 30 8 \\*\" is pinned to one calendar day",
+            "202608300430-bootstrap-five-hour-atlas-integration.yml carries a wall-clock gate; loops must be perpetual with an exit-0 path",
+            "202608300430-bootstrap-five-hour-atlas-integration.yml cron \"20 4-8 30 8 *\" is pinned to one calendar day",
+            "202608300430-bootstrap-five-hour-atlas-integration.yml cron \"30 4-8 30 8 *\" is pinned to one calendar day",
+            "202608300430-bootstrap-five-hour-atlas-integration.yml cron \"20 4-8 30 8 \\*\" is pinned to one calendar day",
+            "202608300430-bootstrap-five-hour-atlas-integration.yml cron \"30 4-8 30 8 \\*\" is pinned to one calendar day",
+            "202608300522-resume-exact-atlas-pages-promotion.yml carries a wall-clock gate; loops must be perpetual with an exit-0 path",
+            "202608300522-resume-exact-atlas-pages-promotion.yml cron \"35 4-8 30 8 *\" is pinned to one calendar day"
+          ]
+        },
+        {
+          "vaccine": "release-name-convention",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "page-data-block-parses",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "disk-is-not-what-ships",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "no .gitattributes: the working copy and the blob can differ, so any check that reads a file off disk is asking a different question from any check that reads what ships"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "gridatlas",
+      "path": "../gridatlas",
+      "exit_code": 1,
+      "errors": 58,
+      "warnings": 0,
+      "shallow": false,
+      "results": [
+        {
+          "vaccine": "one-active-scope",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-app-copies",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-per-release-workflows",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "3 timestamped workflows exceed baseline 0; add a scope file, not a workflow"
+          ]
+        },
+        {
+          "vaccine": "self-terminating-loops",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "chaining-token",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "202608301321-scope-loop.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608301321-verify-live.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608310015-gridatlas-overnight-next-versions.yml pushes with the default token; use an App token so downstream workflows run",
+            "202608310050-gridatlas-next-version-builders.yml pushes with the default token; use an App token so downstream workflows run",
+            "rollback-composition.yml pushes with the default token; use an App token so downstream workflows run"
+          ]
+        },
+        {
+          "vaccine": "pointer-verifies",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "atlas/releases/202608300453-atlas-v9 checksums do not verify"
+          ]
+        },
+        {
+          "vaccine": "derived-state-not-authored",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "context-diet",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "rollback-exists",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "registry-integrity",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-dangerous-apis",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "pinned-actions",
+          "intrinsic_level": "warning",
+          "level": "warning",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "least-permissions",
+          "intrinsic_level": "warning",
+          "level": "warning",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "agent-quarantine",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "vocabulary",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "monotonic-utc-generations",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "d28d3c4 generation 202609011435 is earlier than previous 202609011515",
+            "dfa3d38 generation 202609011612 is earlier than previous 202609011645",
+            "1b1740d generation 202609012148 is earlier than previous 202609012310",
+            "bfc0475 generation 202609012141 is earlier than previous 202609012148",
+            "71aa6a2 generation 202609012220 is earlier than previous 202609012248",
+            "98932b4 generation 202609012318 is earlier than previous 202609020010",
+            "4b3fd52 generation 202609021625 is earlier than previous 202609040337",
+            "generation 202609011433 is 50 minutes off its UTC commit time 202609011343; generations are read from date -u at commit time, never chosen",
+            "generation 202609011434 is 39 minutes off its UTC commit time 202609011355; generations are read from date -u at commit time, never chosen",
+            "generation 202609011515 is 72 minutes off its UTC commit time 202609011403; generations are read from date -u at commit time, never chosen",
+            "generation 202609011435 is 28 minutes off its UTC commit time 202609011407; generations are read from date -u at commit time, never chosen",
+            "generation 202609011540 is 92 minutes off its UTC commit time 202609011408; generations are read from date -u at commit time, never chosen",
+            "generation 202609011615 is 25 minutes off its UTC commit time 202609011550; generations are read from date -u at commit time, never chosen",
+            "generation 202609011630 is 26 minutes off its UTC commit time 202609011604; generations are read from date -u at commit time, never chosen",
+            "generation 202609011645 is 38 minutes off its UTC commit time 202609011607; generations are read from date -u at commit time, never chosen",
+            "generation 202609011718 is 52 minutes off its UTC commit time 202609011626; generations are read from date -u at commit time, never chosen",
+            "generation 202609011730 is 62 minutes off its UTC commit time 202609011628; generations are read from date -u at commit time, never chosen",
+            "generation 202609011751 is 59 minutes off its UTC commit time 202609011652; generations are read from date -u at commit time, never chosen",
+            "generation 202609011805 is 69 minutes off its UTC commit time 202609011656; generations are read from date -u at commit time, never chosen",
+            "generation 202609011820 is 77 minutes off its UTC commit time 202609011703; generations are read from date -u at commit time, never chosen",
+            "generation 202609011845 is 97 minutes off its UTC commit time 202609011708; generations are read from date -u at commit time, never chosen",
+            "generation 202609011900 is 103 minutes off its UTC commit time 202609011717; generations are read from date -u at commit time, never chosen",
+            "generation 202609011915 is 110 minutes off its UTC commit time 202609011725; generations are read from date -u at commit time, never chosen",
+            "generation 202609011950 is 135 minutes off its UTC commit time 202609011735; generations are read from date -u at commit time, never chosen",
+            "generation 202609012020 is 156 minutes off its UTC commit time 202609011744; generations are read from date -u at commit time, never chosen",
+            "generation 202609012045 is 173 minutes off its UTC commit time 202609011752; generations are read from date -u at commit time, never chosen",
+            "generation 202609012105 is 185 minutes off its UTC commit time 202609011800; generations are read from date -u at commit time, never chosen",
+            "generation 202609012110 is 183 minutes off its UTC commit time 202609011807; generations are read from date -u at commit time, never chosen",
+            "generation 202609012130 is 199 minutes off its UTC commit time 202609011811; generations are read from date -u at commit time, never chosen",
+            "generation 202609012155 is 213 minutes off its UTC commit time 202609011822; generations are read from date -u at commit time, never chosen",
+            "generation 202609012200 is 213 minutes off its UTC commit time 202609011827; generations are read from date -u at commit time, never chosen",
+            "generation 202609012210 is 220 minutes off its UTC commit time 202609011830; generations are read from date -u at commit time, never chosen",
+            "generation 202609012250 is 239 minutes off its UTC commit time 202609011851; generations are read from date -u at commit time, never chosen",
+            "generation 202609012310 is 249 minutes off its UTC commit time 202609011901; generations are read from date -u at commit time, never chosen",
+            "generation 202609012230 is 233 minutes off its UTC commit time 202609011837; generations are read from date -u at commit time, never chosen",
+            "generation 202609012240 is 236 minutes off its UTC commit time 202609011844; generations are read from date -u at commit time, never chosen",
+            "generation 202609012243 is 29 minutes off its UTC commit time 202609012214; generations are read from date -u at commit time, never chosen",
+            "generation 202609012248 is 29 minutes off its UTC commit time 202609012219; generations are read from date -u at commit time, never chosen",
+            "generation 202609020010 is 55 minutes off its UTC commit time 202609012315; generations are read from date -u at commit time, never chosen",
+            "generation 202609021625 is 2435 minutes off its UTC commit time 202609040900; generations are read from date -u at commit time, never chosen"
+          ]
+        },
+        {
+          "vaccine": "on-ledger-commits",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "executor-declared",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "202608301321-01-move-atlas-into-atlas-folder.md: no executor field (agent|script|human)",
+            "202608301321-scope-of-works.md: no executor field (agent|script|human)",
+            "202608301518-02-modularise-immutable-shell-and-cartridges.md: no executor field (agent|script|human)",
+            "202608301520-03-apply-pipelinenews-lessons.md: no executor field (agent|script|human)",
+            "202608301521-04-add-uk-location-search-cartridge.md: no executor field (agent|script|human)",
+            "202608301522-05-compile-and-attest-cartridge-composition.md: no executor field (agent|script|human)",
+            "202608301524-06-close-and-harden-cicd-loop.md: no executor field (agent|script|human)",
+            "202608301525-closure.md: no executor field (agent|script|human)"
+          ]
+        },
+        {
+          "vaccine": "loop-exists",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "202608301321-scope-loop.yml has no schedule; the loop is not perpetual"
+          ]
+        },
+        {
+          "vaccine": "rollback-exercised",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "attestation-freshness",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "pointer changed after the last live attestation; re-verify"
+          ]
+        },
+        {
+          "vaccine": "full-history-checkout",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-time-based-gates",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "release-name-convention",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "page-data-block-parses",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "disk-is-not-what-ships",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "no .gitattributes: the working copy and the blob can differ, so any check that reads a file off disk is asking a different question from any check that reads what ships"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "spiders",
+      "path": "../spiders",
+      "exit_code": 1,
+      "errors": 9,
+      "warnings": 4,
+      "shallow": false,
+      "results": [
+        {
+          "vaccine": "one-active-scope",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-app-copies",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-per-release-workflows",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "self-terminating-loops",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "spider_printer_registry_smoke.yml is scheduled but has no exit-0 path when nothing is pending"
+          ]
+        },
+        {
+          "vaccine": "chaining-token",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "genome.yml pushes with the default token; use an App token so downstream workflows run",
+            "spider_maya_v1_scan.yml pushes with the default token; use an App token so downstream workflows run"
+          ]
+        },
+        {
+          "vaccine": "pointer-verifies",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "derived-state-not-authored",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "context-diet",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "rollback-exists",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "registry-integrity",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-dangerous-apis",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "pinned-actions",
+          "intrinsic_level": "warning",
+          "level": "warning",
+          "state": "warn",
+          "findings": [
+            "spider_maya_v1_scan.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "spider_maya_v1_scan.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA"
+          ]
+        },
+        {
+          "vaccine": "least-permissions",
+          "intrinsic_level": "warning",
+          "level": "warning",
+          "state": "warn",
+          "findings": [
+            "spider_maya_v1_scan.yml: no timeout-minutes; runaway jobs run six hours",
+            "spider_printer_registry_smoke.yml: no timeout-minutes; runaway jobs run six hours"
+          ]
+        },
+        {
+          "vaccine": "agent-quarantine",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "vocabulary",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "monotonic-utc-generations",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "fa3cc49 generation 202609042148 is earlier than previous 202609042250",
+            "generation 202609042158 is 23 minutes off its UTC commit time 202609042135; generations are read from date -u at commit time, never chosen",
+            "generation 202609042232 is 54 minutes off its UTC commit time 202609042138; generations are read from date -u at commit time, never chosen",
+            "generation 202609042250 is 68 minutes off its UTC commit time 202609042142; generations are read from date -u at commit time, never chosen"
+          ]
+        },
+        {
+          "vaccine": "on-ledger-commits",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "executor-declared",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "loop-exists",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "rollback-exercised",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "attestation-freshness",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "full-history-checkout",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "genome.yml runs cvaa with 1 checkout(s) lacking fetch-depth: 0"
+          ]
+        },
+        {
+          "vaccine": "no-time-based-gates",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "release-name-convention",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "page-data-block-parses",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "disk-is-not-what-ships",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "no .gitattributes: the working copy and the blob can differ, so any check that reads a file off disk is asking a different question from any check that reads what ships"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cvaa",
+      "path": ".",
+      "exit_code": 1,
+      "errors": 5,
+      "warnings": 4,
+      "shallow": false,
+      "results": [
+        {
+          "vaccine": "one-active-scope",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-app-copies",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-per-release-workflows",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "self-terminating-loops",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "chaining-token",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "pointer-verifies",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "derived-state-not-authored",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "context-diet",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "rollback-exists",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "registry-integrity",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-dangerous-apis",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "pinned-actions",
+          "intrinsic_level": "warning",
+          "level": "warning",
+          "state": "warn",
+          "findings": [
+            "202608301446-inoculate.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "202608301446-inoculate.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "202608301446-inoculate.yml: actions/setup-node@v4 is not pinned to a 40-character commit SHA",
+            "202608301446-inoculate.yml: github/codeql-action/upload-sarif@v3 is not pinned to a 40-character commit SHA"
+          ]
+        },
+        {
+          "vaccine": "least-permissions",
+          "intrinsic_level": "warning",
+          "level": "warning",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "agent-quarantine",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "vocabulary",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "monotonic-utc-generations",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "ea518fa generation 202608301631 is earlier than previous 202608301940",
+            "generation 202608301940 is 200 minutes off its UTC commit time 202608301620; generations are read from date -u at commit time, never chosen",
+            "generation 202609012100 is 182 minutes off its UTC commit time 202609011758; generations are read from date -u at commit time, never chosen",
+            "generation 202609012310 is 249 minutes off its UTC commit time 202609011901; generations are read from date -u at commit time, never chosen"
+          ]
+        },
+        {
+          "vaccine": "on-ledger-commits",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "executor-declared",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "loop-exists",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "rollback-exercised",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "attestation-freshness",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "full-history-checkout",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-time-based-gates",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "release-name-convention",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "page-data-block-parses",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "disk-is-not-what-ships",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "no .gitattributes: the working copy and the blob can differ, so any check that reads a file off disk is asking a different question from any check that reads what ships"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "data-grid-gb",
+      "path": "../data-grid-gb",
+      "exit_code": 1,
+      "errors": 8,
+      "warnings": 2,
+      "shallow": false,
+      "results": [
+        {
+          "vaccine": "one-active-scope",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-app-copies",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-per-release-workflows",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "self-terminating-loops",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "chaining-token",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "refresh_network_products.yml pushes with the default token; use an App token so downstream workflows run"
+          ]
+        },
+        {
+          "vaccine": "pointer-verifies",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "derived-state-not-authored",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "context-diet",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "rollback-exists",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "registry-integrity",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-dangerous-apis",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "pinned-actions",
+          "intrinsic_level": "warning",
+          "level": "warning",
+          "state": "warn",
+          "findings": [
+            "refresh_network_products.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "refresh_network_products.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA"
+          ]
+        },
+        {
+          "vaccine": "least-permissions",
+          "intrinsic_level": "warning",
+          "level": "warning",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "agent-quarantine",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "vocabulary",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "monotonic-utc-generations",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "96a54fc generation 202609011755 is earlier than previous 202609011756",
+            "generation 202609011755 is 69 minutes off its UTC commit time 202609011646; generations are read from date -u at commit time, never chosen",
+            "generation 202609011756 is 69 minutes off its UTC commit time 202609011647; generations are read from date -u at commit time, never chosen",
+            "generation 202609011755 is 60 minutes off its UTC commit time 202609011655; generations are read from date -u at commit time, never chosen",
+            "generation 202609011756 is 61 minutes off its UTC commit time 202609011655; generations are read from date -u at commit time, never chosen",
+            "generation 202609011920 is 117 minutes off its UTC commit time 202609011723; generations are read from date -u at commit time, never chosen"
+          ]
+        },
+        {
+          "vaccine": "on-ledger-commits",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "executor-declared",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "loop-exists",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "rollback-exercised",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "attestation-freshness",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "full-history-checkout",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-time-based-gates",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "release-name-convention",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "page-data-block-parses",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "disk-is-not-what-ships",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "no .gitattributes: the working copy and the blob can differ, so any check that reads a file off disk is asking a different question from any check that reads what ships"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "grid-distance-maths",
+      "path": "../grid-distance-maths",
+      "exit_code": 1,
+      "errors": 2,
+      "warnings": 0,
+      "shallow": false,
+      "results": [
+        {
+          "vaccine": "one-active-scope",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-app-copies",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-per-release-workflows",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "self-terminating-loops",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "chaining-token",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "pointer-verifies",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "derived-state-not-authored",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "context-diet",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "rollback-exists",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "registry-integrity",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-dangerous-apis",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "pinned-actions",
+          "intrinsic_level": "warning",
+          "level": "warning",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "least-permissions",
+          "intrinsic_level": "warning",
+          "level": "warning",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "agent-quarantine",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "vocabulary",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "monotonic-utc-generations",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "generation 202608312345 is 20 minutes off its UTC commit time 202608312325; generations are read from date -u at commit time, never chosen"
+          ]
+        },
+        {
+          "vaccine": "on-ledger-commits",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "executor-declared",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "loop-exists",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "rollback-exercised",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "attestation-freshness",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "full-history-checkout",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-time-based-gates",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "release-name-convention",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "page-data-block-parses",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "disk-is-not-what-ships",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "no .gitattributes: the working copy and the blob can differ, so any check that reads a file off disk is asking a different question from any check that reads what ships"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ventus-grid-engine",
+      "path": "../ventus-grid-engine",
+      "exit_code": 1,
+      "errors": 10,
+      "warnings": 4,
+      "shallow": false,
+      "results": [
+        {
+          "vaccine": "one-active-scope",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-app-copies",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-per-release-workflows",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "self-terminating-loops",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "chaining-token",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "genome.yml pushes with the default token; use an App token so downstream workflows run"
+          ]
+        },
+        {
+          "vaccine": "pointer-verifies",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "derived-state-not-authored",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "context-diet",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "rollback-exists",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "registry-integrity",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-dangerous-apis",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "pinned-actions",
+          "intrinsic_level": "warning",
+          "level": "warning",
+          "state": "warn",
+          "findings": [
+            "verify.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "verify.yml: actions/setup-node@v4 is not pinned to a 40-character commit SHA"
+          ]
+        },
+        {
+          "vaccine": "least-permissions",
+          "intrinsic_level": "warning",
+          "level": "warning",
+          "state": "warn",
+          "findings": [
+            "verify.yml: no permissions block; default is too broad",
+            "verify.yml: no timeout-minutes; runaway jobs run six hours"
+          ]
+        },
+        {
+          "vaccine": "agent-quarantine",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "vocabulary",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "monotonic-utc-generations",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "generation 202609041500 is 60 minutes off its UTC commit time 202609041400; generations are read from date -u at commit time, never chosen",
+            "generation 202609042003 is 65 minutes off its UTC commit time 202609042108; generations are read from date -u at commit time, never chosen",
+            "generation 202609042040 is 41 minutes off its UTC commit time 202609042121; generations are read from date -u at commit time, never chosen",
+            "generation 202609042155 is 21 minutes off its UTC commit time 202609042134; generations are read from date -u at commit time, never chosen",
+            "generation 202609042210 is 34 minutes off its UTC commit time 202609042136; generations are read from date -u at commit time, never chosen",
+            "generation 202609042251 is 69 minutes off its UTC commit time 202609042142; generations are read from date -u at commit time, never chosen"
+          ]
+        },
+        {
+          "vaccine": "on-ledger-commits",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "executor-declared",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "loop-exists",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "rollback-exercised",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "attestation-freshness",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "full-history-checkout",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "genome.yml runs cvaa with 1 checkout(s) lacking fetch-depth: 0"
+          ]
+        },
+        {
+          "vaccine": "no-time-based-gates",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "release-name-convention",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "page-data-block-parses",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "CHILD_NODES: 130 character(s) sit outside any string or key — text has escaped its quotes near \"GH_BASE+GH_BASE+LIVE_PAGEGH_BASE+GH_BASE\""
+          ]
+        },
+        {
+          "vaccine": "disk-is-not-what-ships",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "no .gitattributes: the working copy and the blob can differ, so any check that reads a file off disk is asking a different question from any check that reads what ships"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "data-federation-map-for-globalgrid2050-all-repos",
+      "path": "../data-federation-map-for-globalgrid2050-all-repos",
+      "exit_code": 1,
+      "errors": 9,
+      "warnings": 20,
+      "shallow": false,
+      "results": [
+        {
+          "vaccine": "one-active-scope",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-app-copies",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-per-release-workflows",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "self-terminating-loops",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "gridbot_federation_map_weekly.yml is scheduled but has no exit-0 path when nothing is pending"
+          ]
+        },
+        {
+          "vaccine": "chaining-token",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "archive_spider_version.yml pushes with the default token; use an App token so downstream workflows run",
+            "po3b_focus_card_apply.yml pushes with the default token; use an App token so downstream workflows run",
+            "po3_split_gate.yml pushes with the default token; use an App token so downstream workflows run",
+            "publish_spider_temp_sandbox.yml pushes with the default token; use an App token so downstream workflows run",
+            "spider_full_po_branch_build.yml pushes with the default token; use an App token so downstream workflows run",
+            "spider_maya.yml pushes with the default token; use an App token so downstream workflows run"
+          ]
+        },
+        {
+          "vaccine": "pointer-verifies",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "derived-state-not-authored",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "context-diet",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "rollback-exists",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "registry-integrity",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-dangerous-apis",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "pinned-actions",
+          "intrinsic_level": "warning",
+          "level": "warning",
+          "state": "warn",
+          "findings": [
+            "archive_spider_version.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_declared_cartridges.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_declared_cartridges.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "gridbot_declared_cartridges.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_federation_map_weekly.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "gridbot_federation_map_weekly.yml: actions/setup-python@v5 is not pinned to a 40-character commit SHA",
+            "gridbot_federation_map_weekly.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "po3b_focus_card_apply.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "po3_split_gate.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "po3_split_gate.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "publish_spider_temp_sandbox.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "spider_full_po_branch_build.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "spider_full_po_branch_build.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA",
+            "spider_maya.yml: actions/checkout@v4 is not pinned to a 40-character commit SHA",
+            "spider_maya.yml: actions/upload-artifact@v4 is not pinned to a 40-character commit SHA"
+          ]
+        },
+        {
+          "vaccine": "least-permissions",
+          "intrinsic_level": "warning",
+          "level": "warning",
+          "state": "warn",
+          "findings": [
+            "archive_spider_version.yml: no timeout-minutes; runaway jobs run six hours",
+            "po3b_focus_card_apply.yml: no timeout-minutes; runaway jobs run six hours",
+            "po3_split_gate.yml: no timeout-minutes; runaway jobs run six hours",
+            "publish_spider_temp_sandbox.yml: no timeout-minutes; runaway jobs run six hours",
+            "spider_full_po_branch_build.yml: no timeout-minutes; runaway jobs run six hours"
+          ]
+        },
+        {
+          "vaccine": "agent-quarantine",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "vocabulary",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "monotonic-utc-generations",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "generation 202608312345 is 20 minutes off its UTC commit time 202608312325; generations are read from date -u at commit time, never chosen"
+          ]
+        },
+        {
+          "vaccine": "on-ledger-commits",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "executor-declared",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "loop-exists",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "rollback-exercised",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "attestation-freshness",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "full-history-checkout",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "no-time-based-gates",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "release-name-convention",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "page-data-block-parses",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "immune",
+          "findings": []
+        },
+        {
+          "vaccine": "disk-is-not-what-ships",
+          "intrinsic_level": "error",
+          "level": "error",
+          "state": "fail",
+          "findings": [
+            "no .gitattributes: the working copy and the blob can differ, so any check that reads a file off disk is asking a different question from any check that reads what ships"
+          ]
+        }
+      ]
+    }
+  ],
+  "vaccines": [
+    {
+      "vaccine": "one-active-scope",
+      "repositories": {
+        "globalgrid2050": "ok",
+        "pipelinenews": "ok",
+        "gridatlas": "ok",
+        "spiders": "ok",
+        "cvaa": "ok",
+        "data-grid-gb": "ok",
+        "grid-distance-maths": "ok",
+        "ventus-grid-engine": "ok",
+        "data-federation-map-for-globalgrid2050-all-repos": "ok"
+      }
+    },
+    {
+      "vaccine": "no-app-copies",
+      "repositories": {
+        "globalgrid2050": "ok",
+        "pipelinenews": "ok",
+        "gridatlas": "ok",
+        "spiders": "ok",
+        "cvaa": "ok",
+        "data-grid-gb": "ok",
+        "grid-distance-maths": "ok",
+        "ventus-grid-engine": "ok",
+        "data-federation-map-for-globalgrid2050-all-repos": "ok"
+      }
+    },
+    {
+      "vaccine": "no-per-release-workflows",
+      "repositories": {
+        "globalgrid2050": "FAIL 1",
+        "pipelinenews": "FAIL 1",
+        "gridatlas": "FAIL 1",
+        "spiders": "ok",
+        "cvaa": "ok",
+        "data-grid-gb": "ok",
+        "grid-distance-maths": "ok",
+        "ventus-grid-engine": "ok",
+        "data-federation-map-for-globalgrid2050-all-repos": "ok"
+      }
+    },
+    {
+      "vaccine": "self-terminating-loops",
+      "repositories": {
+        "globalgrid2050": "FAIL 1",
+        "pipelinenews": "FAIL 1",
+        "gridatlas": "ok",
+        "spiders": "FAIL 1",
+        "cvaa": "ok",
+        "data-grid-gb": "ok",
+        "grid-distance-maths": "ok",
+        "ventus-grid-engine": "ok",
+        "data-federation-map-for-globalgrid2050-all-repos": "FAIL 1"
+      }
+    },
+    {
+      "vaccine": "chaining-token",
+      "repositories": {
+        "globalgrid2050": "FAIL 58",
+        "pipelinenews": "FAIL 34",
+        "gridatlas": "FAIL 5",
+        "spiders": "FAIL 2",
+        "cvaa": "ok",
+        "data-grid-gb": "FAIL 1",
+        "grid-distance-maths": "ok",
+        "ventus-grid-engine": "FAIL 1",
+        "data-federation-map-for-globalgrid2050-all-repos": "FAIL 6"
+      }
+    },
+    {
+      "vaccine": "pointer-verifies",
+      "repositories": {
+        "globalgrid2050": "ok",
+        "pipelinenews": "ok",
+        "gridatlas": "FAIL 1",
+        "spiders": "ok",
+        "cvaa": "ok",
+        "data-grid-gb": "ok",
+        "grid-distance-maths": "ok",
+        "ventus-grid-engine": "ok",
+        "data-federation-map-for-globalgrid2050-all-repos": "ok"
+      }
+    },
+    {
+      "vaccine": "derived-state-not-authored",
+      "repositories": {
+        "globalgrid2050": "ok",
+        "pipelinenews": "ok",
+        "gridatlas": "ok",
+        "spiders": "ok",
+        "cvaa": "ok",
+        "data-grid-gb": "ok",
+        "grid-distance-maths": "ok",
+        "ventus-grid-engine": "ok",
+        "data-federation-map-for-globalgrid2050-all-repos": "ok"
+      }
+    },
+    {
+      "vaccine": "context-diet",
+      "repositories": {
+        "globalgrid2050": "ok",
+        "pipelinenews": "ok",
+        "gridatlas": "ok",
+        "spiders": "ok",
+        "cvaa": "ok",
+        "data-grid-gb": "ok",
+        "grid-distance-maths": "ok",
+        "ventus-grid-engine": "ok",
+        "data-federation-map-for-globalgrid2050-all-repos": "ok"
+      }
+    },
+    {
+      "vaccine": "rollback-exists",
+      "repositories": {
+        "globalgrid2050": "ok",
+        "pipelinenews": "ok",
+        "gridatlas": "ok",
+        "spiders": "ok",
+        "cvaa": "ok",
+        "data-grid-gb": "ok",
+        "grid-distance-maths": "ok",
+        "ventus-grid-engine": "ok",
+        "data-federation-map-for-globalgrid2050-all-repos": "ok"
+      }
+    },
+    {
+      "vaccine": "registry-integrity",
+      "repositories": {
+        "globalgrid2050": "ok",
+        "pipelinenews": "ok",
+        "gridatlas": "ok",
+        "spiders": "ok",
+        "cvaa": "ok",
+        "data-grid-gb": "ok",
+        "grid-distance-maths": "ok",
+        "ventus-grid-engine": "ok",
+        "data-federation-map-for-globalgrid2050-all-repos": "ok"
+      }
+    },
+    {
+      "vaccine": "no-dangerous-apis",
+      "repositories": {
+        "globalgrid2050": "ok",
+        "pipelinenews": "ok",
+        "gridatlas": "ok",
+        "spiders": "ok",
+        "cvaa": "ok",
+        "data-grid-gb": "ok",
+        "grid-distance-maths": "ok",
+        "ventus-grid-engine": "ok",
+        "data-federation-map-for-globalgrid2050-all-repos": "ok"
+      }
+    },
+    {
+      "vaccine": "pinned-actions",
+      "repositories": {
+        "globalgrid2050": "warn 442",
+        "pipelinenews": "warn 123",
+        "gridatlas": "ok",
+        "spiders": "warn 2",
+        "cvaa": "warn 4",
+        "data-grid-gb": "warn 2",
+        "grid-distance-maths": "ok",
+        "ventus-grid-engine": "warn 2",
+        "data-federation-map-for-globalgrid2050-all-repos": "warn 15"
+      }
+    },
+    {
+      "vaccine": "least-permissions",
+      "repositories": {
+        "globalgrid2050": "warn 178",
+        "pipelinenews": "ok",
+        "gridatlas": "ok",
+        "spiders": "warn 2",
+        "cvaa": "ok",
+        "data-grid-gb": "ok",
+        "grid-distance-maths": "ok",
+        "ventus-grid-engine": "warn 2",
+        "data-federation-map-for-globalgrid2050-all-repos": "warn 5"
+      }
+    },
+    {
+      "vaccine": "agent-quarantine",
+      "repositories": {
+        "globalgrid2050": "ok",
+        "pipelinenews": "ok",
+        "gridatlas": "ok",
+        "spiders": "ok",
+        "cvaa": "ok",
+        "data-grid-gb": "ok",
+        "grid-distance-maths": "ok",
+        "ventus-grid-engine": "ok",
+        "data-federation-map-for-globalgrid2050-all-repos": "ok"
+      }
+    },
+    {
+      "vaccine": "vocabulary",
+      "repositories": {
+        "globalgrid2050": "ok",
+        "pipelinenews": "ok",
+        "gridatlas": "ok",
+        "spiders": "ok",
+        "cvaa": "ok",
+        "data-grid-gb": "ok",
+        "grid-distance-maths": "ok",
+        "ventus-grid-engine": "ok",
+        "data-federation-map-for-globalgrid2050-all-repos": "ok"
+      }
+    },
+    {
+      "vaccine": "monotonic-utc-generations",
+      "repositories": {
+        "globalgrid2050": "FAIL 34",
+        "pipelinenews": "FAIL 63",
+        "gridatlas": "FAIL 40",
+        "spiders": "FAIL 4",
+        "cvaa": "FAIL 4",
+        "data-grid-gb": "FAIL 6",
+        "grid-distance-maths": "FAIL 1",
+        "ventus-grid-engine": "FAIL 6",
+        "data-federation-map-for-globalgrid2050-all-repos": "FAIL 1"
+      }
+    },
+    {
+      "vaccine": "on-ledger-commits",
+      "repositories": {
+        "globalgrid2050": "ok",
+        "pipelinenews": "ok",
+        "gridatlas": "ok",
+        "spiders": "ok",
+        "cvaa": "ok",
+        "data-grid-gb": "ok",
+        "grid-distance-maths": "ok",
+        "ventus-grid-engine": "ok",
+        "data-federation-map-for-globalgrid2050-all-repos": "ok"
+      }
+    },
+    {
+      "vaccine": "executor-declared",
+      "repositories": {
+        "globalgrid2050": "ok",
+        "pipelinenews": "ok",
+        "gridatlas": "FAIL 8",
+        "spiders": "ok",
+        "cvaa": "ok",
+        "data-grid-gb": "ok",
+        "grid-distance-maths": "ok",
+        "ventus-grid-engine": "ok",
+        "data-federation-map-for-globalgrid2050-all-repos": "ok"
+      }
+    },
+    {
+      "vaccine": "loop-exists",
+      "repositories": {
+        "globalgrid2050": "ok",
+        "pipelinenews": "ok",
+        "gridatlas": "FAIL 1",
+        "spiders": "ok",
+        "cvaa": "ok",
+        "data-grid-gb": "ok",
+        "grid-distance-maths": "ok",
+        "ventus-grid-engine": "ok",
+        "data-federation-map-for-globalgrid2050-all-repos": "ok"
+      }
+    },
+    {
+      "vaccine": "rollback-exercised",
+      "repositories": {
+        "globalgrid2050": "ok",
+        "pipelinenews": "ok",
+        "gridatlas": "ok",
+        "spiders": "ok",
+        "cvaa": "ok",
+        "data-grid-gb": "ok",
+        "grid-distance-maths": "ok",
+        "ventus-grid-engine": "ok",
+        "data-federation-map-for-globalgrid2050-all-repos": "ok"
+      }
+    },
+    {
+      "vaccine": "attestation-freshness",
+      "repositories": {
+        "globalgrid2050": "ok",
+        "pipelinenews": "ok",
+        "gridatlas": "FAIL 1",
+        "spiders": "ok",
+        "cvaa": "ok",
+        "data-grid-gb": "ok",
+        "grid-distance-maths": "ok",
+        "ventus-grid-engine": "ok",
+        "data-federation-map-for-globalgrid2050-all-repos": "ok"
+      }
+    },
+    {
+      "vaccine": "full-history-checkout",
+      "repositories": {
+        "globalgrid2050": "ok",
+        "pipelinenews": "ok",
+        "gridatlas": "ok",
+        "spiders": "FAIL 1",
+        "cvaa": "ok",
+        "data-grid-gb": "ok",
+        "grid-distance-maths": "ok",
+        "ventus-grid-engine": "FAIL 1",
+        "data-federation-map-for-globalgrid2050-all-repos": "ok"
+      }
+    },
+    {
+      "vaccine": "no-time-based-gates",
+      "repositories": {
+        "globalgrid2050": "FAIL 1",
+        "pipelinenews": "FAIL 14",
+        "gridatlas": "ok",
+        "spiders": "ok",
+        "cvaa": "ok",
+        "data-grid-gb": "ok",
+        "grid-distance-maths": "ok",
+        "ventus-grid-engine": "ok",
+        "data-federation-map-for-globalgrid2050-all-repos": "ok"
+      }
+    },
+    {
+      "vaccine": "release-name-convention",
+      "repositories": {
+        "globalgrid2050": "ok",
+        "pipelinenews": "ok",
+        "gridatlas": "ok",
+        "spiders": "ok",
+        "cvaa": "ok",
+        "data-grid-gb": "ok",
+        "grid-distance-maths": "ok",
+        "ventus-grid-engine": "ok",
+        "data-federation-map-for-globalgrid2050-all-repos": "ok"
+      }
+    },
+    {
+      "vaccine": "page-data-block-parses",
+      "repositories": {
+        "globalgrid2050": "ok",
+        "pipelinenews": "ok",
+        "gridatlas": "ok",
+        "spiders": "ok",
+        "cvaa": "ok",
+        "data-grid-gb": "ok",
+        "grid-distance-maths": "ok",
+        "ventus-grid-engine": "FAIL 1",
+        "data-federation-map-for-globalgrid2050-all-repos": "ok"
+      }
+    },
+    {
+      "vaccine": "disk-is-not-what-ships",
+      "repositories": {
+        "globalgrid2050": "FAIL 1",
+        "pipelinenews": "FAIL 1",
+        "gridatlas": "FAIL 1",
+        "spiders": "FAIL 1",
+        "cvaa": "FAIL 1",
+        "data-grid-gb": "FAIL 1",
+        "grid-distance-maths": "FAIL 1",
+        "ventus-grid-engine": "FAIL 1",
+        "data-federation-map-for-globalgrid2050-all-repos": "FAIL 1"
+      }
+    }
+  ]
+}

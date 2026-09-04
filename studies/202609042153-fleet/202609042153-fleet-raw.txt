@@ -1,0 +1,29 @@
+vaccine                           globalgrid2050    pipelinenews       gridatlas         spiders            cvaa    data-grid-gbgrid-distance-mathsventus-grid-enginedata-federation-map-for-globalgrid2050-all-repos
+one-active-scope                              ok              ok              ok              ok              ok              ok              ok              ok              ok
+no-app-copies                                 ok              ok              ok              ok              ok              ok              ok              ok              ok
+no-per-release-workflows                  FAIL 1          FAIL 1          FAIL 1              ok              ok              ok              ok              ok              ok
+self-terminating-loops                    FAIL 1          FAIL 1              ok          FAIL 1              ok              ok              ok              ok          FAIL 1
+chaining-token                           FAIL 58         FAIL 34          FAIL 5          FAIL 2              ok          FAIL 1              ok          FAIL 1          FAIL 6
+pointer-verifies                              ok              ok          FAIL 1              ok              ok              ok              ok              ok              ok
+derived-state-not-authored                    ok              ok              ok              ok              ok              ok              ok              ok              ok
+context-diet                                  ok              ok              ok              ok              ok              ok              ok              ok              ok
+rollback-exists                               ok              ok              ok              ok              ok              ok              ok              ok              ok
+registry-integrity                            ok              ok              ok              ok              ok              ok              ok              ok              ok
+no-dangerous-apis                             ok              ok              ok              ok              ok              ok              ok              ok              ok
+pinned-actions                          warn 442        warn 123              ok          warn 2          warn 4          warn 2              ok          warn 2         warn 15
+least-permissions                       warn 178              ok              ok          warn 2              ok              ok              ok          warn 2          warn 5
+agent-quarantine                              ok              ok              ok              ok              ok              ok              ok              ok              ok
+vocabulary                                    ok              ok              ok              ok              ok              ok              ok              ok              ok
+monotonic-utc-generations                FAIL 34         FAIL 63         FAIL 40          FAIL 4          FAIL 4          FAIL 6          FAIL 1          FAIL 6          FAIL 1
+on-ledger-commits                             ok              ok              ok              ok              ok              ok              ok              ok              ok
+executor-declared                             ok              ok          FAIL 8              ok              ok              ok              ok              ok              ok
+loop-exists                                   ok              ok          FAIL 1              ok              ok              ok              ok              ok              ok
+rollback-exercised                            ok              ok              ok              ok              ok              ok              ok              ok              ok
+attestation-freshness                         ok              ok          FAIL 1              ok              ok              ok              ok              ok              ok
+full-history-checkout                         ok              ok              ok          FAIL 1              ok              ok              ok          FAIL 1              ok
+no-time-based-gates                       FAIL 1         FAIL 14              ok              ok              ok              ok              ok              ok              ok
+release-name-convention                       ok              ok              ok              ok              ok              ok              ok              ok              ok
+page-data-block-parses                        ok              ok              ok              ok              ok              ok              ok          FAIL 1              ok
+disk-is-not-what-ships                    FAIL 1          FAIL 1          FAIL 1          FAIL 1          FAIL 1          FAIL 1          FAIL 1          FAIL 1          FAIL 1
+errors                                        96             114              58               9               5               8               2              10               9
+warnings                                     620             123               0               4               4               2               0               4              20

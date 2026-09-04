@@ -1,0 +1,45 @@
+{
+  "schema": "cvaa.receipt.v1",
+  "instrument": "cvaa (tools/selftest.mjs, tools/fleet.mjs -> inoculate.mjs)",
+  "generation_utc": "202609042153",
+  "generated_at_utc": "2026-09-04T21:53:00Z",
+  "run_by": "Claude (instrument run, architect instruction 2026-09-04)",
+  "note_on_stamp": "generation_utc is the UTC minute the fleet run and this directory were created (date -u at the moment of writing, per cvaa/vaccines/202608301701-monotonic-utc-generations.md); git_sha values below were re-read at receipt-composition time and are annotated where the estate advanced in between (see caveats).",
+  "steps": [
+    {
+      "step": "selftest",
+      "command": "node tools/selftest.mjs",
+      "status": "CRASHED",
+      "detail": "ENOENT scandir 'C:\\C:\\Users\\...\\cvaa\\vaccines' before any antibody ran. Root cause: tools/selftest.mjs line 6 builds its base directory with `new URL('..', import.meta.url).pathname` instead of node:url's fileURLToPath(). On Windows this yields a POSIX-style path with a leading slash before the drive letter ('/C:/Users/...'); path.join() on win32 treats that as drive-relative and Node resolves it against the current drive, producing a literal doubled 'C:\\C:\\...' path that does not exist. Confirmed against the committed bytes (git show HEAD:tools/selftest.mjs) - not a working-copy artifact, not CRLF-related, and not the previously-fixed --experimental-permission/CRLF-frontmatter faults from commit 9065d72 (2026-08-31). tools/replay.mjs (line 10) has the same `.pathname` construction and is independently already known broken per studies/../VERIFICATION.md. tools/fleet.mjs and inoculate.mjs both correctly use fileURLToPath() and were unaffected.",
+      "zero_antibodies_exercised": true,
+      "classification": "CONFIRMED (real defect, tool crashes on Windows, verified against git HEAD bytes)"
+    },
+    {
+      "step": "fleet",
+      "command": "node tools/fleet.mjs ../globalgrid2050 ../pipelinenews ../gridatlas ../spiders . ../data-grid-gb ../grid-distance-maths ../ventus-grid-engine ../data-federation-map-for-globalgrid2050-all-repos --json-out studies/202609042153-fleet/202609042153-fleet.json",
+      "status": "ok (tool ran to completion; each repo's inoculate exited 1 because it has findings, which is fleet.mjs's normal behaviour)",
+      "raw_output_file": "202609042153-fleet-raw.txt",
+      "raw_json_file": "202609042153-fleet.json"
+    }
+  ],
+  "repos_crawled": [
+    { "name": "globalgrid2050",  "git_sha_at_receipt_time": "7d00781b6993b9038a1a8bedf2c88a4eb0109ad4", "dirty_files": 2, "errors": 96,  "warnings": 620 },
+    { "name": "pipelinenews",    "git_sha_at_receipt_time": "3335fe6f47ae4f7f3052a7dea28e20c9570d9230", "dirty_files": 7, "errors": 114, "warnings": 123 },
+    { "name": "gridatlas",       "git_sha_at_receipt_time": "bb7eb7ed2f34f0e57fc1dd52e08aa2b9dadf42b5", "dirty_files": 6, "errors": 58,  "warnings": 0,
+      "note": "gridatlas advanced one commit (703337b -> bb7eb7e) between the fleet.mjs invocation (2026-09-04T21:54:20Z) and this receipt being written; the attestation-freshness finding below was independently re-derived against 703337b, the commit that was actually HEAD when fleet.mjs ran." },
+    { "name": "spiders",         "git_sha_at_receipt_time": "6d9055d95bd89117099702d5f52f6563da709bc5", "dirty_files": 11, "errors": 9, "warnings": 4 },
+    { "name": "cvaa",            "git_sha_at_receipt_time": "c18cc13ef36ae5c79443a9a59e928a5404082b22", "dirty_files": 4, "errors": 5,  "warnings": 4 },
+    { "name": "data-grid-gb",    "git_sha_at_receipt_time": "b91e45b231464c24339f5a58b81e6b1eb4c8b47f", "dirty_files": 0, "errors": 8,  "warnings": 2 },
+    { "name": "grid-distance-maths", "git_sha_at_receipt_time": "30d2f817a4b007b7c3be334f3aff308331a848b8", "dirty_files": 0, "errors": 2, "warnings": 0 },
+    { "name": "ventus-grid-engine",  "git_sha_at_receipt_time": "5fb5e13de6d0424761d24d1314e5db2ae8521eac", "dirty_files": 0, "errors": 10, "warnings": 4 },
+    { "name": "data-federation-map-for-globalgrid2050-all-repos", "git_sha_at_receipt_time": "b759a7d2b5ec0dcc233c27db813ceadc5469157d", "dirty_files": 0, "errors": 9, "warnings": 20 }
+  ],
+  "counts_total": { "errors": 311, "warnings": 777 },
+  "caveat_applied": "Windows working-copy CRLF is confirmed to produce false findings when an antibody reads file bytes off disk instead of the git blob (README already documents this class: vaccines/202608312252-disk-is-not-what-ships.md). Every finding fleet.mjs produced was re-checked against `git show HEAD:<path>` bytes (or, for git-log-metadata checks, against `git log` output directly, which is immune to working-copy line endings) and classified CONFIRMED / FALSE-CRLF / FALSE (non-CRLF detector bug) / UNVERIFIED. See 202609042153-RUN.md in the coordinator's notes directory for the full per-vaccine table and reasoning; this file records only counts and the two step outcomes.",
+  "classification_summary": {
+    "CONFIRMED": ["no-per-release-workflows", "self-terminating-loops", "chaining-token", "pinned-actions", "least-permissions", "monotonic-utc-generations", "executor-declared (front-matter parse fails on CRLF, see FALSE-CRLF instead - moved)", "loop-exists", "attestation-freshness", "no-time-based-gates", "full-history-checkout (ventus-grid-engine instance only)"],
+    "FALSE_CRLF": ["pointer-verifies (gridatlas release checksums - reconfirmed 22/22 fail raw, 0/22 fail LF-normalised)", "executor-declared (gridatlas - scope-of-works front matter is CRLF in the working copy, pure LF in the git blob; inoculate.mjs's frontMatter() regex `/^---\\n/` never matches CRLF, so every scope file loses its executor field - a regression of the same class already fixed for vaccines/*.md but not for consumer-repo scope-of-works files)"],
+    "FALSE_NON_CRLF_DETECTOR_BUG": ["disk-is-not-what-ships (all 9 repos - inoculate.mjs's buildContext() only ever populates files.STATE and files.index; files['.gitattributes'] is always undefined regardless of platform, so this vaccine cannot ever see a real .gitattributes file; all 9 repos verified to actually have one at HEAD)", "full-history-checkout (spiders instance only - regex `/actions\\/checkout@/g` counts a checkout SHA mentioned in a header comment as an unguarded checkout; ventus-grid-engine's instance of the same vaccine is a real finding)", "page-data-block-parses (ventus-grid-engine - CHILD_NODES uses legitimate JS string concatenation (`gh:GH_BASE+\"/tree/main\"`), valid per `new Function()` against the git HEAD blob; the antibody assumes const-array blocks are pure JSON-shaped data and flags the bare identifier as stray text)"],
+    "UNVERIFIED": []
+  }
+}
