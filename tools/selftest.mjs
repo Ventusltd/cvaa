@@ -44,6 +44,11 @@ const CLEAN = root => {
   }));
 };
 const DISEASED = {
+  'runtime-endpoint-contract': r => w(r, '.cvaa/contracts/runtime-endpoints.json', JSON.stringify({
+    schema: 'cvaa.runtime-endpoints.v1', build: 'fixture', environment: 'local',
+    required: [{ method: 'GET', path: '/receipt', status: 200 }],
+    probes: [{ method: 'GET', path: '/receipt', status: 404, bodyValidated: false, build: 'fixture', environment: 'local' }],
+  })),
   'one-active-scope': r => { w(r, 'scope-of-works/202608301321-a.md', '---\nstatus: active\nscope: 1\n---\n'); w(r, 'scope-of-works/202608301322-b.md', '---\nstatus: active\nscope: 2\n---\n'); },
   'no-app-copies': r => { mkdirSync(join(r, 'atlas'), { recursive: true }); mkdirSync(join(r, '202608300453-atlas-v9'), { recursive: true }); },
   'no-per-release-workflows': r => w(r, '.github/workflows/202608300453-promote.yml', 'on: push\n'),
