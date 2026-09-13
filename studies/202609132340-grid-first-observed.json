@@ -1,0 +1,64 @@
+{
+  "record_type": "PRESERVED_FAILING_OBSERVATIONS_NOT_ACCEPTANCE",
+  "limitations": [
+    "status_visible and pending_dependency were not captured as dedicated fields; null is retained, never invented",
+    "Composition pins were verified in companion load run 34768606689. This extraction is historical evidence, not a newly executed receipt.",
+    "No physical iPhone trace and no product fix are claimed."
+  ],
+  "source_artifacts": [
+    {"run_id":34768606689,"artifact_id":10320194605,"sha256":"86408e53421055b8d1fe67d5e6fa7e7c24f3bee1b7fcb716c8f306681358237e"},
+    {"run_id":34769001064,"artifact_id":10320654247,"sha256":"326944d4c97194874d475ca12cc5f1b90820b0f3ca00d382989f04acb0952270"}
+  ],
+  "receipt": {
+    "schema":"cvaa.grid-first-critical-path.v1",
+    "generation":"202609080850",
+    "release_id":"202608300453-atlas-v9",
+    "repd_ref":"12588","technology":"solar","longitude":-1.3489728,"latitude":51.8132088,"expected_links":5,
+    "url":"https://ventusltd.github.io/gridatlas/atlas/?repd_ref=12588&technology=solar&latitude=51.8132088&longitude=-1.3489728&zoom=12",
+    "measured_at":"2026-09-13T16:34:43Z",
+    "browser":"152.0.7977.82",
+    "environment":"GitHub Actions Linux, Chromium, 393x852 touch emulation, fresh context per case; identical interception",
+    "physical_ios":false,
+    "evidence":"https://github.com/Ventusltd/gridatlas/actions/runs/34769001064",
+    "artifact_sha256":"326944d4c97194874d475ca12cc5f1b90820b0f3ca00d382989f04acb0952270",
+    "cartridges":[
+      {"id":"streaming-parquet-bridge","path":"./cartridges/202609041945-streaming-parquet-bridge-v9-5.js","sha256":"4a6b594f7705bc4d7d62cbe69d2e40726d12f9a759896430cfe5eb00d830d23e"},
+      {"id":"uk-gazetteer-flyto","path":"./cartridges/202609071213-place-global-search-v9-5.js","sha256":"15f324e5c279050882f7e3ce83a915c070b6ed19095efcac4ae20af4ef19fdfa"},
+      {"id":"sld-sandbox","path":"./cartridges/202609080850-sld-sandbox-v9-8.js","sha256":"5d2b383ffd409e133970c0c62945624b927d12882af3823f8fda6855a7aa34f0"},
+      {"id":"substation-intelligence","path":"./cartridges/202609062358-substation-intelligence-v9-63.js","sha256":"d94b0de50deddac77643325b10fbe490ce44b8c406dbc6c67e6e7cadbdaa8ec6"}
+    ],
+    "cases":[
+      {
+        "id":"control","response_bodies_replaced":false,
+        "source_sha256":"10ca44196170915908d2ecb2d469392b5909fde54786809c7fe832286ebbaa06",
+        "evidence":"run 34769001064 / control.json","cache":"cold","held":[],"errors":[],
+        "before":{"t_ms":8026.0,"substations":5800,"links":5,"source_features":5,"rendered_features":48,"answered":true,"engine":"onshore","identity_status":"VERIFIED","status_message":null,"status_visible":null,"pending_dependency":null},
+        "after":{"t_ms":28011.0,"substations":5800,"links":5,"source_features":5,"rendered_features":48,"answered":true,"engine":"onshore","identity_status":"VERIFIED","status_message":null,"status_visible":null,"pending_dependency":null}
+      },
+      {
+        "id":"delay-identity","response_bodies_replaced":false,
+        "source_sha256":"d46ec71acae6ce9bb199f8626d6cbda927a64288b974fda5f1c48f4e5db66250",
+        "evidence":"run 34769001064 / delay-identity.json","cache":"cold",
+        "held":[{"url":"https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/+esm","start_ms":470.0,"end_ms":20482.0}],"errors":[],
+        "before":{"t_ms":8031.0,"substations":5800,"links":5,"source_features":5,"rendered_features":46,"answered":true,"engine":"onshore","identity_status":"PENDING","status_message":null,"status_visible":null,"pending_dependency":null},
+        "after":{"t_ms":28008.0,"substations":5800,"links":5,"source_features":5,"rendered_features":48,"answered":true,"engine":"onshore","identity_status":"VERIFIED","status_message":null,"status_visible":null,"pending_dependency":null}
+      },
+      {
+        "id":"delay-neso","response_bodies_replaced":false,
+        "source_sha256":"4aec7e6a2bc3c2dc1c63842fce4da8e9b43542628d9493f637dea11e470a5d68",
+        "evidence":"run 34769001064 / delay-neso.json","cache":"cold",
+        "held":[{"url":"https://ventusltd.github.io/gridatlas/atlas/data/neso-connection-sites.lean.json","start_ms":766.0,"end_ms":20780.0}],"errors":[],
+        "before":{"t_ms":8010.0,"substations":5800,"links":0,"source_features":0,"rendered_features":0,"answered":null,"engine":null,"identity_status":"PENDING","status_message":null,"status_visible":null,"pending_dependency":null},
+        "after":{"t_ms":28013.0,"substations":5800,"links":5,"source_features":5,"rendered_features":48,"answered":true,"engine":"onshore","identity_status":"VERIFIED","status_message":null,"status_visible":null,"pending_dependency":null}
+      },
+      {
+        "id":"delay-substations","response_bodies_replaced":false,
+        "source_sha256":"a4b283e3b7b136f8a548101a78b3695ac5e3e0ed6cc089535b6fb99bc3a21ea1",
+        "evidence":"run 34769001064 / delay-substations.json","cache":"cold",
+        "held":[{"url":"https://ventusltd.github.io/gridatlas/atlas/releases/202608300453-atlas-v9/data/grid_substations.geojson","start_ms":544.0,"end_ms":20549.0},{"url":"https://ventusltd.github.io/gridatlas/atlas/releases/202608300453-atlas-v9/data/grid_substations.geojson","start_ms":2030.0,"end_ms":22031.0}],"errors":[],
+        "before":{"t_ms":8013.0,"substations":0,"links":0,"source_features":0,"rendered_features":0,"answered":null,"engine":null,"identity_status":"PENDING","status_message":null,"status_visible":null,"pending_dependency":null},
+        "after":{"t_ms":28016.0,"substations":5800,"links":5,"source_features":5,"rendered_features":48,"answered":true,"engine":"onshore","identity_status":"VERIFIED","status_message":null,"status_visible":null,"pending_dependency":null}
+      }
+    ]
+  }
+}
