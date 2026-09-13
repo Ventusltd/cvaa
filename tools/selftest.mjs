@@ -44,6 +44,7 @@ const CLEAN = root => {
   }));
 };
 const DISEASED = {
+  'grid-first-critical-path': r => w(r, '.cvaa/contracts/grid-first-critical-path.json', '{}'),
   'runtime-endpoint-contract': r => w(r, '.cvaa/contracts/runtime-endpoints.json', JSON.stringify({
     schema: 'cvaa.runtime-endpoints.v1', build: 'fixture', environment: 'local',
     required: [{ method: 'GET', path: '/receipt', status: 200 }],
@@ -117,6 +118,7 @@ const DISEASED = {
   },
   'no-expiry-windows': null,   // superseded by no-time-based-gates
 };
+execSync(`node ${join(here, 'tools', 'grid-first-critical-path.test.mjs')}`, { stdio: 'inherit' });
 let failed = 0;
 const registryNames = readdirSync(join(here, 'vaccines')).filter(file => file.endsWith('.md')).map(file => file.replace(/^\d{12}-/, '').replace(/\.md$/, ''));
 for (const name of registryNames) if (!(name in DISEASED)) { console.error(`selftest fixture missing for ${name}`); failed++; }
