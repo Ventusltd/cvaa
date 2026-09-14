@@ -1,6 +1,6 @@
 ---
 vaccine: dead-ends-explained
-generation: "20260914150513"
+generation: "202609141505"
 dose: every-loop
 ---
 Disease
