@@ -44,6 +44,11 @@ const CLEAN = root => {
   }));
 };
 const DISEASED = {
+  'dead-ends-explained': r => w(r, 'spider/manifest.json', '{"graphs":["fixture"]}'),
+  'star-grammar': r => {
+    w(r, 'star.json', '{}');
+    w(r, 'index.html', '<main>solar star</main><script>Math.random()</script>');
+  },
   'grid-first-critical-path': r => w(r, '.cvaa/contracts/grid-first-critical-path.json', '{}'),
   'runtime-endpoint-contract': r => w(r, '.cvaa/contracts/runtime-endpoints.json', JSON.stringify({
     schema: 'cvaa.runtime-endpoints.v1', build: 'fixture', environment: 'local',
