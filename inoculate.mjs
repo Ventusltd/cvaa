@@ -114,6 +114,54 @@ function buildContext(root) {
   const stateFresh = execTarget && exists('STATE.md') && exists('tools/scope/loop.mjs')
     ? sh('node tools/scope/loop.mjs state --stdout') : null;
   const files = { STATE: exists('STATE.md') ? read('STATE.md') : null, index: exists('index.html') ? read('index.html') : null };
+  /* A wafer estate (Quantum Star Protocol). quantum-star-protocol needs key and entanglement
+     counts, bounded source texts, the last engine-runs records, data-file field names and a
+     scan of publish/ for this PC's paths. All precomputed here; the antibody opens nothing. */
+  const star = exists('QUANTUM-STAR-PROTOCOL.md') ? (() => {
+    const j = p => { try { return JSON.parse(read(p)); } catch { return null; } };
+    const K = exists('keys.json') ? j('keys.json') : null, E = exists('entangle.json') ? j('entangle.json') : null;
+    const keys = K && Array.isArray(K.keys) ? { count: K.count, length: K.keys.length, max_key: K.max_key } : null;
+    const entangle = E ? { generated_utc: E.generated_utc ?? null, keys: E.keys, places: E.places, resolved: E.resolved, broken: E.broken, broken_keys: Array.isArray(E.broken_keys) ? E.broken_keys.length : -1, rate: E.rate } : null;
+    const sources = {};
+    const want = ['pilot-rules.js', 'supernova.html', 'console.html', 'serve.mjs', ...list('wafer').filter(f => /\.(m?js|html)$/.test(f)).map(f => `wafer/${f}`), ...list('pipeline').filter(f => /\.(m?js|py)$/.test(f)).map(f => `pipeline/${f}`)];
+    for (const p of want) if (exists(p) && size(p) <= 512 * 1024) sources[p] = read(p);
+    const engineRuns = exists('engine-runs.jsonl') ? read('engine-runs.jsonl').split('\n').filter(Boolean).slice(-500).map(l => { try { const r = JSON.parse(l); return { module: r.module, fn: r.fn, error: r.error ?? null, schema: r.schema ?? null }; } catch { return { module: '?', fn: '?', error: null, schema: null }; } }) : [];
+    const dataKeys = {}; for (const p of ['route-gridatlas.json', 'routes.json', 'engine-route.json', 'apps.json', 'qubit.json']) if (exists(p)) { const d = j(p); if (d && typeof d === 'object') dataKeys[p] = Object.keys(d); }
+    const publishLeaks = []; const walk = d => { for (const f of list(d)) { const p = `${d}/${f}`; if (statSync(join(root, p)).isDirectory()) walk(p); else if (size(p) <= 16 * 1024 * 1024 && /C:[\\/]Users/.test(readFileSync(join(root, p), 'latin1'))) publishLeaks.push(p); } };
+    if (exists('publish')) walk('publish');
+    // Conservation: every snapshot's MANIFEST.json re-hashed, the sleep file beside the estate, and the current counts the protocol's numbers lines must match.
+    const snapshots = list('versions').filter(s => exists(`versions/${s}/MANIFEST.json`)).sort().map(stamp => {
+      const m = j(`versions/${stamp}/MANIFEST.json`); const files = m && m.files && typeof m.files === 'object' ? Object.entries(m.files) : null;
+      if (!files) return { stamp, files: 0, missing: [], mismatched: [], unreadable: true };
+      const missing = [], mismatched = [];
+      for (const [rel, h] of files) { const p = `versions/${stamp}/${rel}`; if (!exists(p)) missing.push(rel); else if (sha256(readFileSync(join(root, p))) !== h) mismatched.push(rel); }
+      return { stamp, files: files.length, missing, mismatched, unreadable: false };
+    });
+    const parent = join(root, '..');
+    const sleepFiles = readdirSync(parent).filter(f => /^CPU-WORLD-SLEEP-.*\.md$/.test(f)).map(f => ({ file: f, mtime: statSync(join(parent, f)).mtime.toISOString(), text: readFileSync(join(parent, f), 'utf8') }));
+    const RG = exists('route-gridatlas.json') ? j('route-gridatlas.json') : null, ER = exists('engine-route.json') ? j('engine-route.json') : null;
+    const current = { keys: keys ? keys.count : null, places: entangle ? entangle.places : null, atlas_unique: RG && Array.isArray(RG.keys) ? RG.keys.length : null,
+      modules: ER && ER.modules ? Object.keys(ER.modules).length : null, modules_on_wafer: ER && ER.modules ? Object.values(ER.modules).filter(m => m && Array.isArray(m.keys) && m.keys.length).length : null };
+    return { keys, entangle, sources, engineRuns, dataKeys, publishLeaks, snapshots, sleepFiles, protocol: read('QUANTUM-STAR-PROTOCOL.md'), current };
+  })() : null;
+  /* Cells that compute (law L26, L27; Faraday entries 16 to 19). cells-compute-or-say-programmable needs the
+     last result of the proof, the text of the proof's own test, and every line on a served page that says the
+     dots compute. All precomputed here; the antibody opens nothing. */
+  const cells = (() => {
+    const j = p => { try { return JSON.parse(read(p)); } catch { return null; } };
+    const R = exists('apparatus/cells.result.json') ? j('apparatus/cells.result.json') : null;
+    const result = R ? { ran: R.ran ?? null, failed: R.failed, checks: Array.isArray(R.checks) ? R.checks.map(c => ({ name: String(c.name), pass: c.pass === true })) : [],
+      sums_checked: R.adder4?.sums_checked ?? null, wrong: R.adder4?.wrong ?? null } : null;
+    const test = exists('apparatus/cells.test.mjs') && size('apparatus/cells.test.mjs') <= 256 * 1024 ? read('apparatus/cells.test.mjs') : null;
+    const apparatus = exists('apparatus/cells.mjs') && size('apparatus/cells.mjs') <= 256 * 1024 ? read('apparatus/cells.mjs') : null;
+    // a served page claiming the dots compute: look in html at the root and one level down, bounded
+    const claims = []; const CLAIM = /\b(dots?|cells?|pixels?|particles?|kuiper|wafer)\b[^.\n<]{0,80}\b(computes?|calculates?|is a (cpu|computer|processor))\b/i;
+    const pages = [...list('.').filter(f => f.endsWith('.html')), ...list('.').filter(d => { try { return statSync(join(root, d)).isDirectory() && !d.startsWith('.'); } catch { return false; } })
+      .flatMap(d => list(d).filter(f => f.endsWith('.html')).map(f => `${d}/${f}`))].slice(0, 400);
+    for (const p of pages) { if (size(p) > 2 * 1024 * 1024) continue; const visible = read(p).replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ');
+      const m = visible.match(CLAIM); if (m) claims.push({ page: p, text: m[0].trim().slice(0, 120) }); }
+    return (result || test || apparatus || claims.length) ? { result, test, apparatus, claims } : null;
+  })();
   // The live attestation, parsed. attestation-freshness used to infer freshness
   // from commit prose because it had no way to read this; antibodies are sandboxed
   // and see only what the context carries.
@@ -133,9 +181,52 @@ function buildContext(root) {
   const memoryManifest = exists('logs/reports/memory-manifest.json')
     ? (() => { try { return JSON.parse(read('logs/reports/memory-manifest.json')); } catch { return null; } })()
     : null;
+  /* The trillion loop (trillion-loop, doses D1 to D9). Nine defects that keep returning in
+     different costumes. Eight of them are answered from bounded source text; the ninth - a
+     machine path or an account name in a file bound for a public repository - is answered
+     HERE and as LOCATIONS ONLY, so neither this context nor any antibody output ever carries
+     the offending value and cvaa's own CI log stays safe to publish. The patterns name
+     nobody: they match the shape of a home directory, never a person. The antibody opens
+     nothing. */
+  const loops = (() => {
+    const SKIP = /(^|\/)(\.git|node_modules|__pycache__|\.venv|venv|\.tox|dist|build|vendor|coverage|\.mypy_cache|\.pytest_cache|\.next|target)$/;
+    const CODE = /\.(py|mjs|cjs|js|ts)$/;
+    const TEXT = /\.(md|txt|rst|ya?ml)$/;
+    const BINARY = /\.(png|jpe?g|gif|webp|svg|ico|pdf|zip|gz|tgz|tar|7z|woff2?|ttf|otf|eot|mp4|mp3|wav|wasm|pyc|exe|dll|so|dylib|parquet|duckdb|db|sqlite3?|pack|idx|bin|npy|npz)$/i;
+    const HOME_A = /[A-Za-z]:[\\/](?:Users|users|USERS|home|Home)[\\/][^\\/\r\n\s"'<>|)\]]+/;
+    const HOME_B = /(?:^|[\s"'(=:,[])\/(?:home|Users)\/[^\/\r\n\s"'<>|)\]]+\//;
+    const sources = {}; const leaks = [];
+    let scanned = 0, oversize = 0, budget = 4 * 1024 * 1024, files = 0, leakFiles = 0, truncated = false;
+    const walk = dir => {
+      let entries; try { entries = readdirSync(join(root, dir || '.')); } catch { return; }
+      for (const f of entries.sort()) {
+        const rel = dir ? `${dir}/${f}` : f;
+        if (SKIP.test(rel)) continue;
+        let st; try { st = statSync(join(root, rel)); } catch { continue; }
+        if (st.isDirectory()) { walk(rel); continue; }
+        files++;
+        if (files > 20000) { truncated = true; return; }
+        if (CODE.test(f) || TEXT.test(f)) {
+          if (st.size > 192 * 1024) oversize++;
+          else if (budget - st.size < 0) truncated = true;
+          else { try { sources[rel] = read(rel); budget -= st.size; scanned++; } catch { oversize++; } }
+        }
+        if (!BINARY.test(f) && st.size <= 8 * 1024 * 1024 && leaks.length < 300) {
+          let raw; try { raw = readFileSync(join(root, rel), 'latin1'); } catch { continue; }
+          if (!HOME_A.test(raw) && !HOME_B.test(raw)) continue;
+          leakFiles++;
+          const ls = raw.split('\n');
+          for (let i = 0; i < ls.length && leaks.length < 300; i++)
+            if (HOME_A.test(ls[i]) || HOME_B.test(ls[i])) leaks.push({ path: rel, line: i + 1 });
+        }
+      }
+    };
+    walk('');
+    return { sources, leaks, scanned, oversize, files, leakFiles, truncated };
+  })();
   const commits = (sh("git log --format=%H%x09%an%x09%aI%x09%s -200") || "").split("\n").filter(Boolean).map(l => { const [sha, author, date, subject] = l.split("\t"); return { sha, author, date, subject, generation: (subject.match(/^(\d{12})/) || [])[1] || null, bot: /noreply|bot|\[bot\]/.test(author + (sh(`git log -1 --format=%ae ${sha}`) || "")) }; });
   const registry = vaccines.map(v => ({ file: v.file, ...v.meta, code: v.code }));
-  return { scopes, workflows, controlContracts, pointer, pointerPath, liveSet, rollbackDrills, memoryManifest, rootDirs, config, checksums, cartridgeHashes, stateFresh, files, registry, commits, shallow, gitAvailable, commitCount, exists: null };
+  return { scopes, workflows, controlContracts, pointer, pointerPath, liveSet, rollbackDrills, memoryManifest, rootDirs, config, checksums, cartridgeHashes, stateFresh, files, star, cells, loops, registry, commits, shallow, gitAvailable, commitCount, exists: null };
 }
 const ctx = buildContext(target);
 const existsList = new Set(); // antibodies get an exists() built from a snapshot, not the fs

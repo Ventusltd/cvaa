@@ -122,6 +122,53 @@ const DISEASED = {
     }));
   },
   'no-expiry-windows': null,   // superseded by no-time-based-gates
+  // A wafer estate whose coupling is asserted: two keys, one twin, rate 0.5, undated.
+  'quantum-star-protocol': r => {
+    w(r, 'QUANTUM-STAR-PROTOCOL.md', '# fixture\n');
+    w(r, 'keys.json', '{"count":2,"max_key":2,"keys":[1,2]}');
+    w(r, 'entangle.json', '{"keys":2,"places":1,"resolved":1,"broken":1,"broken_keys":[2],"rate":0.5}');
+    w(r, 'wafer/pilot.mjs', 'const big = rv.unit === "kW" && rv.value > 100; if (big) say("above 100 kW: a chartered electrical engineer must sign");\n');
+  },
+  // A page that says the dots compute, in a repository where the proof has never run.
+  'cells-compute-or-say-programmable': r => {
+    w(r, 'index.html', '<html><body><p>Every one of the dots computes the fault current of the network.</p></body></html>\n');
+  },
+  // The trillion loop: one planted instance of each of the nine at once, so the vaccine is
+  // exercised by a case that fails as well as by the clean fixture, which is the case that
+  // passes. That is the vaccine's own D4, and the block further down asserts every dose by name.
+  'trillion-loop': r => {
+    w(r, 'tools/counter.py', [
+      'import os', 'import sys', '',
+      'TOTAL_MAX = 1500.0',
+      '',
+      'def total(rows):',
+      '    cases = 0',
+      '    for run in rows:',
+      '        cases += run.get("cases", 0)',
+      '    print("verified: 0 differ on %d rows" % len(rows))',
+      '    return cases',
+      '',
+      'def gate(feed):',
+      '    if not os.path.exists(feed):',
+      '        return {}',
+      '    return {"clause": "PASS"}',
+      '',
+      'def main():',
+      '    ok = gate("STANDARDS.md")',
+      '    print("PASS" if ok else "FAIL")',
+      '    print("PUBLISHED")',
+      '    sys.exit(0)',
+      '',
+    ].join('\n'));
+    w(r, 'RESULTS.md', [
+      '# results', '',
+      'Verified 0 differ on 200000 cases.', '',
+      '31292801587800 cases from 48 runs of the same lattice.', '',
+    ].join('\n'));
+    // assembled from parts at run time, so this file itself carries no home-directory path
+    // and names nobody; the fixture it writes carries the shape D8 looks for.
+    w(r, 'NOTES.txt', 'artefacts live at ' + ['C', ':', '\\', 'Users', '\\', 'someone', '\\', 'repo'].join('') + '\n');
+  },
 };
 execSync(`node ${join(here, 'tools', 'grid-first-critical-path.test.mjs')}`, { stdio: 'inherit' });
 let failed = 0;
@@ -141,6 +188,14 @@ for (const [name, seed] of Object.entries(DISEASED)) {
   if (!fired) failed++;
   rmSync(root, { recursive: true, force: true });
 }
+// A vaccine with nine doses is nine rules, and a rule nothing exercises is a decoration - the
+// disease D4 names. The clean fixture above is the case that passes; this is the case that fails,
+// and every dose must name itself in the output or the registry is lying about its coverage.
+const nine = mkdtempSync(join(tmpdir(), 'cvaa-nine-')); CLEAN(nine); DISEASED['trillion-loop'](nine);
+const nineOut = run(nine);
+for (let d = 1; d <= 9; d++) if (!new RegExp(`- D${d} `).test(nineOut)) { console.error(`trillion-loop dose D${d} did not fire on the planted fixture`); failed++; }
+rmSync(nine, { recursive: true, force: true });
+
 // Machine-output contract.
 try {
   const jsonOut = execSync(`node ${join(here, 'inoculate.mjs')} ${clean} --no-lock --no-write --json`, { stdio: 'pipe' }).toString();
