@@ -44,6 +44,7 @@ const CLEAN = root => {
   }));
 };
 const DISEASED = {
+  'gpu-reuse-before-new-infrastructure': r => w(r, '.cvaa/gpu-reuse.json', '{}'),
   'dead-ends-explained': r => w(r, 'spider/manifest.json', '{"graphs":["fixture"]}'),
   'star-grammar': r => {
     w(r, 'star.json', '{}');
@@ -171,6 +172,7 @@ const DISEASED = {
   },
 };
 execSync(`node ${join(here, 'tools', 'grid-first-critical-path.test.mjs')}`, { stdio: 'inherit' });
+execSync(`node ${join(here, 'tools', 'gpu-reuse.test.mjs')}`, { stdio: 'inherit' });
 let failed = 0;
 const registryNames = readdirSync(join(here, 'vaccines')).filter(file => file.endsWith('.md')).map(file => file.replace(/^\d{12}-/, '').replace(/\.md$/, ''));
 for (const name of registryNames) if (!(name in DISEASED)) { console.error(`selftest fixture missing for ${name}`); failed++; }
@@ -179,6 +181,40 @@ const run = root => { try { return execSync(`node ${join(here, 'inoculate.mjs')}
 const clean = mkdtempSync(join(tmpdir(), 'cvaa-clean-')); CLEAN(clean);
 const cleanOut = run(clean);
 for (const line of cleanOut.split('\n')) if (/^FAIL/.test(line)) { console.error(`clean fixture flagged: ${line}`); failed++; }
+// Exercise the real bounded snapshot and sandbox, not only the antibody function.
+const gpu = mkdtempSync(join(tmpdir(), 'cvaa-gpu-reuse-')); CLEAN(gpu);
+const gpuName = 'gpu-reuse-before-new-infrastructure';
+const gpuLinks = ['https://github.com/Ventusltd/cvaa/blob/main/vaccines/202609250037-gpu-reuse-before-new-infrastructure.md', '.cvaa/gpu-reuse.json', 'docs/GPU-INVENTORY.md', 'scripts/existing.py', 'receipts/existing.json'];
+const gpuHeader = '# fixture\n<!-- CVAA:GPU-REUSE:START -->\n' + gpuLinks.map((link, i) => `[evidence ${i}](${link})`).join('\n') + '\n<!-- CVAA:GPU-REUSE:END -->\n';
+const gpuDocument = {
+  schema: 'cvaa.gpu-reuse.v1', inventory_sources: ['docs/GPU-INVENTORY.md'],
+  implementations: [{ script: 'scripts/existing.py', receipt: 'receipts/existing.json' }],
+  workload_scope: 'Fixture array workload only; no browser acceleration claim.',
+  decision: { mode: 'reuse', reason: 'Existing fixture numerical batches fit the requested workload.' },
+  runner_status: { checked_at: '2026-09-25T00:37:00Z', source: 'docs/GPU-INVENTORY.md', status: 'Unknown; no accessible runner observation.' },
+};
+const seedGpu = () => {
+  w(gpu, 'README.md', gpuHeader);
+  w(gpu, '.cvaa/gpu-reuse.json', JSON.stringify(gpuDocument));
+  w(gpu, 'docs/GPU-INVENTORY.md', '# Existing process\nRunner state unknown in fixture.');
+  w(gpu, 'scripts/existing.py', '# historical implementation fixture');
+  w(gpu, 'receipts/existing.json', '{"fixture":true}');
+};
+seedGpu();
+if (!new RegExp(`^immune\\s+${gpuName}`, 'm').test(run(gpu))) { console.error('healthy GPU evidence trail failed'); failed++; }
+for (const [label, mutate] of [
+  ['missing inventory', () => rmSync(join(gpu, 'docs/GPU-INVENTORY.md'))],
+  ['empty inventory', () => w(gpu, 'docs/GPU-INVENTORY.md', '')],
+  ['missing README entry', () => w(gpu, 'README.md', '# fixture')],
+  ['entry beyond 2048 bytes', () => w(gpu, 'README.md', 'x'.repeat(2048) + gpuHeader)],
+  ['invalid JSON', () => w(gpu, '.cvaa/gpu-reuse.json', '{')],
+  ['oversize JSON', () => w(gpu, '.cvaa/gpu-reuse.json', JSON.stringify({ ...gpuDocument, padding: 'x'.repeat(65536) }))],
+  ['deleted metadata', () => rmSync(join(gpu, '.cvaa/gpu-reuse.json'))],
+]) {
+  seedGpu(); mutate();
+  if (!new RegExp(`^FAIL\\s+${gpuName}`, 'm').test(run(gpu))) { console.error(`GPU reuse did not reject ${label}`); failed++; }
+}
+rmSync(gpu, { recursive: true, force: true });
 for (const [name, seed] of Object.entries(DISEASED)) {
   if (!seed) { console.log(`skip   ${name} (registry-level, history-level or superseded)`); continue; }
   const root = mkdtempSync(join(tmpdir(), `cvaa-${name}-`)); CLEAN(root); seed(root);

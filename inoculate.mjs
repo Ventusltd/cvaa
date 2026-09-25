@@ -89,6 +89,30 @@ function buildContext(root) {
     try { return { file, document: JSON.parse(read(path)), error: null }; }
     catch (error) { return { file, document: null, error: `invalid JSON: ${error.message}` }; }
   });
+  // GPU reuse is opt-in. Snapshot declarations and local reference presence only;
+  // this does not observe whether an agent read them or contact remote runners.
+  const gpuReuse = (() => {
+    const path = '.cvaa/gpu-reuse.json';
+    const readmeHeader = exists('README.md') ? readFileSync(join(root, 'README.md')).subarray(0, 2048).toString('utf8') : '';
+    if (!exists(path)) return { present: false, readmeHeader };
+    let document;
+    try {
+      if (size(path) > 65536) throw new Error('metadata exceeds 65536 bytes');
+      document = JSON.parse(read(path));
+    } catch { return { present: true, readmeHeader, error: 'metadata must be valid JSON under 65536 bytes' }; }
+    const localFiles = {};
+    const refs = [
+      ...(Array.isArray(document?.inventory_sources) ? document.inventory_sources : []),
+      ...(Array.isArray(document?.implementations) ? document.implementations.flatMap(item => [item?.script, item?.receipt]) : []),
+      document?.runner_status?.source,
+    ];
+    for (const ref of refs) {
+      if (typeof ref !== 'string' || !ref || ref.startsWith('/') || /[\\:#?]/.test(ref) || ref.split('/').some(part => !part || part === '.' || part === '..')) continue;
+      try { const info = statSync(join(root, ref)); localFiles[ref] = info.isFile() && info.size > 0; }
+      catch { localFiles[ref] = false; }
+    }
+    return { present: true, readmeHeader, document, localFiles };
+  })();
   const pointerPath = ['atlas/current.json', 'current.json', 'releases/current.json'].find(exists) || null;
   const pointer = pointerPath ? JSON.parse(read(pointerPath)) : null;
   const rootDirs = readdirSync(root).filter(f => f !== '.git' && statSync(join(root, f)).isDirectory());
@@ -226,7 +250,7 @@ function buildContext(root) {
   })();
   const commits = (sh("git log --format=%H%x09%an%x09%aI%x09%s -200") || "").split("\n").filter(Boolean).map(l => { const [sha, author, date, subject] = l.split("\t"); return { sha, author, date, subject, generation: (subject.match(/^(\d{12})/) || [])[1] || null, bot: /noreply|bot|\[bot\]/.test(author + (sh(`git log -1 --format=%ae ${sha}`) || "")) }; });
   const registry = vaccines.map(v => ({ file: v.file, ...v.meta, code: v.code }));
-  return { scopes, workflows, controlContracts, pointer, pointerPath, liveSet, rollbackDrills, memoryManifest, rootDirs, config, checksums, cartridgeHashes, stateFresh, files, star, cells, loops, registry, commits, shallow, gitAvailable, commitCount, exists: null };
+  return { scopes, workflows, controlContracts, gpuReuse, pointer, pointerPath, liveSet, rollbackDrills, memoryManifest, rootDirs, config, checksums, cartridgeHashes, stateFresh, files, star, cells, loops, registry, commits, shallow, gitAvailable, commitCount, exists: null };
 }
 const ctx = buildContext(target);
 const existsList = new Set(); // antibodies get an exists() built from a snapshot, not the fs
