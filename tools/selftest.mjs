@@ -44,6 +44,11 @@ const CLEAN = root => {
   }));
 };
 const DISEASED = {
+  'site-tile-stream': r => w(r, '.cvaa/contracts/site-tile.json', JSON.stringify({
+    schema: 'cvaa.site-tile.v1', tile_m: 256, gap_s: 10, daily_cap: 500, fetch_on: ['arrival', 'movement'],
+    bulk: true, raw_store: { kind: 'mirror' }, receipt_fields: ['tile'], survey_year_gate: 'none',
+    no_ground: 'zero-fill', in_ci: true,
+  })),
   'gpu-reuse-before-new-infrastructure': r => w(r, '.cvaa/gpu-reuse.json', '{}'),
   'dead-ends-explained': r => w(r, 'spider/manifest.json', '{"graphs":["fixture"]}'),
   'star-grammar': r => {
