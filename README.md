@@ -42,3 +42,8 @@ Ventus is a **cables and connectivity** company, and the clue is in the name. Wh
 The five engines: **substation finder within a radius**, **interconnector subsea link**, **offshore export cable to its onshore connection**, **400 kV overhead line and transmission connection**, and **132 kV distribution**. The first and fourth work today and are protected by their own passing receipts.
 
 **Cured faults become vaccines here.** A vaccine is a rule plus the measurement that catches its disease returning; a rule with no check is a note, not a vaccine. Three are ready to be written from 2026-09-07, all cured and all with their checks: **a pass must assert complete coverage**, so a run with a requested behaviour missing is INCOMPLETE rather than PASS; **a verdict must not outlive the inputs it consumed**, so a receipt applies only when every consumed input is present at the same content hash; and **a silent blank is a failure**, so any path that produces an empty field, an empty image or an empty answer and presents it as success is refused. Confirm this repository's runner is actually alive before adding them: it has previously reported findings while dead.
+
+## Public diary
+
+- [5 October 2026: Learn the Kuiper and connected projects](reports/DIARY-20261005-learn-the-kuiper.md)
+- [Public project links and source revisions](https://github.com/Ventusltd/kuiper-belt/blob/main/diary/2026-10-05-public-links.json)
