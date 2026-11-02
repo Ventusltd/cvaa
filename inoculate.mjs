@@ -248,9 +248,83 @@ function buildContext(root) {
     walk('');
     return { sources, leaks, scanned, oversize, files, leakFiles, truncated };
   })();
+  /* The Kuiper editions (kuiper-belt, NL-010, 1-2 November 2026): one dated folder per edition under editions/, the
+     pointer editions/index.html, a page whose KY_EDITION must equal the manifest's edition and every data file's, module
+     records whose reads/writes are literals, GREEN.md rows naming the manifest a release may ship, and git history
+     saying whether a folder changed after the pointer named it. All precomputed here; antibodies open nothing. */
+  const kuiper = (() => {
+    const EDS = 'editions';
+    if (!exists(EDS)) return null;
+    const j = p => { try { return JSON.parse(read(p)); } catch { return null; } };
+    const pointerText = exists(`${EDS}/index.html`) && size(`${EDS}/index.html`) <= 65536 ? read(`${EDS}/index.html`) : '';
+    const pointerStamps = [...pointerText.matchAll(/(?:url=|href="|replace\(')(\d{12})\//g)].map(m => m[1]);
+    const folders = list(EDS).filter(f => /^\d{12}$/.test(f) && statSync(join(root, EDS, f)).isDirectory()).sort();
+    const editions = folders.map(stamp => {
+      const d = `${EDS}/${stamp}`;
+      const page = exists(`${d}/index.html`) && size(`${d}/index.html`) <= 4 * 1024 * 1024 ? read(`${d}/index.html`) : '';
+      const kyEdition = (page.match(/const KY_EDITION = '(\d{12})'/) || [])[1] || null;
+      const mp = `${d}/modules.json`;
+      const manifest = exists(mp) && size(mp) <= 4 * 1024 * 1024 ? j(mp) : null;
+      const manifestSha = exists(mp) ? sha256(readFileSync(join(root, mp))) : null;
+      const records = manifest && Array.isArray(manifest.modules) ? manifest.modules.filter(r => r && typeof r === 'object')
+        .map(r => ({ id: String(r.id), reads: Array.isArray(r.reads) ? r.reads.map(String) : [], writes: Array.isArray(r.writes) ? r.writes.map(String) : [] })) : [];
+      const dataStamps = list(`${d}/data`).filter(f => f.endsWith('.json')).sort().map(f => {
+        const o = size(`${d}/data/${f}`) <= 16 * 1024 * 1024 ? j(`${d}/data/${f}`) : null;
+        return { file: `data/${f}`, edition: o && typeof o === 'object' && o.edition != null ? String(o.edition) : null };
+      });
+      const greenPath = [`${d}/GREEN.md`, `${d}/handoff/10-integration/GREEN.md`].find(exists) || null;
+      const greenHashes = greenPath && size(greenPath) <= 1024 * 1024 ? [...read(greenPath).matchAll(/`([0-9a-f]{12,64})/g)].map(m => m[1]) : [];
+      let release = null;   // the first commit whose pointer named this folder, and every later commit that touched it
+      if (gitAvailable && !shallow) {
+        const first = (sh(`git log --format=%H --reverse -S"url=${stamp}/" -- ${EDS}/index.html`) || '').split('\n')[0];
+        if (first) { const later = sh(`git log --format=%h%x09%s ${first}..HEAD -- ${d}`) || ''; release = { commit: first.slice(0, 7), later: later ? later.split('\n').map(l => l.split('\t')) : [] }; }
+      }
+      return { stamp, kyEdition, manifestEdition: manifest && manifest.edition != null ? String(manifest.edition) : null, manifestSha, records, dataStamps,
+        green: greenPath ? { path: greenPath, hashes: greenHashes } : null, release };
+    });
+    return { pointerStamps, editions };
+  })();
+  /* K1, the not-public names (kuiper-belt tools/check_proof.py leaks(), LINK-RULE.md 5). The digests come from the
+     target's own list; every token of every tracked text file is hashed as leaks() hashes it (whole, without trailing
+     dots, after its last slash, lower-cased, sha256 cut to 24 hex). LOCATIONS ONLY leave this builder: neither the
+     context nor any finding carries a matched token. */
+  const k1 = (() => {
+    let digests = null, source = null;
+    if (exists('.cvaa/not-public.digests')) { source = '.cvaa/not-public.digests'; digests = new Set(read(source).split('\n').map(s => s.trim()).filter(s => /^[0-9a-f]{24}$/.test(s))); }
+    else if (exists('tools/check_proof.py')) { const m = read('tools/check_proof.py').match(/NOT_PUBLIC\s*=\s*\{([\s\S]*?)\}/); if (m) { source = 'tools/check_proof.py'; digests = new Set([...m[1].matchAll(/'([0-9a-f]{24})'/g)].map(x => x[1])); } }
+    if (!digests || !digests.size) return null;
+    const BINARY = /\.(png|jpe?g|gif|webp|ico|pdf|zip|gz|tgz|tar|7z|woff2?|ttf|otf|eot|mp4|mp3|wav|wasm|pyc|exe|dll|so|dylib|parquet|duckdb|db|sqlite3?|pack|idx|bin|npy|npz)$/i;
+    const SKIP = /(^|\/)(\.git|node_modules|__pycache__)(\/|$)/;
+    let files = gitAvailable ? (sh('git ls-files -z') || '').split('\0').filter(Boolean) : null;
+    if (!files) { files = []; const walk = dir => { for (const f of list(dir || '.')) { const rel = dir ? `${dir}/${f}` : f; if (SKIP.test(rel)) continue; try { statSync(join(root, rel)).isDirectory() ? walk(rel) : files.push(rel); } catch {} } }; walk(''); }
+    const memo = new Map();
+    const hit = tok => { if (memo.has(tok)) return memo.get(tok); let r = false; for (const t of new Set([tok, tok.replace(/\.+$/, ''), tok.slice(tok.lastIndexOf('/') + 1)])) if (digests.has(sha256(t.toLowerCase()).slice(0, 24))) { r = true; break; } memo.set(tok, r); return r; };
+    const hits = []; let scanned = 0, skipped = [];
+    for (const rel of files) {
+      if (BINARY.test(rel) || SKIP.test(rel)) continue;
+      let st; try { st = statSync(join(root, rel)); } catch { continue; }
+      if (!st.isFile()) continue;
+      if (st.size > 8 * 1024 * 1024) { skipped.push(rel); continue; }
+      const lines = readFileSync(join(root, rel), 'utf8').split('\n'); scanned++;
+      for (let i = 0; i < lines.length && hits.length < 200; i++) { let found = false; for (const tok of new Set(lines[i].match(/[A-Za-z0-9_][A-Za-z0-9_.-]*/g) || [])) if (hit(tok)) { found = true; break; } if (found) hits.push({ path: rel, line: i + 1 }); }
+    }
+    return { source, digests: digests.size, scanned, skipped, hits };
+  })();
+  /* The posting flag (neural-link PROTOCOL.md, LINK-RULE.md 1): a gh api comment post whose body flag is lower-case
+     sends the literal text "@file". Lines in text and script sources that carry the lower-case form and not the
+     upper-case one, as locations. */
+  const postFlag = (() => {
+    const LOWER = /\bgh api\b[^\n]*\s-f\s+body=@/, UPPER = /\s-F\s+body=@/;
+    const out = []; const sources = { ...loops.sources };
+    const SKIP = /(^|\/)(\.git|node_modules|__pycache__|\.venv|venv|dist|build|vendor)(\/|$)/;
+    const walk = dir => { for (const f of list(dir || '.')) { const rel = dir ? `${dir}/${f}` : f; if (SKIP.test(rel)) continue; let st; try { st = statSync(join(root, rel)); } catch { continue; } if (st.isDirectory()) walk(rel); else if (/\.(sh|bash|cjs|mjs)$/.test(f) && st.size <= 192 * 1024 && !(rel in sources)) { try { sources[rel] = read(rel); } catch {} } } };
+    walk('');
+    for (const [rel, text] of Object.entries(sources)) { const ls = text.split('\n'); for (let i = 0; i < ls.length && out.length < 200; i++) if (LOWER.test(ls[i]) && !UPPER.test(ls[i])) out.push({ path: rel, line: i + 1 }); }
+    return out;
+  })();
   const commits = (sh("git log --format=%H%x09%an%x09%aI%x09%s -200") || "").split("\n").filter(Boolean).map(l => { const [sha, author, date, subject] = l.split("\t"); return { sha, author, date, subject, generation: (subject.match(/^(\d{12})/) || [])[1] || null, bot: /noreply|bot|\[bot\]/.test(author + (sh(`git log -1 --format=%ae ${sha}`) || "")) }; });
   const registry = vaccines.map(v => ({ file: v.file, ...v.meta, code: v.code }));
-  return { scopes, workflows, controlContracts, gpuReuse, pointer, pointerPath, liveSet, rollbackDrills, memoryManifest, rootDirs, config, checksums, cartridgeHashes, stateFresh, files, star, cells, loops, registry, commits, shallow, gitAvailable, commitCount, exists: null };
+  return { scopes, workflows, controlContracts, gpuReuse, pointer, pointerPath, liveSet, rollbackDrills, memoryManifest, rootDirs, config, checksums, cartridgeHashes, stateFresh, files, star, cells, loops, kuiper, k1, postFlag, registry, commits, shallow, gitAvailable, commitCount, exists: null };
 }
 const ctx = buildContext(target);
 const existsList = new Set(); // antibodies get an exists() built from a snapshot, not the fs

@@ -38,5 +38,12 @@
   "202609192215-cells-compute-or-say-programmable.md": "572836d5e0ad1fa7792aa8bf604ab9e8b9feb93687e65a1c12a8b85f8b5f722e",
   "202609211440-trillion-loop.md": "0ab2c3aa025f65d66e45f9b8b9375a9e76c968c77ad601ad51f15660d3dc13d0",
   "202609250037-gpu-reuse-before-new-infrastructure.md": "5fd9df0a16722d5df70254218d2e86c33ba2bcd08be3f8dfd2db95ac8a4b19f2",
-  "202609272325-site-tile-stream.md": "22d7505661a1050d1de3df9d775ad2709b4187dbaf54e8af1dd74f241b18ef4f"
+  "202609261425-observed-before-asserted.md": "13e04ffe5e8490da9dad1d31a6a5df03a5d74867ab0787896a1f6e8a37c3a28d",
+  "202609272325-site-tile-stream.md": "22d7505661a1050d1de3df9d775ad2709b4187dbaf54e8af1dd74f241b18ef4f",
+  "202611021041-kuiper-belt-manifest-on-a-green-row.md": "ee46fb4a114f4856ac5155f1bd843f6b01bfb7f23f266780bb5877d147f5f30c",
+  "202611021042-neural-link-post-reads-the-file.md": "6ce1349d957c015ab124dd18090c9f47b15852b4f26db05f6407cbb671c8f2bb",
+  "202611021043-kuiper-belt-no-private-names.md": "84e36ae8b46ccd56a243d9ec1426aacd29f2f9b4a06545641d9f75781f04663c",
+  "202611021044-kuiper-belt-released-folder-frozen.md": "212a055c584bb3cfc36e56b840f47ba53d316d6d06654a6ff2b9b320c08d22d3",
+  "202611021045-kuiper-belt-data-stamp-is-the-page-stamp.md": "684a1afc8ef0b2d10a46e500096470970409045a3293dac4faa0bace403a456a",
+  "202611021046-kuiper-belt-record-paths-not-prose.md": "2083bc51e8ca0e4897b1993c934327524227f218b359f474e9c5bb1097b50176"
 }

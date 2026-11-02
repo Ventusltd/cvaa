@@ -4,6 +4,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
 import { execSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 const here = dirname(dirname(fileURLToPath(import.meta.url)));
 const w = (root, p, s) => { mkdirSync(join(root, p, '..'), { recursive: true }); writeFileSync(join(root, p), s); };
 const OID = '0'.repeat(40);
@@ -128,6 +129,44 @@ const DISEASED = {
     }));
   },
   'no-expiry-windows': null,   // superseded by no-time-based-gates
+  // A live-mutation contract whose runtime receipt says the live page was never measured, yet asks to claim success.
+  'observed-before-asserted': r => w(r, '.cvaa/contracts/observed-before-asserted.json', JSON.stringify({
+    schema: 'cvaa.observed-before-asserted.v1', target: 'https://example.invalid/', expected_identity: 'v1',
+    runtime_receipt: { measured: false }, claim_allowed: true,
+  })),
+  // The Kuiper editions (2 November 2026). A folder whose GREEN.md names one manifest while the folder carries another:
+  // the a432b43 state, where the live tree had moved past the last green row before the release read it.
+  'kuiper-belt-manifest-on-a-green-row': r => {
+    w(r, 'editions/202611012135/modules.json', '{"schema":"kuiper.modules.v1","edition":"202611012135","order":["hello","line-card","see-through"],"modules":[]}\n');
+    w(r, 'editions/202611012135/GREEN.md', '| G2 (row 3) | hello, line-card | `418ae14ca39bc92be028f852825da196fd634ec12bb48f8f538d0cf739564d05` | `be99c8a126ce691805e3b8deffb849f09ffdba49478c787cb217b03297e75752` |\n');
+  },
+  // A brief that teaches the lower-case flag. Assembled from parts so this file never carries the line itself.
+  'neural-link-post-reads-the-file': r => w(r, 'BRIEF.md', 'Post with `gh api repos/o/r/issues/1/comments ' + '-' + 'f body=@file`.\n'),
+  // A not-public list naming one made-up token, and a README that carries the token. The token is a fixture word.
+  'kuiper-belt-no-private-names': r => {
+    const tok = 'fixture-not-public-name', digest = createHash('sha256').update(tok).digest('hex').slice(0, 24);
+    w(r, 'tools/check_proof.py', "NOT_PUBLIC = {'" + digest + "'}\n");
+    w(r, 'README.md', '# clean\nthe register of ' + tok + ' is kept here\n');
+  },
+  // A pointer that named a folder in one commit, and a later commit that edited the folder.
+  'kuiper-belt-released-folder-frozen': r => {
+    w(r, 'editions/index.html', '<meta http-equiv="refresh" content="0; url=202611012135/">\n');
+    w(r, 'editions/202611012135/index.html', "const KY_EDITION = '202611012135';\n");
+    gitify(r, '202611012135');
+    w(r, 'editions/202611012135/index.html', "const KY_EDITION = '202611012135'; // edited after release\n");
+    execSync('git add . && git commit -q -m "edit a released folder"', { cwd: r, stdio: 'pipe' });
+  },
+  // A page stamped for the new folder whose drift.json still carries the previous edition's stamp.
+  'kuiper-belt-data-stamp-is-the-page-stamp': r => {
+    w(r, 'editions/202611020326/index.html', "const KY_EDITION = '202611020326';\n");
+    w(r, 'editions/202611020326/modules.json', '{"schema":"kuiper.modules.v1","edition":"202611020326","order":[],"modules":[]}\n');
+    w(r, 'editions/202611020326/data/drift.json', '{"schema":"kuiper.drift.v1","edition":"202611012135"}\n');
+  },
+  // A record whose writes entry is a sentence.
+  'kuiper-belt-record-paths-not-prose': r => w(r, 'editions/202611020528/modules.json', JSON.stringify({
+    schema: 'kuiper.modules.v1', edition: '202611020528', order: ['drift'],
+    modules: [{ id: 'drift', reads: ['data/drift.json'], writes: ['#ky-drift', '#hud (one DRIFT line per frame, appended)'] }],
+  }) + '\n'),
   // A wafer estate whose coupling is asserted: two keys, one twin, rate 0.5, undated.
   'quantum-star-protocol': r => {
     w(r, 'QUANTUM-STAR-PROTOCOL.md', '# fixture\n');

@@ -1,7 +1,7 @@
 ---
 vaccine: observed-before-asserted
 generation: "202609261425"
-dose: every-live-mutation
+dose: every-deploy
 ---
 Disease
 An agent observes source code, a commit, workflow state or deployment metadata and converts that evidence into a claim about the live application. It then mutates additional publication layers before the live runtime has been independently read back.
