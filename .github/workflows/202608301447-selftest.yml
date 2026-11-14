@@ -39,6 +39,9 @@ jobs:
           node tools/selftest.mjs | tee /tmp/selftest.log
           test "$(tail -n 1 /tmp/selftest.log)" = 'all antibodies fire on disease and stay silent on health'
 
+      - name: Adversarial Pipeline News release claim checks
+        run: node tools/pipeline-news-promotion.test.mjs
+
       - name: The registry has no findings against itself
         run: |
           set -euo pipefail
