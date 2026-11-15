@@ -1,0 +1,209 @@
+{
+  "schema": "cvaa.pipeline-news-v921-recovery-cases.v1",
+  "owner": "ChatGPT Agent 5",
+  "observed_on": "2026-11-15",
+  "evidence": {
+    "operative_id": "202611141017",
+    "operative_git_main": "dd0fcceb08e71d6c40b77d18e4e5eff493529d45",
+    "producer_pr": 112,
+    "producer_head": "f9f98bb66e30fe58f6a9e463f0222866459b5c8e",
+    "feed_generated_at": "2026-11-14T20:54:54Z",
+    "feed_items": 65,
+    "possible_matches": 3,
+    "general_datacentre_headlines": 9,
+    "feeds_ok": 50,
+    "feeds_failed": 0,
+    "release_workflow": "https://github.com/Ventusltd/globalgrid2050/actions/runs/43703081074"
+  },
+  "cases": [
+    {
+      "id": "V921-DED-01",
+      "priority": "P0",
+      "lane": "collector",
+      "scenario": "same title, same original URL and same event date, two publisher feed appearances",
+      "expected": "one retained display article; both source provenance records preserved; no duplicated REPD claim",
+      "status": "PROPOSED_NOT_EXECUTED",
+      "owner": "Agent 1b"
+    },
+    {
+      "id": "V921-DED-02",
+      "priority": "P0",
+      "lane": "collector",
+      "scenario": "same normalised title, one project, two distinct decision IDs 12 months apart",
+      "expected": "both events retained with distinct effective event dates; do not prefer the older event merely because it was seen first",
+      "status": "PROPOSED_NOT_EXECUTED",
+      "owner": "Agent 1b"
+    },
+    {
+      "id": "V921-DED-03",
+      "priority": "P0",
+      "lane": "collector",
+      "scenario": "same generic title, two independently distinct REPD refs and different original URLs",
+      "expected": "both candidates retained independently; neither is automatically verified",
+      "status": "PROPOSED_NOT_EXECUTED",
+      "owner": "Agent 1b"
+    },
+    {
+      "id": "V921-DED-04",
+      "priority": "P0",
+      "lane": "collector",
+      "scenario": "same article syndicated to a second publisher with a different title but identical claimed event",
+      "expected": "one optional display representative, distinct source receipts and licence status retained; no inferred rights inheritance",
+      "status": "PROPOSED_NOT_EXECUTED",
+      "owner": "Agent 1b"
+    },
+    {
+      "id": "V921-DED-05",
+      "priority": "P0",
+      "lane": "collector",
+      "scenario": "same exact headline, later substantive correction or later event stage",
+      "expected": "do not merge distinct stage/decision/time; preserve corrections with original version lineage",
+      "status": "PROPOSED_NOT_EXECUTED",
+      "owner": "Agent 1b"
+    },
+    {
+      "id": "V921-UI-01",
+      "priority": "P0",
+      "lane": "frontend",
+      "scenario": "valid schema, status ok, generated_at valid, items []",
+      "expected": "render an honest healthy-empty state, not unavailable; no snapshot replay",
+      "status": "PROPOSED_NOT_EXECUTED",
+      "owner": "Agent 4 + Agent A"
+    },
+    {
+      "id": "V921-UI-02",
+      "priority": "P0",
+      "lane": "frontend",
+      "scenario": "schema correct, status partial, 49 of 50 feeds ok, 12 usable headlines",
+      "expected": "label partial/degraded, render usable items, never describe all feeds healthy",
+      "status": "PROPOSED_NOT_EXECUTED",
+      "owner": "Agent 4 + Agent A"
+    },
+    {
+      "id": "V921-UI-03",
+      "priority": "P0",
+      "lane": "frontend",
+      "scenario": "status failed, generated_at current, stale snapshot contains older articles",
+      "expected": "show failed/live unavailable and clearly labelled saved copy, never new verified news",
+      "status": "PROPOSED_NOT_EXECUTED",
+      "owner": "Agent 4 + Agent A"
+    },
+    {
+      "id": "V921-UI-04",
+      "priority": "P0",
+      "lane": "frontend",
+      "scenario": "malformed JSON or schema mismatch versus healthy empty JSON",
+      "expected": "invalid data remains unavailable/snapshot; do not silently treat retrieval errors as no news",
+      "status": "PROPOSED_NOT_EXECUTED",
+      "owner": "Agent 4 + Agent A"
+    },
+    {
+      "id": "V921-UI-05",
+      "priority": "P1",
+      "lane": "frontend",
+      "scenario": "live ok; generated_at today but newest article eight days old",
+      "expected": "say feed checked today but current article age historical; do not imply new event today",
+      "status": "PROPOSED_NOT_EXECUTED",
+      "owner": "Agent 4 + Agent A"
+    },
+    {
+      "id": "V921-PROV-01",
+      "priority": "P0",
+      "lane": "evidence",
+      "scenario": "one publisher URL attached to two REPD IDs; only one binding independently proved",
+      "expected": "only proved project eligible for a project-specific claim; second remains candidate/withheld",
+      "status": "PROPOSED_NOT_EXECUTED",
+      "owner": "Agent 2 + Agent 1b"
+    },
+    {
+      "id": "V921-PROV-02",
+      "priority": "P0",
+      "lane": "evidence",
+      "scenario": "reviewed flag exists but original article belongs to unrelated REPD",
+      "expected": "no confirmed project association; explicit negative retained",
+      "status": "PROPOSED_NOT_EXECUTED",
+      "owner": "Agent 2 + Agent 1b"
+    },
+    {
+      "id": "V921-PROV-03",
+      "priority": "P0",
+      "lane": "evidence",
+      "scenario": "RSS summary names REPD but original article response missing",
+      "expected": "candidate only; no invented article body, original response SHA or publication rights",
+      "status": "PROPOSED_NOT_EXECUTED",
+      "owner": "Agent 2 + Agent 1b"
+    },
+    {
+      "id": "V921-PROV-04",
+      "priority": "P0",
+      "lane": "evidence",
+      "scenario": "HTTP 200 original publisher page but reuse rights unknown",
+      "expected": "not publication-eligible for rights-dependent reproduction; linking policy independently reviewed",
+      "status": "PROPOSED_NOT_EXECUTED",
+      "owner": "Agent 2 + Agent 1b"
+    },
+    {
+      "id": "V921-PROV-05",
+      "priority": "P1",
+      "lane": "evidence",
+      "scenario": "same host redirect changes path/query to a different story",
+      "expected": "reject response substitution; separately validate exact requested/final URL and bytes",
+      "status": "PROPOSED_NOT_EXECUTED",
+      "owner": "Agent 2 + Agent 1b"
+    },
+    {
+      "id": "V921-STATE-01",
+      "priority": "P0",
+      "lane": "release",
+      "scenario": "operative homepage points V9.21 while PR112 is still unmerged",
+      "expected": "two independent release/scope states, no assertion that Project Signals safeguards are live",
+      "status": "PROPOSED_NOT_EXECUTED",
+      "owner": "Agent A + Agent 3"
+    },
+    {
+      "id": "V921-STATE-02",
+      "priority": "P0",
+      "lane": "release",
+      "scenario": "all 7 PR112 CI workflows green but public site not fetched and hashed",
+      "expected": "producer CI PASS; served site UNVERIFIED; no full release certificate",
+      "status": "PROPOSED_NOT_EXECUTED",
+      "owner": "Agent A + Agent 3"
+    },
+    {
+      "id": "V921-STATE-03",
+      "priority": "P0",
+      "lane": "release",
+      "scenario": "no new independently eligible verified project headlines",
+      "expected": "honest empty verified project-news section; preserve all 7,775 REPD records and archive",
+      "status": "PROPOSED_NOT_EXECUTED",
+      "owner": "Agent A + Agent 3"
+    },
+    {
+      "id": "V921-MAP-01",
+      "priority": "P1",
+      "lane": "browser",
+      "scenario": "valid-coordinate onshore MAP href opens GridAtlas but engine result never appears",
+      "expected": "MAP actual-runtime FAIL; URL/HTTP-200 does not count as engine PASS",
+      "status": "PROPOSED_NOT_EXECUTED",
+      "owner": "Agent 3"
+    },
+    {
+      "id": "V921-FEED-01",
+      "priority": "P1",
+      "lane": "feed-health",
+      "scenario": "one feed says ok with newest article old and zero relevant retained stories",
+      "expected": "report fetch success with relevant-yield zero and article age, not newly verified news",
+      "status": "PROPOSED_NOT_EXECUTED",
+      "owner": "Agent A + Agent 3"
+    },
+    {
+      "id": "V921-FEED-02",
+      "priority": "P2",
+      "lane": "scheduler",
+      "scenario": "workflow lists 3 cron entries but historical runs are delayed or skipped",
+      "expected": "monitor observed successful refresh ages and failures; tune rate only after quota/robots/rights analysis",
+      "status": "PROPOSED_NOT_EXECUTED",
+      "owner": "Agent A + Agent 3"
+    }
+  ]
+}
