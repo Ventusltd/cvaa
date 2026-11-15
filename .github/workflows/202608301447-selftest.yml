@@ -41,6 +41,8 @@ jobs:
 
       - name: Adversarial Pipeline News release claim checks
         run: node tools/pipeline-news-promotion.test.mjs
+      - name: V9.21 context-recovery record integrity (not production acceptance)
+        run: node tools/v921-recovery-record.test.mjs
 
       - name: The registry has no findings against itself
         run: |
