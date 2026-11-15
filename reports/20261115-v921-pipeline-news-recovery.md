@@ -1,10 +1,20 @@
 # Agent 5 CVAA recovery — V9.21 live headlines versus PR112 project signals
 
-**Record:** CVAA-NEWS-20261115-R1  
+**Record:** CVAA-NEWS-20261115-R2 (corrected agent roster and release-ownership status)  
 **Observed:** 15 November 2026, around 11:31 UTC (GitHub refs re-read in this session)  
 **Owner:** ChatGPT Agent 5 — CVAA watcher and independent evidence reviewer  
 **Status:** RESEARCHED STATE / RECOVERY INSTRUCTIONS / NO LIVE MUTATION  
 **Scope:** This file belongs only to Agent5's existing `cvaa` draft PR #2 branch. It is not merged into cvaa main or deployed in globalgrid2050.
+
+## Agent roster correction — explicit owner statement
+
+**The user confirms no Agent A exists and the original Agent 1 conversation is exhausted.** Prior reports, comments and diagrams describing Agent A as an active integrator were **incorrect routing instructions**, not acknowledgements from a real session. Do not message Agent A as if it will wake or publish.
+
+Agent 1b is the sole known replacement for Agent 1 and continues producer PR #112. Agents 2 (independent REPD and publisher-rights verification), 3 (independent browser/CI/CD/served SHA and rollback), 4 (editorial/mobile), 5 (CVAA independent recovery) and 6 (research) retain their separate roles, subject to a fresh active-session check. None is automatically Agent A.
+
+**Immediate coordinator:** Agent 1b can relay release requests and prepare a staged candidate, but the new release-integrator role is **not separately staffed**. Before new publication, obtain a concrete named release owner/branch reservation and the owner's applicable publication instructions, while preserving independent Agent 2/3/4 gates and immutable history. A GitHub issue comment is not a running agent.
+
+This supersedes any Agent A assignments in this recovery file. Original Agent 1 is archive-only.
 
 ## 1. The critical distinction that must survive a context reset
 
@@ -71,15 +81,15 @@ Each agent resuming the release must answer these separately, with exact SHA and
 5. Has same-title dedupe compared **event and identity**, not just headline text? Is the wrong event lost because the earlier title won?
 6. Does the per-REPD source receipt actually exist and grant the intended display rights? A reviewed boolean, RSS summary or licence guessed by an AI does not satisfy this.
 7. Has real 390/1440 browser, CSV, MAP → receiver → actual Grid Engine result, public served-byte SHA and rollback been checked on the **operative** candidate?
-8. Is the change going into a **new immutable version** owned by Agent A rather than editing V9.21 or another agent's branch?
+8. Is the change going into a **new immutable version** under a named, actually active release owner and independently checked, rather than editing V9.21 or another agent's branch? Do not assign this to a fictitious Agent A.
 
 If any answer is missing, record `UNVERIFIED` and defer a claim of independently certified project-news publication. This record does not reverse the owner's earlier V9.21 promotion.
 
 ## 5. Role-locked smallest next actions
 
-**Agent A (integrator):** preserve current promoted V9.21 and V9.20 fallback, open/choose one distinct new versioned staging branch; pin exactly which headline producer it consumes. Wire producer improvements only via accepted commits and source evidence. Do not merge PR112 into an assumed deployed workflow merely to alter the homepage pointer.
+**Release integration ownership — UNASSIGNED SEPARATELY:** The user has explicitly confirmed there is **no Agent A**. The original **Agent 1 chat is exhausted and inactive**. Agent 1b is the functioning successor to Agent 1, owns producer PR #112, and has previously carried out the owner-directed V9.21 homepage promotion. Agent 1b should coordinate any proposed new immutable staged version with the owner and Agents 2/3/4, but do **not** pretend an independent Agent A exists or treat Agent 1b's own code review as independent. An explicit active release owner/branch reservation and existing owner publication authority must be recorded before further promotion. Preserve promoted V9.21 and V9.20 fallback; pin the exact headline producer. Do not merge PR112 into an assumed deployed workflow merely to alter the homepage pointer.
 
-**Agent 1b (producer):** first provide an evidence-first bridge from Project Signals to explicit per-REPD candidate cards, without exporting uncertain/rights-unknown text as verified. Work solely on the producer branch or an approved successor. PR112 exact-head seven green Actions are a good code baseline, not final data acceptance. A patch to the simpler `pipeline_headlines.py` needs a separate release path and regression tests for NEWS-R1.
+**Agent 1b (only active producer successor; potential release coordinator only if explicitly reserved):** first provide an evidence-first bridge from Project Signals to explicit per-REPD candidate cards, without exporting uncertain/rights-unknown text as verified. Work solely on the producer branch or an approved successor. PR112 exact-head seven green Actions are a good code baseline, not final data acceptance. A patch to the simpler `pipeline_headlines.py` needs a separate release path and regression tests for NEWS-R1.
 
 **Agent 2 (independent semantics/rights):** review dedupe counterexamples and same-title distinct decisions; veto unsupported per-REPD bindings and publisher-rights assumptions; distinguish rights to LINK from rights to reproduce content.
 
