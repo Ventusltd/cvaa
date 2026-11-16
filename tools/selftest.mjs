@@ -45,6 +45,13 @@ const CLEAN = root => {
   }));
 };
 const DISEASED = {
+  'pipeline-news-promotion-evidence': r => w(r, '.cvaa/contracts/pipeline-news-promotion.json', JSON.stringify({
+    schema: 'cvaa.pipeline-news-promotion.v1', decision: 'publish',
+    candidate: { commit: '0'.repeat(40), version: '202611141940', scope: 'solar-only' },
+    checks: { strict_acid: { result: 'PASS', failed: 24, xfailed: 4 } },
+    inclusion: { unverified_rights: 15, unverified_project_bindings: 416, unverified_dc_records: 258, verified_headlines: 1 },
+    eligible_articles: [], reviewers: {},
+  })),
   'site-tile-stream': r => w(r, '.cvaa/contracts/site-tile.json', JSON.stringify({
     schema: 'cvaa.site-tile.v1', tile_m: 256, gap_s: 10, daily_cap: 500, fetch_on: ['arrival', 'movement'],
     bulk: true, raw_store: { kind: 'mirror' }, receipt_fields: ['tile'], survey_year_gate: 'none',
