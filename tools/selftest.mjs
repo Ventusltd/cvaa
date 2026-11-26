@@ -45,6 +45,7 @@ const CLEAN = root => {
   }));
 };
 const DISEASED = {
+  'vedic-context-conservation': r => w(r, 'SESSIONS/2026-11-26-TACIT-14-QUANTUM-TWIN-LEDGER.md', '# ledger without recovery capsule'),
   'site-tile-stream': r => w(r, '.cvaa/contracts/site-tile.json', JSON.stringify({
     schema: 'cvaa.site-tile.v1', tile_m: 256, gap_s: 10, daily_cap: 500, fetch_on: ['arrival', 'movement'],
     bulk: true, raw_store: { kind: 'mirror' }, receipt_fields: ['tile'], survey_year_gate: 'none',
@@ -268,6 +269,45 @@ for (const [name, seed] of Object.entries(DISEASED)) {
   if (!fired) failed++;
   rmSync(root, { recursive: true, force: true });
 }
+// VEDIC cold-resume contract: an actual healthy ledger and controlled losses.
+// Only the new antibody is imported here from the trusted registry, not the target.
+const vedicMarker = 'SESSIONS/2026-11-26-TACIT-14-QUANTUM-TWIN-LEDGER.md';
+const vedicCode = readFileSync(join(here, 'vaccines/202611261340-vedic-context-conservation.md'), 'utf8').match(/```js\n([\s\S]*?)\n```/)[1];
+const {default: vedicCheck} = await import('data:text/javascript;base64,' + Buffer.from(vedicCode).toString('base64'));
+const vedicChannel = 'https://github.com/Ventusltd/neural-link-between-agents/issues/87';
+const vedicHealthy = {
+  schema:'cvaa.vedic-context.v1', sequence:1, previous:null, channel:vedicChannel,
+  last_seen_comment:vedicChannel+'#issuecomment-1',
+  ledger:{repo:'Ventusltd/neural-link-between-agents',path:vedicMarker,commit:OID,blob:OID},
+  producers:Object.fromEntries(['quantum_twin','stars','periodic_catalogue_blob','cvaa','cosmic','vedic_main'].map(k=>[k,OID])),
+  mission:'fixture', release_authority:'owner-only', publication:'not-authorised', resume_policy:'read-only-until-revalidated',
+  roles:Array.from({length:8},(_,i)=>({agent:i+7,scope:'fixture',receipt:'1'})),
+  obligations:Array.from({length:6},(_,i)=>({id:'O'+(i+1),owner:i+8,state:'OPEN',context:'held',next:'replay'})),
+  totals:{whole:6,resolved:0,held:6,outside:0,open:6,partial:0,disputed:0,settled:0},
+  limitations:['fixture'], recovery:['read','fetch','verify','reconcile','record']
+};
+const vedicRun=(d,paths=[vedicMarker])=>vedicCheck({paths,controlContracts:d===null?[]:[{file:'vedic-context.json',document:d,error:null}]});
+const vedicCases=[
+  ['healthy',d=>d,false], ['deleted capsule',()=>null,true],
+  ['lost role',d=>{d.roles.pop();return d},true], ['lost obligation',d=>{d.obligations.pop();return d},true],
+  ['duplicate',d=>{d.obligations[1]=d.obligations[0];return d},true],
+  ['missing producer',d=>{delete d.producers.stars;return d},true],
+  ['misaccounted',d=>{d.totals.held=5;return d},true],
+  ['false settlement',d=>{d.obligations[0].state='SETTLED';d.totals.open--;d.totals.settled++;return d},true],
+  ['authority drift',d=>{d.publication='authorised';return d},true],
+  ['lost cursor',d=>{d.last_seen_comment='';return d},true],
+  ['broken lineage',d=>{d.sequence=2;return d},true]
+];
+for(const [label,mut,want] of vedicCases){
+  if((vedicRun(mut(JSON.parse(JSON.stringify(vedicHealthy)))).length>0)!==want){console.error('vedic-context: '+label);failed++;}
+}
+if(!vedicRun(vedicHealthy,[]).length||vedicRun(null,[]).length){console.error('vedic-context: marker scoping');failed++;}
+const vedicRoot=mkdtempSync(join(tmpdir(),'cvaa-vedic-clean-')); CLEAN(vedicRoot);
+w(vedicRoot,vedicMarker,'# ledger');
+w(vedicRoot,'.cvaa/contracts/vedic-context.json',JSON.stringify(vedicHealthy));
+if(!/^immune\s+vedic-context-conservation/m.test(run(vedicRoot))){console.error('vedic-context: healthy full runner failed');failed++;}
+rmSync(vedicRoot,{recursive:true,force:true});
+
 // A vaccine with nine doses is nine rules, and a rule nothing exercises is a decoration - the
 // disease D4 names. The clean fixture above is the case that passes; this is the case that fails,
 // and every dose must name itself in the output or the registry is lying about its coverage.
