@@ -45,6 +45,7 @@ const CLEAN = root => {
   }));
 };
 const DISEASED = {
+  'vedic-direct-source-links': r => w(r, 'index.html', '<h1>VEDIC COMMAND DICTIONARY</h1><button>View code</button>'),
   'site-tile-stream': r => w(r, '.cvaa/contracts/site-tile.json', JSON.stringify({
     schema: 'cvaa.site-tile.v1', tile_m: 256, gap_s: 10, daily_cap: 500, fetch_on: ['arrival', 'movement'],
     bulk: true, raw_store: { kind: 'mirror' }, receipt_fields: ['tile'], survey_year_gate: 'none',
@@ -224,6 +225,13 @@ for (const name of Object.keys(DISEASED)) if (!registryNames.includes(name)) { c
 const run = root => { try { return execSync(`node ${join(here, 'inoculate.mjs')} ${root} --no-lock --no-write`, { stdio: 'pipe' }).toString(); } catch (e) { return e.stdout.toString(); } };
 const clean = mkdtempSync(join(tmpdir(), 'cvaa-clean-')); CLEAN(clean);
 const cleanOut = run(clean);
+const vedic = mkdtempSync(join(tmpdir(), 'cvaa-vedic-direct-')); CLEAN(vedic);
+w(vedic, 'index.html', '<h1>VEDIC COMMAND DICTIONARY</h1> Array.isArray(summary.code_sources) codeCell(summary,records,new Map()) entry.code_sources??codeSources');
+w(vedic, 'tools/dictionary_shards.py', 'code_sources=code_sources(e)');
+w(vedic, 'tools/browser_smoke.py', 'audit_all_code_rows audit_detail_independence p.chromium, p.webkit expected_identity');
+w(vedic, '.github/workflows/anatomy.yml', 'permissions: read-all\nsteps:\n  - run: python tools/browser_smoke.py\n  - run: python tools/verify_published.py\n  - run: audit_live(expected_identity=fixture)\n');
+if (/^FAIL\s+vedic-direct-source-links/m.test(run(vedic))) { console.error('healthy VEDIC fixture flagged'); failed++; }
+rmSync(vedic, {recursive:true,force:true});
 for (const line of cleanOut.split('\n')) if (/^FAIL/.test(line)) { console.error(`clean fixture flagged: ${line}`); failed++; }
 // Exercise the real bounded snapshot and sandbox, not only the antibody function.
 const gpu = mkdtempSync(join(tmpdir(), 'cvaa-gpu-reuse-')); CLEAN(gpu);
