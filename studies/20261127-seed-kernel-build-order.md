@@ -110,3 +110,13 @@ No frequency threshold, mandatory whole-estate comprehension or line-count targe
 - [Spiders kernel-level reference index](https://github.com/Ventusltd/spiders/blob/main/docs/SEED_KERNEL_LINKS.md)
 
 These committed references are intended for Spider observation as documentary links. They are not runtime dependency edges or proof of working integration.
+
+### What SEED should let the next person inherit
+
+**The unit of development is a capability someone can invoke, verify and combine.** An instrument gives the next person a working operation, its inputs and outputs, the scope of its evidence, and a route to the exact source. This lets them begin with a result that works and inspect how it was built when the question calls for it.
+
+GridAtlas shows both directions. Selective loading gives the user a usable view while the browser resolves the relevant slice of a larger collection. A state-aware export lets an investigator work back from a captured view to the material behind it. In a bounded demonstration, one indexed request recovered the same byte-verified payload of 3,596 railway point features from two differently sized exports. The source printer was traced to permanent STARS tablet **1648**. The demonstration establishes selective evidence retrieval from existing exports. Multiscale track rendering and transfer to another application are separate tests. [Research report and evidence identities](https://github.com/Ventusltd/neural-link-between-agents/issues/104)
+
+Across the 482,975-line snapshot, recurring assemblies represented **73.97%** of unique source lines. The eleven instruments replayed locally represented **0.70%**. Recurrence helps find candidates. Replay establishes which operations can already be reproduced under named conditions. The value of a rare capability comes from what it enables, including cases where it appears only once.
+
+A higher-order SEED earns its place when combining verified instruments produces a new observable outcome with fewer human decisions. Record the inputs, outputs, dependencies, source identities, checks and limits for the whole composition. The next person can then use that composition as an instrument in its own right. [Evidence and repository copies](https://github.com/Ventusltd/spiders/blob/main/docs/SEED_KERNEL_LINKS.md)
