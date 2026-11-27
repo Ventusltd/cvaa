@@ -13,7 +13,8 @@ const here = dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
 const target = args.find(a => !a.startsWith('--')) || '.';
 const sarifPath = args.includes('--sarif') ? args[args.indexOf('--sarif') + 1] : null;
-const useLock = !args.includes('--no-lock');
+const lockMode = args.includes('--lock');
+const useLock = !args.includes('--no-lock') && !lockMode;
 const asJson = args.includes('--json');
 const writeBaseline = args.includes('--baseline-write');
 const vdir = join(here, 'vaccines');
@@ -33,8 +34,21 @@ const sha256 = s => createHash('sha256').update(s).digest('hex');
 
 // ---- 1. load and validate registry, fail closed ----
 const files = readdirSync(vdir).filter(f => f.endsWith('.md')).sort();
-const lock = useLock && existsSync(join(here, 'vaccines.lock')) ? JSON.parse(readFileSync(join(here, 'vaccines.lock'), 'utf8')) : null;
+const lockPath = join(here, 'vaccines.lock');
 const registryErrors = [];
+let lock = null;
+if (!files.length) registryErrors.push('registry contains no vaccine files');
+if (useLock) {
+  try {
+    if (!existsSync(lockPath)) throw new Error('vaccines.lock is missing');
+    const candidate = JSON.parse(readFileSync(lockPath, 'utf8'));
+    if (!candidate || typeof candidate !== 'object' || Array.isArray(candidate) ||
+        Object.values(candidate).some(value => typeof value !== 'string' || !/^[0-9a-f]{64}$/.test(value)))
+      throw new Error('vaccines.lock must map filenames to SHA-256 digests');
+    lock = candidate;
+  } catch (error) { registryErrors.push('lock required: ' + error.message); }
+}
+if (lockMode && args.includes('--no-lock')) registryErrors.push('ambiguous --lock and --no-lock combination');
 const vaccines = [];
 let lastTs = 0;
 for (const f of files) {
@@ -61,14 +75,31 @@ for (const f of files) {
   vaccines.push({ file: f, meta, code, text });
 }
 if (lock) for (const k of Object.keys(lock)) if (!files.includes(k)) registryErrors.push(`vaccines.lock names ${k} which is absent`);
-if (args.includes('--lock')) {
-  const out = {}; for (const v of vaccines) out[v.file] = sha256(v.text);
-  writeFileSync(join(here, 'vaccines.lock'), JSON.stringify(out, null, 2) + '\n'); console.log('vaccines.lock written'); process.exit(0);
+// Supersession must terminate at an active named vaccine; a cycle must never disable protection.
+const byName = new Map();
+for (const v of vaccines) {
+  if (byName.has(v.meta.vaccine)) registryErrors.push(`${v.file}: duplicate vaccine name`);
+  byName.set(v.meta.vaccine, v);
 }
-// supersession: skip superseded vaccines, error if successor missing
-const byName = Object.fromEntries(vaccines.map(v => [v.meta.vaccine, v]));
-for (const v of vaccines) if (v.meta.superseded_by && !byName[v.meta.superseded_by]) registryErrors.push(`${v.file}: superseded_by ${v.meta.superseded_by} does not exist`);
+for (const v of vaccines) {
+  const seen = new Set();
+  let current = v;
+  while (current.meta.superseded_by) {
+    if (seen.has(current.meta.vaccine)) { registryErrors.push(`${v.file}: supersession cycle`); break; }
+    seen.add(current.meta.vaccine);
+    const successor = byName.get(current.meta.superseded_by);
+    if (!successor) { registryErrors.push(`${current.file}: superseded_by ${current.meta.superseded_by} does not exist`); break; }
+    current = successor;
+  }
+}
 if (registryErrors.length) { console.error('REGISTRY INVALID (fail closed)\n' + registryErrors.map(e => '  - ' + e).join('\n')); process.exit(1); }
+if (lockMode) {
+  const out = {}; for (const v of vaccines) out[v.file] = sha256(v.text);
+  const temporary = lockPath + '.tmp-' + process.pid;
+  writeFileSync(temporary, JSON.stringify(out, null, 2) + '\n', { flag: 'wx' });
+  renameSync(temporary, lockPath);
+  console.log('vaccines.lock written'); process.exit(0);
+}
 
 // ---- 2. build a data-only context of the target repo ----
 function buildContext(root) {

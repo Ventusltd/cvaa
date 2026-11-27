@@ -3,7 +3,7 @@ import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, existsSync, rmSync
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
-import { execSync } from 'node:child_process';
+import { execSync, spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 const here = dirname(dirname(fileURLToPath(import.meta.url)));
 const w = (root, p, s) => { mkdirSync(join(root, p, '..'), { recursive: true }); writeFileSync(join(root, p), s); };
@@ -364,6 +364,48 @@ w(blocky, 'logs/reports/memory-manifest.json', JSON.stringify({
 }));
 if (!/^immune\s+memory-store-complete/m.test(run(blocky))) { console.error('memory-store-complete flagged a complete store for expanding blocks into rows'); failed++; }
 rmSync(blocky, { recursive: true, force: true });
+
+// Registry bootstrap must fail closed before taking a target snapshot.
+const lockFixture = mkdtempSync(join(tmpdir(),'cvaa-lock-'));
+try {
+  const script = join(lockFixture,'inoculate.mjs');
+  copyFileSync(join(here,'inoculate.mjs'), script);
+  mkdirSync(join(lockFixture,'tools'),{recursive:true});
+  copyFileSync(join(here,'tools','antibody-runner.mjs'),join(lockFixture,'tools','antibody-runner.mjs'));
+  const validName='202601010000-lock-fixture.md';
+  const validPath='vaccines/'+validName;
+  const validText='---\nvaccine: lock-fixture\ngeneration: "202601010000"\ndose: every-commit\n---\nDisease\nFixture.\nSymptom\nFixture.\nAntibody\n\x60\x60\x60js\nexport default () => [];\n\x60\x60\x60\nDose\nFixture.\nProvenance\nFixture.\n';
+  w(lockFixture,validPath,validText);
+  w(lockFixture,'target/README.md','# lock fixture');
+  const invoke=(...argv)=>spawnSync(process.execPath,[script,...argv],{cwd:lockFixture,encoding:'utf8'});
+  const audit=()=>invoke(join(lockFixture,'target'),'--no-write');
+  const reject=(result,needle)=>{if(result.status!==1||!String(result.stderr).includes(needle)){console.error('registry bootstrap fixture refused incorrectly: '+needle);failed++;}};
+  reject(audit(),'vaccines.lock is missing');
+  const generated=invoke('--lock');
+  const lockFile=join(lockFixture,'vaccines.lock');
+  if(generated.status!==0||!existsSync(lockFile)){console.error('valid registry lock generation failed');failed++;}
+  else {
+    const goodLock=readFileSync(lockFile,'utf8');
+    if(JSON.parse(goodLock)[validName]!==createHash('sha256').update(validText).digest('hex')){console.error('generated lock digest mismatch');failed++;}
+    if(audit().status!==0){console.error('valid locked registry did not run');failed++;}
+    w(lockFixture,'vaccines.lock','[]');
+    reject(audit(),'must map filenames');
+    w(lockFixture,'vaccines.lock',goodLock);
+    w(lockFixture,validPath,validText+'tampered\n');
+    reject(audit(),'not in vaccines.lock');
+    w(lockFixture,validPath,validText);
+    w(lockFixture,'vaccines/202601010001-malformed.md','# missing registry contract');
+    reject(invoke('--lock'),'REGISTRY INVALID');
+    if(readFileSync(lockFile,'utf8')!==goodLock){console.error('invalid registry changed lock');failed++;}
+    rmSync(join(lockFixture,'vaccines/202601010001-malformed.md'));
+    w(lockFixture,validPath,validText.replace('dose: every-commit','dose: every-commit\nsuperseded_by: lock-fixture'));
+    reject(invoke('--lock'),'supersession cycle');
+    if(readFileSync(lockFile,'utf8')!==goodLock){console.error('cyclic registry changed lock');failed++;}
+    rmSync(join(lockFixture,validPath));
+    reject(invoke('--lock'),'registry contains no vaccine files');
+    if(readFileSync(lockFile,'utf8')!==goodLock){console.error('empty registry changed lock');failed++;}
+  }
+} finally { rmSync(lockFixture,{recursive:true,force:true}); }
 
 // Baseline generator preserves policy, refuses fail-closed findings and never widens a ratchet.
 const baseline = mkdtempSync(join(tmpdir(), 'cvaa-baseline-')); CLEAN(baseline); DISEASED['chaining-token'](baseline);
