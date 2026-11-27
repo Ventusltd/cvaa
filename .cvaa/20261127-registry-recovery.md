@@ -1,0 +1,7 @@
+# 27 November 2026 — registry recovery evidence
+Status: IN-PROGRESS. No immunity or publication claim.
+Reference: https://github.com/Ventusltd/cvaa/pull/4
+Exact earlier candidate run: https://github.com/Ventusltd/cvaa/actions/runs/46002228356
+The registry lock and all antibody fixture checks passed at candidate 72f6989c64749f04bde8dcaf68494f714ebc2c27. The registry self-audit still refused ten grouped findings. The current patch redacts user-home prefixes in three current public report copies, without rewriting Git history. Account paths in older Git objects may remain accessible; do not reproduce them. Any history-level security remediation requires the owner's separate decision and coordinated recovery.
+The runner study now distinguishes repeated executions from independent defect-space coverage and records an unknown miss probability. Original test outcomes are not changed. Two historical D5 findings appear related to identifiers rather than measured verification counts; retain the findings pending exact evidence review. Two irreversible historical generation-order/time defects and their expired ratchet remain explicitly open. Do not reset dates, widen the ratchet, amend old commits or remove the monotonic vaccine to obtain a green badge.
+The candidate must be rerun; this note is not a test receipt for the changed head. Full registry acceptance and owner-approved consumer activation remain pending.
