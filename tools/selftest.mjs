@@ -3,7 +3,7 @@ import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, existsSync, rmSync
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
-import { execSync } from 'node:child_process';
+import { execSync, spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 const here = dirname(dirname(fileURLToPath(import.meta.url)));
 const w = (root, p, s) => { mkdirSync(join(root, p, '..'), { recursive: true }); writeFileSync(join(root, p), s); };
@@ -45,6 +45,7 @@ const CLEAN = root => {
   }));
 };
 const DISEASED = {
+  'vedic-direct-source-links': r => w(r, 'index.html', '<h1>VEDIC COMMAND DICTIONARY</h1><button>View code</button>'),
   'site-tile-stream': r => w(r, '.cvaa/contracts/site-tile.json', JSON.stringify({
     schema: 'cvaa.site-tile.v1', tile_m: 256, gap_s: 10, daily_cap: 500, fetch_on: ['arrival', 'movement'],
     bulk: true, raw_store: { kind: 'mirror' }, receipt_fields: ['tile'], survey_year_gate: 'none',
@@ -224,6 +225,46 @@ for (const name of Object.keys(DISEASED)) if (!registryNames.includes(name)) { c
 const run = root => { try { return execSync(`node ${join(here, 'inoculate.mjs')} ${root} --no-lock --no-write`, { stdio: 'pipe' }).toString(); } catch (e) { return e.stdout.toString(); } };
 const clean = mkdtempSync(join(tmpdir(), 'cvaa-clean-')); CLEAN(clean);
 const cleanOut = run(clean);
+const vedic = mkdtempSync(join(tmpdir(), 'cvaa-vedic-direct-')); CLEAN(vedic);
+const vedicPage = "<h1>VEDIC COMMAND DICTIONARY</h1> checkedCommandIndex fetchCommandIndex summary.code_sources codeCell(summary 'no-cache' 'reload'";
+const vedicShards = "code_sources=code_sources(e)";
+const vedicSmoke = "audit_all_code_rows audit_detail_independence audit_index_recovery audit_navigation actionability anchor.tap p.chromium, p.webkit expected_identity";
+const vedicCandidate = "verify_navigation=True\nverify_navigation=True";
+const vedicPipeline = "permissions: read-all\nsteps:\n  - run: python tools/browser_smoke.py\n  - run: python tools/check_pages_candidate.py\n  - run: python tools/verify_published.py\n  - run: audit_live(expected_identity=fixture)\n# needs: validate\n# git ls-remote --exit-code origin refs/heads/main\n# staged release identity mismatch\n";
+const vedicReadme = "# VEDIC\n<!-- CVAA:VEDIC-DIRECT-SOURCE -->\n";
+w(vedic, 'README.md', vedicReadme);
+w(vedic, 'index.html', vedicPage);
+w(vedic, 'data/dictionary.json', '{"schema":"vedic.dictionary.v1","entries":[]}');
+w(vedic, 'tools/dictionary_shards.py', vedicShards);
+w(vedic, 'tools/browser_smoke.py', vedicSmoke);
+w(vedic, 'tools/check_pages_candidate.py', vedicCandidate);
+w(vedic, '.github/workflows/anatomy.yml', vedicPipeline);
+if (!/^immune\s+vedic-direct-source-links/m.test(run(vedic))) { console.error('healthy VEDIC fixture was not evaluated as clean'); failed++; }
+rmSync(vedic, {recursive:true,force:true});
+// Only the trusted registry antibody is imported. No target code is evaluated.
+const vedicDirectCode = readFileSync(join(here,'vaccines/202611271054-vedic-direct-source-links.md'),'utf8').match(/\x60\x60\x60js\n([\s\S]*?)\n\x60\x60\x60/)[1];
+const {default: vedicDirectCheck} = await import('data:text/javascript;base64,' + Buffer.from(vedicDirectCode).toString('base64'));
+const vedicHealthy = {files:{index:vedicPage}, paths:['data/dictionary.json','tools/dictionary_shards.py'],
+  loops:{sources:{'README.md':vedicReadme,'tools/dictionary_shards.py':vedicShards,'tools/browser_smoke.py':vedicSmoke,'tools/check_pages_candidate.py':vedicCandidate}},
+  workflows:[{file:'anatomy.yml',text:vedicPipeline}]};
+const vedicCases = [
+  ['healthy',d=>d,false],
+  ['missing page',d=>{delete d.files.index;return d},true],
+  ['missing recovery rule',d=>{delete d.loops.sources['README.md'];return d},true],
+  ['legacy index fallback',d=>{d.files.index+=' code.append(evidence)';return d},true],
+  ['missing index validator',d=>{d.files.index=d.files.index.replace('checkedCommandIndex','');return d},true],
+  ['missing generator',d=>{delete d.loops.sources['tools/dictionary_shards.py'];return d},true],
+  ['missing actual navigation',d=>{d.loops.sources['tools/browser_smoke.py']=vedicSmoke.replace('audit_navigation','');return d},true],
+  ['missing pagination navigation',d=>{d.loops.sources['tools/check_pages_candidate.py']='verify_navigation=True';return d},true],
+  ['missing freshness gate',d=>{d.workflows[0].text=vedicPipeline.replace('git ls-remote --exit-code origin refs/heads/main','');return d},true],
+  ['missing live readback',d=>{d.workflows[0].text=vedicPipeline.replace('audit_live(expected_identity=','');return d},true],
+  ['truncated context',d=>{d.loops.truncated=true;return d},true]
+];
+for (const [label,mutate,want] of vedicCases) {
+  const result=vedicDirectCheck(mutate(JSON.parse(JSON.stringify(vedicHealthy))));
+  if (!Array.isArray(result)||(result.length>0)!==want) { console.error('VEDIC direct-link fixture: '+label); failed++; }
+}
+if (vedicDirectCheck({files:{},loops:{sources:{}},paths:[],workflows:[]}).length) { console.error('VEDIC scope leaks onto unrelated repository'); failed++; }
 for (const line of cleanOut.split('\n')) if (/^FAIL/.test(line)) { console.error(`clean fixture flagged: ${line}`); failed++; }
 // Exercise the real bounded snapshot and sandbox, not only the antibody function.
 const gpu = mkdtempSync(join(tmpdir(), 'cvaa-gpu-reuse-')); CLEAN(gpu);
@@ -323,6 +364,48 @@ w(blocky, 'logs/reports/memory-manifest.json', JSON.stringify({
 }));
 if (!/^immune\s+memory-store-complete/m.test(run(blocky))) { console.error('memory-store-complete flagged a complete store for expanding blocks into rows'); failed++; }
 rmSync(blocky, { recursive: true, force: true });
+
+// Registry bootstrap must fail closed before taking a target snapshot.
+const lockFixture = mkdtempSync(join(tmpdir(),'cvaa-lock-'));
+try {
+  const script = join(lockFixture,'inoculate.mjs');
+  copyFileSync(join(here,'inoculate.mjs'), script);
+  mkdirSync(join(lockFixture,'tools'),{recursive:true});
+  copyFileSync(join(here,'tools','antibody-runner.mjs'),join(lockFixture,'tools','antibody-runner.mjs'));
+  const validName='202601010000-lock-fixture.md';
+  const validPath='vaccines/'+validName;
+  const validText='---\nvaccine: lock-fixture\ngeneration: "202601010000"\ndose: every-commit\n---\nDisease\nFixture.\nSymptom\nFixture.\nAntibody\n\x60\x60\x60js\nexport default () => [];\n\x60\x60\x60\nDose\nFixture.\nProvenance\nFixture.\n';
+  w(lockFixture,validPath,validText);
+  w(lockFixture,'target/README.md','# lock fixture');
+  const invoke=(...argv)=>spawnSync(process.execPath,[script,...argv],{cwd:lockFixture,encoding:'utf8'});
+  const audit=()=>invoke(join(lockFixture,'target'),'--no-write');
+  const reject=(result,needle)=>{if(result.status!==1||!String(result.stderr).includes(needle)){console.error('registry bootstrap fixture refused incorrectly: '+needle);failed++;}};
+  reject(audit(),'vaccines.lock is missing');
+  const generated=invoke('--lock');
+  const lockFile=join(lockFixture,'vaccines.lock');
+  if(generated.status!==0||!existsSync(lockFile)){console.error('valid registry lock generation failed');failed++;}
+  else {
+    const goodLock=readFileSync(lockFile,'utf8');
+    if(JSON.parse(goodLock)[validName]!==createHash('sha256').update(validText).digest('hex')){console.error('generated lock digest mismatch');failed++;}
+    if(audit().status!==0){console.error('valid locked registry did not run');failed++;}
+    w(lockFixture,'vaccines.lock','[]');
+    reject(audit(),'must map filenames');
+    w(lockFixture,'vaccines.lock',goodLock);
+    w(lockFixture,validPath,validText+'tampered\n');
+    reject(audit(),'not in vaccines.lock');
+    w(lockFixture,validPath,validText);
+    w(lockFixture,'vaccines/202601010001-malformed.md','# missing registry contract');
+    reject(invoke('--lock'),'REGISTRY INVALID');
+    if(readFileSync(lockFile,'utf8')!==goodLock){console.error('invalid registry changed lock');failed++;}
+    rmSync(join(lockFixture,'vaccines/202601010001-malformed.md'));
+    w(lockFixture,validPath,validText.replace('dose: every-commit','dose: every-commit\nsuperseded_by: lock-fixture'));
+    reject(invoke('--lock'),'supersession cycle');
+    if(readFileSync(lockFile,'utf8')!==goodLock){console.error('cyclic registry changed lock');failed++;}
+    rmSync(join(lockFixture,validPath));
+    reject(invoke('--lock'),'registry contains no vaccine files');
+    if(readFileSync(lockFile,'utf8')!==goodLock){console.error('empty registry changed lock');failed++;}
+  }
+} finally { rmSync(lockFixture,{recursive:true,force:true}); }
 
 // Baseline generator preserves policy, refuses fail-closed findings and never widens a ratchet.
 const baseline = mkdtempSync(join(tmpdir(), 'cvaa-baseline-')); CLEAN(baseline); DISEASED['chaining-token'](baseline);

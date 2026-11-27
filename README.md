@@ -14,7 +14,7 @@ Disease, Symptom, Antibody (a fenced js block exporting a default function of th
 that returns an array of finding strings), Dose, Provenance. Timestamp is the only order.
 
 `inoculate.mjs <repo>` loads the registry fail-closed (malformed file = exit 1, never skip),
-refuses any vaccine whose sha256 is not in `vaccines.lock`, rejects antibodies that touch
+refuses a missing, malformed or mismatched `vaccines.lock` (the explicit unlocked mode is for fixtures, never publication), refuses duplicate vaccine names and supersession cycles, rejects antibodies that touch
 network, shell, env or dynamic import, runs each antibody in a worker with no env and a
 5 second cap against a data-only snapshot of the repo, honours `superseded_by`, applies
 per-repo baselines from `cvaa.json` (which can only ratchet down and expire), writes SARIF

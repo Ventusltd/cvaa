@@ -12,6 +12,6 @@ Measured checks:
 - Installed Chrome on deployed generation 202609051820: 2 visits, PDF and source download PASS (53 runtime resources).
 - Installed Chrome on corrected local server, same generation: 2 visits, PDF and source download PASS (59 runtime resources).
 
-Offline evidence: C:/Users/vikra/OneDrive/Desktop/offline-screenshots/receipt-vaccine-202609051828/ . Contains retained-failed-50-run.json, deployed-check.json, local-corrected-check.json, runtime-endpoints.json, receipts and downloads. Both browser instances closed after each visit.
+Offline evidence: <redacted-user-home>/OneDrive/Desktop/offline-screenshots/receipt-vaccine-202609051828/ . Contains retained-failed-50-run.json, deployed-check.json, local-corrected-check.json, runtime-endpoints.json, receipts and downloads. Both browser instances closed after each visit. The local account path is redacted in this public copy; the receipt filenames and diagnosis are unchanged.
 
 Limits: four focused browser visits, not a new fifty-visit release qualification. The preceding fifty-visit run also exposed independent Pipeline PDF rendering differences. These are not cured by the endpoint server and must not be hidden by this vaccine. Source downloads measured about 61-62 MB; phone usability still needs improvement without silently dropping dependencies. This contract is opt-in and only evaluates the declared probe evidence.
