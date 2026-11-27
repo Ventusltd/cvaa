@@ -226,12 +226,45 @@ const run = root => { try { return execSync(`node ${join(here, 'inoculate.mjs')}
 const clean = mkdtempSync(join(tmpdir(), 'cvaa-clean-')); CLEAN(clean);
 const cleanOut = run(clean);
 const vedic = mkdtempSync(join(tmpdir(), 'cvaa-vedic-direct-')); CLEAN(vedic);
-w(vedic, 'index.html', '<h1>VEDIC COMMAND DICTIONARY</h1> Array.isArray(summary.code_sources) codeCell(summary,records,new Map()) entry.code_sources??codeSources');
-w(vedic, 'tools/dictionary_shards.py', 'code_sources=code_sources(e)');
-w(vedic, 'tools/browser_smoke.py', 'audit_all_code_rows audit_detail_independence p.chromium, p.webkit expected_identity');
-w(vedic, '.github/workflows/anatomy.yml', 'permissions: read-all\nsteps:\n  - run: python tools/browser_smoke.py\n  - run: python tools/verify_published.py\n  - run: audit_live(expected_identity=fixture)\n');
-if (/^FAIL\s+vedic-direct-source-links/m.test(run(vedic))) { console.error('healthy VEDIC fixture flagged'); failed++; }
+const vedicPage = "<h1>VEDIC COMMAND DICTIONARY</h1> checkedCommandIndex fetchCommandIndex summary.code_sources codeCell(summary 'no-cache' 'reload'";
+const vedicShards = "code_sources=code_sources(e)";
+const vedicSmoke = "audit_all_code_rows audit_detail_independence audit_index_recovery audit_navigation actionability anchor.tap p.chromium, p.webkit expected_identity";
+const vedicCandidate = "verify_navigation=True\nverify_navigation=True";
+const vedicPipeline = "permissions: read-all\nsteps:\n  - run: python tools/browser_smoke.py\n  - run: python tools/check_pages_candidate.py\n  - run: python tools/verify_published.py\n  - run: audit_live(expected_identity=fixture)\n# needs: validate\n# git ls-remote --exit-code origin refs/heads/main\n# staged release identity mismatch\n";
+const vedicReadme = "# VEDIC\n<!-- CVAA:VEDIC-DIRECT-SOURCE -->\n";
+w(vedic, 'README.md', vedicReadme);
+w(vedic, 'index.html', vedicPage);
+w(vedic, 'data/dictionary.json', '{"schema":"vedic.dictionary.v1","entries":[]}');
+w(vedic, 'tools/dictionary_shards.py', vedicShards);
+w(vedic, 'tools/browser_smoke.py', vedicSmoke);
+w(vedic, 'tools/check_pages_candidate.py', vedicCandidate);
+w(vedic, '.github/workflows/anatomy.yml', vedicPipeline);
+if (!/^immune\s+vedic-direct-source-links/m.test(run(vedic))) { console.error('healthy VEDIC fixture was not evaluated as clean'); failed++; }
 rmSync(vedic, {recursive:true,force:true});
+// Only the trusted registry antibody is imported. No target code is evaluated.
+const vedicDirectCode = readFileSync(join(here,'vaccines/202611271054-vedic-direct-source-links.md'),'utf8').match(/\x60\x60\x60js\n([\s\S]*?)\n\x60\x60\x60/)[1];
+const {default: vedicDirectCheck} = await import('data:text/javascript;base64,' + Buffer.from(vedicDirectCode).toString('base64'));
+const vedicHealthy = {files:{index:vedicPage}, paths:['data/dictionary.json','tools/dictionary_shards.py'],
+  loops:{sources:{'README.md':vedicReadme,'tools/dictionary_shards.py':vedicShards,'tools/browser_smoke.py':vedicSmoke,'tools/check_pages_candidate.py':vedicCandidate}},
+  workflows:[{file:'anatomy.yml',text:vedicPipeline}]};
+const vedicCases = [
+  ['healthy',d=>d,false],
+  ['missing page',d=>{delete d.files.index;return d},true],
+  ['missing recovery rule',d=>{delete d.loops.sources['README.md'];return d},true],
+  ['legacy index fallback',d=>{d.files.index+=' code.append(evidence)';return d},true],
+  ['missing index validator',d=>{d.files.index=d.files.index.replace('checkedCommandIndex','');return d},true],
+  ['missing generator',d=>{delete d.loops.sources['tools/dictionary_shards.py'];return d},true],
+  ['missing actual navigation',d=>{d.loops.sources['tools/browser_smoke.py']=vedicSmoke.replace('audit_navigation','');return d},true],
+  ['missing pagination navigation',d=>{d.loops.sources['tools/check_pages_candidate.py']='verify_navigation=True';return d},true],
+  ['missing freshness gate',d=>{d.workflows[0].text=vedicPipeline.replace('git ls-remote --exit-code origin refs/heads/main','');return d},true],
+  ['missing live readback',d=>{d.workflows[0].text=vedicPipeline.replace('audit_live(expected_identity=','');return d},true],
+  ['truncated context',d=>{d.loops.truncated=true;return d},true]
+];
+for (const [label,mutate,want] of vedicCases) {
+  const result=vedicDirectCheck(mutate(JSON.parse(JSON.stringify(vedicHealthy))));
+  if (!Array.isArray(result)||(result.length>0)!==want) { console.error('VEDIC direct-link fixture: '+label); failed++; }
+}
+if (vedicDirectCheck({files:{},loops:{sources:{}},paths:[],workflows:[]}).length) { console.error('VEDIC scope leaks onto unrelated repository'); failed++; }
 for (const line of cleanOut.split('\n')) if (/^FAIL/.test(line)) { console.error(`clean fixture flagged: ${line}`); failed++; }
 // Exercise the real bounded snapshot and sandbox, not only the antibody function.
 const gpu = mkdtempSync(join(tmpdir(), 'cvaa-gpu-reuse-')); CLEAN(gpu);
