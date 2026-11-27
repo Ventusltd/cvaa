@@ -47,3 +47,7 @@ The five engines: **substation finder within a radius**, **interconnector subsea
 
 - [5 October 2026: Learn the Kuiper and connected projects](reports/DIARY-20261005-learn-the-kuiper.md)
 - [Public project links and source revisions](https://github.com/Ventusltd/kuiper-belt/blob/main/diary/2026-10-05-public-links.json)
+
+## SEED regression checks
+
+[Run the executable SEED gates](tools/seed-regression/README.md) for deterministic retrieval, resource-aware planning, historical identity and exact COSMIC targets.

@@ -1,0 +1,64 @@
+{
+  "schema": "cvaa.seed-regression.v1",
+  "observed_utc": "2026-11-27T23:19:32.767657+00:00",
+  "environment": {
+    "platform": "Windows",
+    "python": "3.13.9",
+    "node": "v24.15.0"
+  },
+  "commands": [
+    "python seed_regression.py --seed-root <SEED instrument directory> --with-planner",
+    "python state_regression.py --seed-root <SEED instrument directory>",
+    "node cosmic_regression.mjs --cosmic-root <local COSMIC checkout with pinned commit>"
+  ],
+  "test_sha256": {
+    "cosmic_regression.mjs": "32db737cbf71a608e4575910ad6574120b310b28500d61e6ab43fb91acb357c3",
+    "exact_cosmic_target.mjs": "a4baac446f905cd15f8f68f53c2b2c4af25883573f14c300e6c50ac7a543569c",
+    "seed_regression.py": "db16f2e7627393baa941b9e1b4aa444be4ddebcf2a2f318666636349aa41f381",
+    "state_regression.py": "0d4f551904abd9badd9ad48768506b705465acfa59e10f98daf505b80c5879fb"
+  },
+  "test_inputs_sha256": {
+    "teleprint_index.py": "a2d8c749bc009d39d957de1c113ada8fdc041f111a130a22ded1412a7951edb9",
+    "seed_discover.py": "96999a65f564fd6730447a88b66ceb90906e38a8da68ba70673c6855898f8343",
+    "experiment_b.py": "9b32751fbfbee4fb334add9af8ca24d58ffa0543d86f6d5eed0eff323dc1f21a",
+    "seed_plan.py": "157ffa4a7e8d93e986e9a85a12e6c4db258bf61929b3fea49e4b47958e65106f",
+    "base_28_catalogue": "9f64428920afc80811e884de6848725b04bbe034a4e58eb2d16774f1703d94c1"
+  },
+  "seed_tests": {
+    "test_count": 15,
+    "passed": 15,
+    "resource_checks": "One 42-byte selected read and three historical SQL selects. Summary discovery accepts only its local read-only catalogue connection. Unavailable, ambiguous and corrupt identities refuse early."
+  },
+  "recursive_composition_tests": {
+    "test_count": 6,
+    "passed": 6,
+    "resource_checks": "Metadata-only plan reads zero payloads and executes zero historical SQL queries. The microfixture verifies a selection within its 500-byte case budget."
+  },
+  "cosmic_tests": {
+    "revision": "dbe20b06c1ac107e902b93354f8e8a37b0462ad0",
+    "blob": "41a9007eb8480538552240829c5cf7a137e0445c",
+    "tablet": 6187,
+    "cold_sector_reads": 1,
+    "cached_additional_sector_reads": 0,
+    "disease_witness": "Original resolver returns the parent after detecting a 19-unit sector under a 20-unit parent. The guard refuses instead of returning that target.",
+    "refusals_witnessed": [
+      "count-mismatch",
+      "empty-sector",
+      "unavailable-sector",
+      "out-of-range",
+      "fractional",
+      "wrong-ordinal",
+      "blank-leaf-identity"
+    ]
+  },
+  "prior_source_control": {
+    "teleprint_index_sha256": "f9c6a31e69ad373fc02aa96d33438a4f728ff154509c198b853b2d2f123b67bd",
+    "result": {
+      "passed": 10,
+      "failed": 1
+    },
+    "failure": "Capture indexing retains its SQLite handle",
+    "corrective_mechanism": "Close owned read-only SQLite connection explicitly with contextlib.closing."
+  },
+  "scope": "Synthetic deterministic resource and refusal invariants and an exact pinned COSMIC function replay. No wall-time, live-browser or energy claims."
+}
