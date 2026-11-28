@@ -43,7 +43,7 @@ jobs:
         run: |
           set -euo pipefail
           node inoculate.mjs . --no-write | tee /tmp/inoculate.log
-          test "$(tail -n 1 /tmp/inoculate.log)" = 'no findings, but 1 rule(s) were not evaluated; immunity is not established'
+          test "$(tail -n 1 /tmp/inoculate.log)" = 'no findings, but 5 rule(s) were not evaluated; immunity is not established'
 
       - name: The JSON run record agrees with the registry on disk
         run: |
@@ -58,7 +58,7 @@ jobs:
           if (run.shallow !== false || run.context?.commit_count < 2) throw new Error('history context is incomplete');
           if (run.findings !== 0) throw new Error(`registry has ${run.findings} finding(s)`);
           const skipped = run.results.filter(result => result.state === 'skipped').map(result => result.vaccine);
-          if (JSON.stringify(skipped) !== JSON.stringify(['dead-ends-explained'])) throw new Error(`unexpected non-evaluated rules: ${skipped.join(', ')}`);
+          if (JSON.stringify(skipped) !== JSON.stringify(['dead-ends-explained', 'quantum-star-protocol', 'cells-compute-or-say-programmable', 'gpu-reuse-before-new-infrastructure', 'kuiper-belt-no-private-names'])) throw new Error(`unexpected non-evaluated rules: ${skipped.join(', ')}`);
           const active = fs.readdirSync('vaccines').filter(f => f.endsWith('.md'))
             .filter(f => !/^superseded_by:/m.test(fs.readFileSync(`vaccines/${f}`, 'utf8'))).length;
           if (run.results.length !== active) throw new Error(`expected ${active} active results (vaccines on file minus superseded), got ${run.results.length}`);

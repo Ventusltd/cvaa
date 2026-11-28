@@ -223,6 +223,7 @@ const DISEASED = {
   },
 };
 execSync(`node ${join(here, 'tools', 'grid-first-critical-path.test.mjs')}`, { stdio: 'inherit' });
+execSync(`node ${join(here, 'tools', 'generation-correction.test.mjs')}`, { stdio: 'inherit' });
 execSync(`node ${join(here, 'tools', 'gpu-reuse.test.mjs')}`, { stdio: 'inherit' });
 let failed = 0;
 const registryNames = readdirSync(join(here, 'vaccines')).filter(file => file.endsWith('.md')).map(file => file.replace(/^\d{12}-/, '').replace(/\.md$/, ''));

@@ -1,15 +1,12 @@
 {
   "legacy_workflows": 2,
-  "allow": [
+  "allow": [],
+  "historical_generation_corrections": [
     {
-      "vaccine": "pinned-actions",
-      "max": 6,
-      "expires": "2026-09-30"
-    },
-    {
-      "vaccine": "monotonic-utc-generations",
-      "max": 2,
-      "expires": "2026-09-30"
+      "sha": "bfebd6e9ccf88a9ebc2f3b2f42de90260b64d3a5",
+      "recorded": "202608301940",
+      "corrected": "202608301620",
+      "reason": "The immutable subject is 200 minutes ahead of the Git UTC author timestamp. The correct minute is 16:20 on 30 August 2026."
     }
   ]
 }

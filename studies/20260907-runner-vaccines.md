@@ -48,7 +48,7 @@ Each is a rule plus the measurement that catches its disease returning. A rule w
 | **Reading the code and the data with targeted searches** | minutes, negligible tokens | Eight of ten interconnectors hold no far converter; the counterparty country is already held for every link; the voltage layers are genuinely OpenStreetMap; the size slider still exists in another repository |
 | **Adversarial review of the stated logic** | two briefs, one page each | An unsafe applicability rule, a cycle guard that collides on our own identifiers, a quarantine that could never reopen, a pass that hid a gap, and a power flow that can converge to artefacts |
 | **A study written to answer one question** | ninety seconds of browser time | Located the layers fault exactly: the label flips, the panel does not move, identical on both compositions, and it fails entirely on the smallest landscape screen |
-| **Automated repeat runs** | **30.4 million tokens across 19 scheduled checks**, plus five hours of the machine at 60 to 92% CPU | **615 identical passes. Zero product defects.** It established determinism in the first hour and then confirmed it 600 more times |
+| **Automated repeat runs** | **30.4 million tokens across 19 scheduled checks**, plus five hours of the machine at 60 to 92% CPU | **615 identical passes. No product defects observed. Coverage is limited to the repeated suite. Its probability of missing defects outside that suite is unknown.** It established determinism in the first hour and then confirmed it 600 more times |
 
 **The lesson, stated plainly.** The most expensive instrument found the least. A person with the actual product on the actual device found more in two hours than five hours of continuous automation and a fleet of scheduled checks. The automation was not useless: it proved the harness was stable and it located a fault precisely once someone told it where to look. But it cannot notice that a button feels dead, that a card is in the way, or that a link claims to be international while never leaving the country.
 
@@ -59,13 +59,13 @@ Each is a rule plus the measurement that catches its disease returning. A rule w
 3. **Write one study that answers one question**, then close the session.
 4. **Automate only what must be re-checked**, and only after it has failed once. A test that has never failed is a test that has not yet earned its schedule.
 
-**What to avoid, with the receipts.** Scheduled checks every fifteen minutes consumed 30.4 million tokens for nineteen answers that mostly said nothing changed. Long sessions are expensive: 96% of the day's usage sat above 150k of context. Repeat runs of identical bytes stop informing after the first few. And an idle floor is not a target: a runner that stops at its own floor slept thirteen minutes in every fifteen while reporting that it was working.
+**What to avoid, with the receipts.** Scheduled checks every fifteen minutes consumed 30.4 million tokens for nineteen answers that mostly said nothing changed. Long sessions are expensive: 96% of the day's usage sat above 150k of context. The repeat runs covered identical inputs. Their coverage of untested inputs and the probability of missing a defect there were unmeasured. And an idle floor is not a target: a runner that stops at its own floor slept thirteen minutes in every fifteen while reporting that it was working.
 
 ## Setting the runners up on Windows PowerShell
 
 Everything below was used tonight from a cold start. This is Windows PowerShell 5.1, so no pipeline chain operators, no ternaries, and `wmic` is gone.
 
-**Where things live.** Runners on the SSD at `D:\gridatlas-ci`. The browser driver is already installed at `C:\Users\vikra\LocalCI\PipelineNews-GridAtlas\v004\node_modules\playwright` at version 1.58.2. The real-device bridge is `D:\android\platform-tools\adb.exe`. Nothing is installed globally and no service is registered.
+**Where things live.** Runners on the SSD at `D:\gridatlas-ci`. The browser driver is already installed at `%USERPROFILE%\LocalCI\PipelineNews-GridAtlas\v004\node_modules\playwright` at version 1.58.2. The real-device bridge is `D:\android\platform-tools\adb.exe`. Nothing is installed globally and no service is registered.
 
 **Run one study. One session, opened and closed:**
 
