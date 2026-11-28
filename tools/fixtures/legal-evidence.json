@@ -1,0 +1,42 @@
+{
+  "schema": "ventus.legal-evidence.v1",
+  "claim": {
+    "result": "supported-screening",
+    "open_questions": [],
+    "as_of": "2025-02-01",
+    "provision": "synthetic:provision-1",
+    "actor": "synthetic licence holder",
+    "land_interest": "synthetic host land",
+    "authority": "synthetic legislature",
+    "territory": "synthetic territory",
+    "basis": "documentary-review"
+  },
+  "evidence": {
+    "provision": "synthetic:provision-1",
+    "kind": "enacted-legislation",
+    "commenced_on": "2025-01-01",
+    "repealed_on": null,
+    "version_from": "2025-01-01",
+    "version_until": "2025-03-01",
+    "territories": [
+      "synthetic territory"
+    ],
+    "actors": [
+      "synthetic licence holder"
+    ],
+    "land_interests": [
+      "synthetic host land"
+    ],
+    "authority": "synthetic legislature",
+    "exceptions": "reviewed-and-resolved",
+    "amendments": "verified-through-query-date",
+    "checked_through": "2025-02-01",
+    "conflicts": "reviewed-and-resolved",
+    "source_url": "https://www.legislation.gov.uk/synthetic/2025/1/section/1",
+    "citation": "Synthetic section 1",
+    "review_reference": "test-fixture-only",
+    "last_http_status": 200,
+    "retrieved_on": "2025-02-01",
+    "sha256": "44a52e770f861c9fb4cf3b061b04356eb0f91f01fbf4fd64b322e3c23031ad30"
+  }
+}

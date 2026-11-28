@@ -15,7 +15,9 @@ const gitify = (root, generation = '202608301700', extra = []) => {
   execSync('git init -q && git config user.name selftest && git config user.email selftest@example.invalid && git add . && git commit -q -m "' + generation + ': fixture"', { cwd: root, stdio: 'pipe' });
   for (const subject of extra) execSync('git commit -q --allow-empty -m ' + JSON.stringify(subject), { cwd: root, stdio: 'pipe' });
 };
+const legalFixture = () => JSON.parse(readFileSync(join(here, 'tools/fixtures/legal-evidence.json'), 'utf8'));
 const CLEAN = root => {
+  w(root, '.cvaa/contracts/legal-evidence.json', JSON.stringify(legalFixture()));
   w(root, 'README.md', '# clean');
   w(root, '.github/workflows/202608301321-scope-loop.yml', 'on:\n  schedule:\n    - cron: "*/30 * * * *"\n  workflow_dispatch:\npermissions:\n  contents: read\njobs:\n  a:\n    timeout-minutes: 10\n    steps:\n      - uses: actions/checkout@0000000000000000000000000000000000000000\n        with:\n          fetch-depth: 0\n      - run: node inoculate.mjs || exit 0\n');
   // A workflow that only MENTIONS cvaa, in a comment, and runs something
@@ -45,6 +47,11 @@ const CLEAN = root => {
   }));
 };
 const DISEASED = {
+  'legal-evidence-screening': root => {
+    const document = legalFixture();
+    document.claim.actor = 'synthetic developer without recorded authority';
+    w(root, '.cvaa/contracts/legal-evidence.json', JSON.stringify(document));
+  },
   'site-tile-stream': r => w(r, '.cvaa/contracts/site-tile.json', JSON.stringify({
     schema: 'cvaa.site-tile.v1', tile_m: 256, gap_s: 10, daily_cap: 500, fetch_on: ['arrival', 'movement'],
     bulk: true, raw_store: { kind: 'mirror' }, receipt_fields: ['tile'], survey_year_gate: 'none',
